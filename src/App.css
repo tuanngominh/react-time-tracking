@@ -1,24 +1,18 @@
-.App {
-  text-align: center;
+/* 
+From http://www.material-ui.com/css/main.css .
+Help we have the same style as in demo in http://www.material-ui.com/ :
+- Same AppBar's font style 
+*/
+html {
+  font-family: 'Roboto', sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+body, h1, h2, h3, h4, h5, h6 {
+  margin: 0;
 }
 
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
-}
-
-.App-intro {
-  font-size: large;
-}
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+body {
+  font-size: 15px;
+  line-height: 24px;
 }
