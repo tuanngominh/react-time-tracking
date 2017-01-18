@@ -9,8 +9,10 @@ import {Router, Route, IndexRoute} from 'react-router'
 import { useRouterHistory } from 'react-router'
 import { createHistory } from 'history'
 
+export const basename = '/vivid-trace'
+
 const browserHistory = useRouterHistory(createHistory)({
-  basename: '/vivid-trace'
+  basename: basename
 })
 
 const Root = ({store}) => (

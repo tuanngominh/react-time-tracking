@@ -1,17 +1,51 @@
 import React from 'react'
 import {mount} from 'enzyme'
 
-import Root from './Root'
+import {setupWindowMatchMedia} from '../test/utils'
+
+import Root, {basename} from './Root'
+import Reports from './Reports'
+import TimeTracker from './TimeTracker'
 
 describe('<Root />', () => {
+
   it ('render', () => {
-    //setup window.matchMedia
-    window.matchMedia = () => {
-      return true
-    }
+    setupWindowMatchMedia(true)
+
     const wrapper = mount(<Root />)
     expect(wrapper.children().length).toBeGreaterThan(0)
-
   })
+
+  it ('menu navigation mobile', () => {
+    //mobile viewport
+    setupWindowMatchMedia(true)
+
+    const wrapper = mount(<Root />)
+
+    //Report page
+    wrapper.find('a[href="' + basename + '/reports"]').simulate('click', { button: 0 })
+    expect(wrapper.find(Reports).length).toBe(1)
+
+    //Report page
+    wrapper.find('a[href="' + basename + '/"]').simulate('click', { button: 0 })
+    expect(wrapper.find(TimeTracker).length).toBe(1)    
+
+    //FIXME: check Profile page, haven't found a way to open menu dropdown in material-ui
+  })
+
+  it ('menu navigation desktop', () => {
+    //desktop viewport
+    setupWindowMatchMedia(false)
+
+    const wrapper = mount(<Root />)
+
+    //Report page
+    wrapper.find('a[href="' + basename + '/reports"]').simulate('click', { button: 0 })
+    expect(wrapper.find(Reports).length).toBe(1)
+
+    //Report page
+    wrapper.find('a[href="' + basename + '/"]').simulate('click', { button: 0 })
+    expect(wrapper.find(TimeTracker).length).toBe(1)    
+  })  
   
 })
