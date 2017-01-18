@@ -3,10 +3,6 @@ import {mount} from 'enzyme'
 
 import App from './App'
 
-// Needed for onTouchTap
-import injectTapEventPlugin from 'react-tap-event-plugin';
-injectTapEventPlugin();
-
 describe('<App />', () => {
   it ('render', () => {
     //setup window.matchMedia
