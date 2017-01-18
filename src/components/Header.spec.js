@@ -13,40 +13,31 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 
 describe('<Header />', () => {
-  /*
-  * FIXME: can't find Component inside MuiThemeProvider
   it ('render desktop', () => {
     //setup window.matchMedia
     //desktop viewport case
     window.matchMedia = () => {
-      return false
+      return {
+        matches: false
+      }
     }
     const wrapper = mount(<MuiThemeProvider><Header /></MuiThemeProvider>)
-    console.log(wrapper.debug())
+    
+    expect(wrapper.children().length).toBeGreaterThan(0)
     expect(wrapper.find(DesktopNav).length).toBe(1)
 
   })
 
   it ('render mobile', () => {
     //setup window.matchMedia
-    //mobile viewport case
     window.matchMedia = () => {
-      return true
-    }
-    const wrapper = mount(<MuiThemeProvider><Header /></MuiThemeProvider>)
-    expect(wrapper.find(MobileNav).length).toBe(1)
-
-  })
-  */
-
-  it ('render mobile', () => {
-    //setup window.matchMedia
-    window.matchMedia = () => {
-      return true
+      return {
+        matches: true
+      }
     }
     const wrapper = mount(<MuiThemeProvider><Header /></MuiThemeProvider>)
     expect(wrapper.children().length).toBeGreaterThan(0)
-
+    expect(wrapper.find(MobileNav).length).toBe(1)
   })
 
 
