@@ -4,7 +4,14 @@ import Profile from './Profile'
 import Reports from './Reports'
 import TimeTracker from './TimeTracker'
 
-import {Router, Route, IndexRoute, browserHistory} from 'react-router'
+import {Router, Route, IndexRoute} from 'react-router'
+
+import { useRouterHistory } from 'react-router'
+import { createHistory } from 'history'
+
+const browserHistory = useRouterHistory(createHistory)({
+  basename: '/vivid-trace'
+})
 
 const Root = ({store}) => (
   <Router history={browserHistory}>
