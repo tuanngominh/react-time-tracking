@@ -1,6 +1,6 @@
 # Vivid Trace [![CircleCI](https://circleci.com/gh/tuanngominh/vivid-trace.svg?style=svg)](https://circleci.com/gh/tuanngominh/vivid-trace) [![codecov](https://codecov.io/gh/tuanngominh/vivid-trace/branch/master/graph/badge.svg)](https://codecov.io/gh/tuanngominh/vivid-trace)
 
-Build a time tracking app on react.
+Build a time tracking app on react ([demo](https://tuanngominh.github.io/vivid-trace)).
 
 A single person can track to know what he has done in the past which is good to predict their future working pattern.
 
