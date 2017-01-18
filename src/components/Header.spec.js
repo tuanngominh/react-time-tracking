@@ -1,5 +1,6 @@
 import React from 'react'
 import {mount} from 'enzyme'
+import {setupWindowMatchMedia} from '../test/utils'
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {Toolbar} from 'material-ui/Toolbar';
@@ -14,13 +15,9 @@ injectTapEventPlugin();
 
 describe('<Header />', () => {
   it ('render desktop', () => {
-    //setup window.matchMedia
     //desktop viewport case
-    window.matchMedia = () => {
-      return {
-        matches: false
-      }
-    }
+    setupWindowMatchMedia(false)
+
     const wrapper = mount(<MuiThemeProvider><Header /></MuiThemeProvider>)
     
     expect(wrapper.children().length).toBeGreaterThan(0)
@@ -29,12 +26,9 @@ describe('<Header />', () => {
   })
 
   it ('render mobile', () => {
-    //setup window.matchMedia
-    window.matchMedia = () => {
-      return {
-        matches: true
-      }
-    }
+    //mobile viewport case
+    setupWindowMatchMedia(true)
+
     const wrapper = mount(<MuiThemeProvider><Header /></MuiThemeProvider>)
     expect(wrapper.children().length).toBeGreaterThan(0)
     expect(wrapper.find(MobileNav).length).toBe(1)

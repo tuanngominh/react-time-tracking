@@ -16,8 +16,8 @@ describe('<DesktopNav />', () => {
   it ('render', () => {
 
     const wrapper = mount(<MuiThemeProvider><DesktopNav /></MuiThemeProvider>)
-
-    expect(wrapper.find(FlatButton).length).toBe(2)    
+    expect(wrapper.find(FlatButton).length).toBe(2)
     expect(wrapper.find(LoggedInMenu).length).toBe(1)
+    
   })  
 })
