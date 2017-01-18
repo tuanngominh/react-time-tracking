@@ -3,12 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
+    "enzyme": "^2.7.0",
+    "react-addons-test-utils": "^15.4.2",
     "react-scripts": "0.8.5"
   },
   "dependencies": {
     "material-ui": "^0.16.6",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
+    "react-router": "^3.0.1",
     "react-tap-event-plugin": "^2.0.1"
   },
   "scripts": {
