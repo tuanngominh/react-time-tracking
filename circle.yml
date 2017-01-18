@@ -1,0 +1,7 @@
+## Customize test commands
+test:
+  override:
+    - npm test
+    - npm test -- --coverage
+  post:
+    - bash <(curl -s https://codecov.io/bash)
