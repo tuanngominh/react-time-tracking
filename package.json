@@ -10,7 +10,7 @@
     "react-scripts": "0.8.5"
   },
   "dependencies": {
-    "history": "^4.5.1",
+    "history": "^3.2.1",
     "material-ui": "^0.16.6",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
