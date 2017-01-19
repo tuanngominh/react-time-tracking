@@ -27,7 +27,6 @@ const WrapMuiThemeProvider = (story) => {
 addDecorator(WrapMuiThemeProvider);
 
 function loadStories() {
-  require('../src/stories');
   require('../src/stories/Header/DesktopNav.js');
   require('../src/stories/Header/MobileNav.js');
   require('../src/stories/auth/Login.js');
