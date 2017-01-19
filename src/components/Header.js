@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import FontIcon from 'material-ui/FontIcon';
 import {Toolbar, ToolbarGroup, ToolbarTitle} from 'material-ui/Toolbar';
 import muiThemeable from 'material-ui/styles/muiThemeable'
@@ -7,6 +7,10 @@ import DesktopNav from './Header/DesktopNav'
 import MobileNav from './Header/MobileNav'
 
 class Header extends React.Component {
+  static propTypes = {
+    userLoggedIn: PropTypes.bool
+  }
+
   constructor(props) {
     super(props);
     this.state = {type:'desktop'};
@@ -26,6 +30,8 @@ class Header extends React.Component {
 
   render() {
     const appBar = this.props.muiTheme.appBar
+    const {userLoggedIn = false} = this.props
+
     return (
       <Toolbar style={{
         backgroundColor: appBar.color   
@@ -38,7 +44,13 @@ class Header extends React.Component {
             color: appBar.textColor
           }}/>
         </ToolbarGroup>
-        { (this.state.type === 'desktop') ? <DesktopNav /> : <MobileNav /> }
+        { 
+          (this.state.type === 'desktop') 
+          ? 
+          <DesktopNav userLoggedIn={userLoggedIn} /> 
+          : 
+          <MobileNav userLoggedIn={userLoggedIn} /> 
+        }
       </Toolbar>
     );
   }

@@ -1,14 +1,19 @@
-export const getMenuStyle = (appBarStyle, currentPathname, menuPathname) => {
-  const activeStyle = {
+export const getActiveStyle = (appBarStyle) => {
+  return {
     color: appBarStyle.color,
     backgroundColor: appBarStyle.textColor,
   }
-  const normalStyle = {
+}
+
+export const getNormalStyle = (appBarStyle) => {
+  return {
     color: appBarStyle.textColor
   }
+}
 
+export const getMenuStyle = (appBarStyle, currentPathname, menuPathname) => {
   if (menuPathname === currentPathname) {
-    return activeStyle
+    return getActiveStyle(appBarStyle)
   }
-  return normalStyle
+  return getNormalStyle(appBarStyle)
 }

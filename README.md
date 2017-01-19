@@ -6,12 +6,12 @@ A single person can track to know what he has done in the past which is good to 
 
 # Tech Goal
 Build an React app with has same character as production one.
-- Authencation
-- Form processing
-- Serverside
-- Good UI, UX
-- Unit test
-- Build server: try with CircleCI, travis-ci, codecov.io
+- [ ] Authencation
+- [ ] Form processing
+- [ ] Serverside
+- [x] Good UI, UX
+- [x] Unit test
+- [x] Build server: try with CircleCI, codecov.io
 
 Time frame: around 2-3 weeks
 
