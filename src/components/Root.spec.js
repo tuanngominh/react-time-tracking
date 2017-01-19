@@ -1,14 +1,27 @@
 import React from 'react'
 import {mount} from 'enzyme'
 
-import {setupWindowMatchMedia} from '../test/utils'
+import {setupWindowMatchMedia, setupLocalStorage} from '../test/utils'
 
 import Root, {basename} from './Root'
 import Reports from './Reports'
 import TimeTracker from './TimeTracker'
 
-describe('<Root />', () => {
+jest.mock('./auth/auth', () => {
+  return {
+    login(email, pass, cb) {
+      if (cb) cb(true)
+      this.onChange(true)
+    },
+    loggedIn () {
+      return true
+    }
+  }
+})
 
+describe('<Root />', () => {
+  setupLocalStorage()
+  
   it ('render', () => {
     setupWindowMatchMedia(true)
 
