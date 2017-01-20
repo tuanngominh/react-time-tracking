@@ -11,6 +11,9 @@
     "react-scripts": "0.8.5"
   },
   "dependencies": {
+    "flexboxgrid": "^6.3.1",
+    "formsy-material-ui": "^0.5.3",
+    "formsy-react": "^0.18.1",
     "history": "^3.2.1",
     "material-ui": "^0.16.6",
     "react": "^15.4.2",

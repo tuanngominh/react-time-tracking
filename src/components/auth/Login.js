@@ -1,30 +1,26 @@
 import {withRouter} from 'react-router'
 import React, {Component} from 'react'
 import auth from './auth'
-import TextField from 'material-ui/TextField'
+
+import Paper from 'material-ui/Paper'
+import Formsy from 'formsy-react'
+import FormsyText from 'formsy-material-ui/lib/FormsyText'
 import RaisedButton from 'material-ui/RaisedButton'
 
 class Login extends Component {
 
-  constructor(props) {
-    super(props)
-    this.state = {
-      error: false,
-      passwordErrorText: ''
-    }
+  handleInvalidSubmit = (data) => {
+    console.error('Form error:', data)
   }
 
-  handleSubmit = (event) => {
-    event.preventDefault()
-
-    const email = this.refs.email.value
-    const pass = this.refs.pass.value
-
-    auth.login(email, pass, (loggedIn) => {
-      if (!loggedIn) {        
+  handleSubmit = (data, reset, invalidate) => {
+    auth.login(data.email, data.password, (loggedIn) => {
+      if (!loggedIn) {
+        invalidate({
+          password: "Email or password is not correct"
+        })
         return this.setState({ 
           error: true,
-          passwordErrorText: "Bad login information"
         })
       }
 
@@ -39,23 +35,38 @@ class Login extends Component {
 
   render() {
     return (
-      <div>
-        <TextField
-          defaultValue="joe@example.com"
-          hintText="email@address.com"
-          floatingLabelText="Email address"
-          floatingLabelFixed={true} 
-          type="email"
-        /><br />
-        <TextField
-          hintText="test account pass: password1"
-          floatingLabelText="Password"
-          floatingLabelFixed={true}
-          type="password"
-          errorText={this.state.passwordErrorText}
-        /><br />
-        <RaisedButton label="Login" primary={true} onClick={this.handleSubmit}/>
-      </div>
+      <Paper style={{padding: 50, marginTop: 30}}>
+        <Formsy.Form
+          onValidSubmit={this.handleSubmit}
+          onInvalidSubmit={this.handleInvalidSubmit}
+        >
+          <FormsyText
+            name="email"
+            defaultValue="joe@example.com"
+            hintText="test account: joe@example.com"
+            floatingLabelText="Email address"
+            floatingLabelFixed={true} 
+            type="email"
+            validations="isEmail"
+            validationError="This is not an email"
+            required
+          /><br />
+          <FormsyText
+            name="password"
+            hintText="test account: password1"
+            floatingLabelText="Password"
+            floatingLabelFixed={true}
+            type="password"
+            required
+            validationError="Password is required"
+          /><br />
+          <RaisedButton 
+            label="Login" 
+            primary={true} 
+            type="submit"
+          />
+        </Formsy.Form>
+      </Paper>
     )
   }
 }
