@@ -12,7 +12,8 @@ import {Router, Route, IndexRoute} from 'react-router'
 import { useRouterHistory } from 'react-router'
 import { createHistory } from 'history'
 
-export const basename = '/vivid-trace'
+// export const basename = '/vivid-trace'
+export const basename = ''
 
 const browserHistory = useRouterHistory(createHistory)({
   basename: basename
