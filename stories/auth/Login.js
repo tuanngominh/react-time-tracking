@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf, action, linkTo } from '@kadira/storybook';
 
-import Login from '../../components/auth/Login';
+import Login from '../../src/components/auth/Login';
 
 storiesOf('<Login />', module)
   .add('', () => (

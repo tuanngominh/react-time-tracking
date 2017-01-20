@@ -3,7 +3,7 @@ import { storiesOf, action, linkTo, addDecorator } from '@kadira/storybook';
 
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
-import MobileNav from '../../components/Header/MobileNav';
+import MobileNav from '../../src/components/Header/MobileNav';
 
 const appBar = getMuiTheme().appBar
 const AddBackground = (story) => (
