@@ -5,10 +5,11 @@ test:
     - npm test -- --coverage
   post:
     - bash <(curl -s https://codecov.io/bash)
-    
+
 deployment:
   production:
     branch: master
     commands:
+      - npm run build
       - npm install -g firebase-tools
       - firebase deploy --token=$FIREBASE_TOKEN --non-interactive
