@@ -2,6 +2,8 @@ import React from 'react'
 import {mount} from 'enzyme'
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import {Provider} from 'react-redux'
+import configureStore from '../../configureStore'
 
 import Login from './Login'
 
@@ -10,7 +12,14 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 
 const setup = () => {
-  const wrapper = mount(<MuiThemeProvider><Login /></MuiThemeProvider>)
+  const store = configureStore()
+  const wrapper = mount(
+    <Provider store={store}>
+      <MuiThemeProvider>
+        <Login />
+      </MuiThemeProvider>
+    </Provider>
+    )
   return wrapper
 }
 
@@ -30,5 +39,13 @@ describe('<Login />', () => {
     wrapper.find('input[name="email"]').simulate('change', {target: {value: wrongEmail}})
     wrapper.find('input[name="password"]').simulate('change', {target: {value: emptyPass}})
     wrapper.find('form').simulate('submit')
+    //FIXME: need to verify invalidate handler
+
+    let goodEmail = 'joe@example.com', goodPass = 'password1'
+    wrapper.find('input[name="email"]').simulate('change', {target: {value: goodEmail}})
+    wrapper.find('input[name="password"]').simulate('change', {target: {value: goodPass}})
+    wrapper.find('form').simulate('submit')
+    //FIXME: need to verify validate handler
+
   })
 })
