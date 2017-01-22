@@ -6,7 +6,7 @@ import {createStore, applyMiddleware} from 'redux'
 const configureStore = () => {
   const store = createStore(
     reducers, 
-    [],
+    {},
     applyMiddleware(
       thunkMiddleware
     )

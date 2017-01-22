@@ -1,8 +1,8 @@
 import {withRouter} from 'react-router'
 import React, {Component} from 'react'
 
-import {login} from '../../actions/auth'
 import {connect} from 'react-redux'
+import {register} from '../../actions/register'
 
 import Paper from 'material-ui/Paper'
 import Formsy from 'formsy-react'
@@ -10,13 +10,10 @@ import FormsyText from 'formsy-material-ui/lib/FormsyText'
 import RaisedButton from 'material-ui/RaisedButton'
 import RefreshIndicator from 'material-ui/RefreshIndicator';
 
-class Login extends Component {
+class Register extends Component {
 
-  constructor(props) {
-    super(props)
-    this.state = {
-      validationErrors: {}
-    }
+  handleInvalidSubmit = (data) => {
+    console.error('Form error:', data)
   }
 
   componentWillReceiveProps(nextProps){
@@ -27,33 +24,28 @@ class Login extends Component {
         this.props.router.replace(location.state.nextPathname)
       } else {
         this.props.router.replace('/')
-      }
+      }      
     } else {
       this.form.updateInputsWithError({password: errorMessage})
     }
   }
 
-  handleInvalidSubmit = (data) => {
-    console.error('Form error:', data)
-  }
-
   handleSubmit = (data, reset, invalidate) => {
     const {dispatch} = this.props
-    dispatch(login(data.email, data.password))
+    dispatch(register(data.email, data.password))
   }
 
   render() {
     return (
       <Paper style={{padding: 50, marginTop: 30}}>
         <Formsy.Form
-          ref={(node) => this.form = node}
           onValidSubmit={this.handleSubmit}
           onInvalidSubmit={this.handleInvalidSubmit}
-        >          
+          ref={(node) => this.form = node}
+        >
           <FormsyText
             name="email"
-            defaultValue="joe@example.com"
-            hintText="test account: joe@example.com"
+            hintText="youremail@address.com"
             floatingLabelText="Email address"
             floatingLabelFixed={true} 
             type="email"
@@ -63,7 +55,7 @@ class Login extends Component {
           /><br />
           <FormsyText
             name="password"
-            hintText="test account: password1"
+            hintText="enter your password"
             floatingLabelText="Password"
             floatingLabelFixed={true}
             type="password"
@@ -71,10 +63,10 @@ class Login extends Component {
             validationError="Password is required"
           /><br />
           <RaisedButton 
-            label="Login" 
+            label="Register" 
             primary={true} 
             type="submit"
-          ></RaisedButton>  
+          />
           { this.props.auth.isFetching ? <RefreshIndicator
               loadingColor="#FF9800"
               status="loading"
@@ -101,4 +93,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps)(withRouter(Login))
+export default connect(mapStateToProps)(withRouter(Register))

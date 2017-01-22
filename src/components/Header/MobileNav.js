@@ -24,8 +24,8 @@ const MobileNav = (props) => {
       <ToolbarSeparator />
       <IconButton 
         tooltip="Tracker" 
-        containerElement={<Link to="/"/>} 
-        iconStyle={getMenuStyle(appBar, pathname, '/')} 
+        containerElement={<Link to="/tracker"/>} 
+        iconStyle={getMenuStyle(appBar, pathname, '/tracker')} 
         tooltipPosition='bottom-center'
         >
         <FontIcon className="material-icons">play_arrow</FontIcon>

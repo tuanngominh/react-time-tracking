@@ -1,14 +1,66 @@
-const reducer = (state = [], action) => {
-  console.log('reducer')
-  console.log('action.type:' + JSON.stringify(action))
+import {combineReducers} from 'redux'
+
+const auth = (state = {}, action) => {
   switch (action.type) {
     case 'LOGIN': 
-      console.log(action)
-      return action
+      if (action.status === 'success') {
+        return { 
+          ...action, 
+          userLoggedIn: true
+        }
+      } else {
+        return {
+          ...action,
+          userLoggedIn: false
+        }
+      }
+
+    case 'REGISTER':
+      if (action.status === 'success') {
+        return {
+          ...action,
+          userLoggedIn: true
+        }
+      } else {
+        return {
+          ...action,
+          userLoggedIn: false
+        }
+      }
+
+    case 'IS_USER_LOGGEDIN':
+      if (action.status === 'success') {
+        return {
+          ...action,
+          userLoggedIn: true
+        }
+      } else {
+        return {
+          ...action,
+          userLoggedIn: false
+        }
+      }
+
+    case 'SIGNOUT':
+      if (action.status === 'success') {
+        return {
+          ...action,
+          userLoggedIn: false
+        }
+      } else {
+        return {
+          ...action,
+          userLoggedIn: true
+        }
+      }
+
     default :
-      console.log(state)
       return state
   }
 }
 
-export default reducer
+const rootReducer = combineReducers({
+  auth
+})
+
+export default rootReducer

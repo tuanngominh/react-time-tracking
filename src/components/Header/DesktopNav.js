@@ -8,7 +8,7 @@ import {Link} from 'react-router'
 import { withRouter } from 'react-router'
 
 import LoggedInMenu from './LoggedInMenu'
-import {getMenuStyle, getActiveStyle} from './utils'
+import {getMenuStyle} from './utils'
 
 const DesktopNav = (props) => {
   const appBar = props.muiTheme.appBar
@@ -22,8 +22,8 @@ const DesktopNav = (props) => {
         <ToolbarSeparator />
         <FlatButton 
           label="Tracker" 
-          containerElement={<Link to="/"/>}  
-          style={getMenuStyle(appBar, pathname, '/')} />
+          containerElement={<Link to="/tracker"/>}  
+          style={getMenuStyle(appBar, pathname, '/tracker')} />
         <FlatButton 
           label="Reports" 
           containerElement={<Link to="/reports"/>}  
@@ -37,8 +37,13 @@ const DesktopNav = (props) => {
       <ToolbarGroup>  
         <FlatButton 
           label="Login" 
-          style={getActiveStyle(appBar)} 
+          style={getMenuStyle(appBar, pathname, '/login')} 
           containerElement={<Link to="/login"/>} 
+        />
+        <FlatButton 
+          label="Register" 
+          style={getMenuStyle(appBar, pathname, '/register')} 
+          containerElement={<Link to="/register"/>} 
         />
       </ToolbarGroup>    
 )}
