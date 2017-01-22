@@ -3,6 +3,9 @@ import {mount} from 'enzyme'
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
+import {createStore} from 'redux'
+import {Provider} from 'react-redux'
+
 import DesktopNav from './DesktopNav'
 
 import FlatButton from 'material-ui/FlatButton'
@@ -13,9 +16,24 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 
 describe('<DesktopNav />', () => {
-  it ('logged in', () => {
+  const setup = (userLoggedIn) => {
+    //FIXME: check if we need store here
+    const emptyReducer = (state = {}, action) => (state)
+    const store = createStore(emptyReducer)
 
-    const wrapper = mount(<MuiThemeProvider><DesktopNav userLoggedIn={true} /></MuiThemeProvider>)
+    const wrapper = mount(
+      <Provider store={store}>
+        <MuiThemeProvider>
+          <DesktopNav userLoggedIn={userLoggedIn} />
+        </MuiThemeProvider>
+      </Provider>
+    )
+    return wrapper
+  }
+
+  it ('logged in', () => {
+    const wrapper = setup(true)
+    
     //two menu buttons
     expect(wrapper.find(FlatButton).length).toBe(2)
     expect(wrapper.find(LoggedInMenu).length).toBe(1)
@@ -24,10 +42,9 @@ describe('<DesktopNav />', () => {
 
   it ('guest', () => {
 
-    const wrapper = mount(<MuiThemeProvider><DesktopNav userLoggedIn={false} /></MuiThemeProvider>)
-
+    const wrapper = setup(false)
     //1 login button
-    expect(wrapper.find(FlatButton).length).toBe(1)
+    expect(wrapper.find(FlatButton).length).toBe(2)
     expect(wrapper.find(LoggedInMenu).length).toBe(0)
     
   })

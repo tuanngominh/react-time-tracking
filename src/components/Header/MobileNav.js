@@ -47,8 +47,13 @@ const MobileNav = (props) => {
     <ToolbarGroup>
         <FlatButton 
           label="Login" 
-          style={getActiveStyle(appBar)} 
+          style={getMenuStyle(appBar, pathname, '/login')} 
           containerElement={<Link to="/login"/>} 
+        />
+        <FlatButton 
+          label="Register" 
+          style={getMenuStyle(appBar, pathname, '/register')} 
+          containerElement={<Link to="/register"/>} 
         />
     </ToolbarGroup>
   )

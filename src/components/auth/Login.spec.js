@@ -38,13 +38,13 @@ describe('<Login />', () => {
     let wrongEmail = 'a@a', emptyPass = ''
     wrapper.find('input[name="email"]').simulate('change', {target: {value: wrongEmail}})
     wrapper.find('input[name="password"]').simulate('change', {target: {value: emptyPass}})
-    wrapper.find('form').simulate('submit')
+    wrapper.find('Formsy').simulate('submit')
     //FIXME: need to verify invalidate handler
 
     let goodEmail = 'joe@example.com', goodPass = 'password1'
     wrapper.find('input[name="email"]').simulate('change', {target: {value: goodEmail}})
     wrapper.find('input[name="password"]').simulate('change', {target: {value: goodPass}})
-    wrapper.find('form').simulate('submit')
+    wrapper.find('Formsy').simulate('submit')
     //FIXME: need to verify validate handler
 
   })

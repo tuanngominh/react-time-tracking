@@ -52,8 +52,7 @@ class Login extends Component {
         >          
           <FormsyText
             name="email"
-            defaultValue="joe@example.com"
-            hintText="test account: joe@example.com"
+            hintText="email@address.com"
             floatingLabelText="Email address"
             floatingLabelFixed={true} 
             type="email"
@@ -63,7 +62,7 @@ class Login extends Component {
           /><br />
           <FormsyText
             name="password"
-            hintText="test account: password1"
+            hintText="your password"
             floatingLabelText="Password"
             floatingLabelFixed={true}
             type="password"
