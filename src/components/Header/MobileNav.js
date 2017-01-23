@@ -10,7 +10,7 @@ import {Link} from 'react-router'
 import { withRouter } from 'react-router'
 
 import LoggedInMenu from './LoggedInMenu'
-import {getMenuStyle, getActiveStyle} from './utils'
+import {getMenuStyle} from './utils'
 
 const MobileNav = (props) => {
   const appBar = props.muiTheme.appBar
