@@ -1,7 +1,7 @@
 import {withRouter} from 'react-router'
 import React, {Component} from 'react'
 
-import {login} from '../../actions/auth'
+import {login} from '../../actions/login'
 import {connect} from 'react-redux'
 
 import Paper from 'material-ui/Paper'

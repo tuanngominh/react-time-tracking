@@ -1,8 +1,9 @@
-/*global firebase*/
+import firebase from '../configureFirebase'
+import * as types from '../constants/ActionTypes'
 
 const actionFailed = (errorMessage) => {
   return {
-    type: 'LOGIN',
+    type: types.LOGIN,
     status: 'error',
     isFetching: false,
     errorMessage     
@@ -11,7 +12,7 @@ const actionFailed = (errorMessage) => {
 
 const actionSuccess = (user) => {
   return {
-    type: 'LOGIN',
+    type: types.LOGIN,
     status: 'success',
     isFetching: false,
     user: user
@@ -20,7 +21,7 @@ const actionSuccess = (user) => {
 
 const actionStart = () => {
   return {
-    type: 'LOGIN',
+    type: types.LOGIN,
     isFetching: true
   }
 }
@@ -28,8 +29,8 @@ const actionStart = () => {
 export const login = (email, password) => {
   return function(dispatch) {
     dispatch(actionStart())
-    firebase.auth().signInWithEmailAndPassword(email, password)
-      .then((user) => {
+    const promise = firebase.auth().signInWithEmailAndPassword(email, password)
+    promise.then((user) => {
         dispatch(actionSuccess(user))
       })
       .catch(function(error) {
@@ -44,5 +45,7 @@ export const login = (email, password) => {
         }
         dispatch(actionFailed(errorMessage))
       });
+    //return promise so github.com/arnaudbenard/redux-mock-store works
+    return promise
   }
 }

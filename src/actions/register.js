@@ -1,8 +1,9 @@
-/*global firebase*/
+import firebase from '../configureFirebase'
+import * as types from '../constants/ActionTypes'
 
 const registerFailed = (errorMessage) => {
   return {
-    type: 'REGISTER',
+    type: types.REGISTER,
     status: 'error',
     isFetching: false,
     errorMessage     
@@ -11,7 +12,7 @@ const registerFailed = (errorMessage) => {
 
 const registerSuccess = (user) => {
   return {
-    type: 'REGISTER',
+    type: types.REGISTER,
     status: 'success',
     isFetching: false,
     user: user
@@ -20,7 +21,7 @@ const registerSuccess = (user) => {
 
 const registerStart = () => {
   return {
-    type: 'REGISTER',
+    type: types.REGISTER,
     isFetching: true
   }
 }
@@ -28,21 +29,23 @@ const registerStart = () => {
 export const register = (email, password) => {
   return function(dispatch) {
     dispatch(registerStart())
-    firebase.auth().createUserWithEmailAndPassword(email, password)
-      .then((user) => {
-        dispatch(registerSuccess(user))
-      })
-      .catch(function(error) {
-        let errorMessage
+    const promise = firebase.auth().createUserWithEmailAndPassword(email, password)
+    promise.then((user) => {
+      dispatch(registerSuccess(user))
+    })
+    .catch(function(error) {
+      let errorMessage
 
-        switch (error.code) {
-          case 'auth/weak-password':
-            errorMessage = 'The password is too weak.'
-            break
-          default:
-            errorMessage = error.message
-        }
-        dispatch(registerFailed(errorMessage))
-      });
+      switch (error.code) {
+        case 'auth/weak-password':
+          errorMessage = 'The password is too weak.'
+          break
+        default:
+          errorMessage = error.message
+      }
+      dispatch(registerFailed(errorMessage))
+    })
+    //return promise so github.com/arnaudbenard/redux-mock-store works
+    return promise
   }
 }

@@ -1,8 +1,9 @@
-/*global firebase*/
+import firebase from '../configureFirebase'
+import * as types from '../constants/ActionTypes'
 
 const actionFailed = (errorMessage) => {
   return {
-    type: 'IS_USER_LOGGEDIN',
+    type: types.IS_USER_LOGGEDIN,
     status: 'error',
     isFetching: false,
     errorMessage     
@@ -11,7 +12,7 @@ const actionFailed = (errorMessage) => {
 
 const actionSuccess = (user) => {
   return {
-    type: 'IS_USER_LOGGEDIN',
+    type: types.IS_USER_LOGGEDIN,
     status: 'success',
     isFetching: false,
     user: user
@@ -20,7 +21,7 @@ const actionSuccess = (user) => {
 
 const actionStart = () => {
   return {
-    type: 'IS_USER_LOGGEDIN',
+    type: types.IS_USER_LOGGEDIN,
     isFetching: true
   }
 }
@@ -29,12 +30,18 @@ const actionStart = () => {
 export const isUserLoggedIn = () => {
   return function(dispatch) {
     dispatch(actionStart())
-    firebase.auth().onAuthStateChanged(function(user) {
-      if (user) {
-        dispatch(actionSuccess(user))
-      } else {
-        dispatch(actionFailed())
-      }
-    })    
+
+    //return promise so github.com/arnaudbenard/redux-mock-store works
+    return new Promise((resolve, reject) => {
+      firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+          dispatch(actionSuccess(user))
+          resolve()
+        } else {
+          dispatch(actionFailed())
+          reject()
+        }
+      })
+    })
   }
 }
