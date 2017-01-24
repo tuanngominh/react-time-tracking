@@ -1,37 +1,13 @@
 import firebase from '../configureFirebase'
 import * as types from '../constants/ActionTypes'
-
-const registerFailed = (errorMessage) => {
-  return {
-    type: types.REGISTER,
-    status: 'error',
-    isFetching: false,
-    errorMessage     
-  }
-}
-
-const registerSuccess = (user) => {
-  return {
-    type: types.REGISTER,
-    status: 'success',
-    isFetching: false,
-    user: user
-  }
-}
-
-const registerStart = () => {
-  return {
-    type: types.REGISTER,
-    isFetching: true
-  }
-}
+import {actionStart, actionFailed, actionSuccess} from './utils/template'
 
 export const register = (email, password) => {
   return function(dispatch) {
-    dispatch(registerStart())
+    dispatch(actionStart(types.REGISTER))
     const promise = firebase.auth().createUserWithEmailAndPassword(email, password)
     promise.then((user) => {
-      dispatch(registerSuccess(user))
+      dispatch(actionSuccess(types.REGISTER, {user: user}))
     })
     .catch(function(error) {
       let errorMessage
@@ -43,7 +19,7 @@ export const register = (email, password) => {
         default:
           errorMessage = error.message
       }
-      dispatch(registerFailed(errorMessage))
+      dispatch(actionFailed(types.REGISTER, errorMessage))
     })
     //return promise so github.com/arnaudbenard/redux-mock-store works
     return promise

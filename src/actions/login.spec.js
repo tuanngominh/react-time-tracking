@@ -1,7 +1,7 @@
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 
-import {mockSignInWithEmailAndPassword} from './mocks'
+import {mockSignInWithEmailAndPassword} from './utils/mocks'
 jest.mock('firebase/app', () => { return mockSignInWithEmailAndPassword(true)})
 jest.mock('firebase/auth', () => {})
 

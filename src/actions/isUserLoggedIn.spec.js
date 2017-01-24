@@ -1,7 +1,7 @@
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 
-import {mockOnAuthStateChanged} from './mocks'
+import {mockOnAuthStateChanged} from './utils/mocks'
 jest.mock('firebase/app', () => { return mockOnAuthStateChanged(true)})
 jest.mock('firebase/auth', () => {})
 

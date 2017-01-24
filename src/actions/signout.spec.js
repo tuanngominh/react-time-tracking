@@ -1,7 +1,7 @@
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 
-import {mockSignOut} from './mocks'
+import {mockSignOut} from './utils/mocks'
 jest.mock('firebase/app', () => { return mockSignOut(true)})
 jest.mock('firebase/auth', () => {})
 
