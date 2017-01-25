@@ -1,9 +1,10 @@
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 
-import {mockSignOut} from './utils/mocks'
-jest.mock('firebase/app', () => { return mockSignOut(true)})
+import {mockFirebase} from './utils/mocks'
+jest.mock('firebase/app', () => { return mockFirebase()})
 jest.mock('firebase/auth', () => {})
+import firebase from '../configureFirebase'
 
 import {signout} from './signout'
 import * as types from '../constants/ActionTypes'
@@ -14,12 +15,16 @@ const mockStore = configureMockStore(middlewares)
 describe('signout action', () => {
 
   it('success', () => {
+    firebase.setMockScenarioData({
+      mockSuccessCase: true
+    })
+
     const store = mockStore({})
     const expectedActions = [
       { type: types.SIGNOUT, isFetching: true },
       { type: types.SIGNOUT, status: 'success', isFetching: false}
     ]
-    store.dispatch(signout())
+    return store.dispatch(signout())
       .then(() => {
         expect(store.getActions()).toEqual(expectedActions)
       })
@@ -28,18 +33,21 @@ describe('signout action', () => {
 
   it('failed', () => {
     const errorMessage = 'errorMessage'
-    jest.mock('firebase/app', () => { return mockSignOut(false, errorMessage)})
+    firebase.setMockScenarioData({
+      mockSuccessCase: true,
+      errorMessage
+    })
 
     const store = mockStore({})
     const expectedActions = [
       { type: types.SIGNOUT, isFetching: true },
-      { type: types.SIGNOUT, status: 'error', isFetching: false, errorMessage: 'errorMessage'}
+      { type: types.SIGNOUT, status: 'error', isFetching: false, errorMessage: errorMessage}
     ]
-    store.dispatch(signout())
-      .then(() => {
+    return store.dispatch(signout())
+      .then(() => {})
+      .catch(() => {
         expect(store.getActions()).toEqual(expectedActions)
       })
-    
   })  
 
 })

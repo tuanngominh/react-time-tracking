@@ -1,9 +1,10 @@
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 
-import {mockOnAuthStateChanged} from './utils/mocks'
-jest.mock('firebase/app', () => { return mockOnAuthStateChanged(true)})
+import {mockFirebase} from './utils/mocks'
+jest.mock('firebase/app', () => { return mockFirebase()})
 jest.mock('firebase/auth', () => {})
+import firebase from '../configureFirebase'
 
 import {isUserLoggedIn} from './isUserLoggedIn'
 import * as types from '../constants/ActionTypes'
@@ -14,12 +15,16 @@ const mockStore = configureMockStore(middlewares)
 describe('isUserLoggedIn action', () => {
 
   it('success', () => {
+    firebase.setMockScenarioData({
+      mockSuccessCase: true,
+      user: {}
+    })
     const store = mockStore({})
     const expectedActions = [
       { type: types.IS_USER_LOGGEDIN, isFetching: true },
-      { type: types.IS_USER_LOGGEDIN, status: 'success', isFetching: false}
+      { type: types.IS_USER_LOGGEDIN, status: 'success', isFetching: false, user: {}}
     ]
-    store.dispatch(isUserLoggedIn())
+    return store.dispatch(isUserLoggedIn())
       .then(() => {
         expect(store.getActions()).toEqual(expectedActions)
       })
@@ -28,15 +33,19 @@ describe('isUserLoggedIn action', () => {
 
   it('failed', () => {
     const errorMessage = 'errorMessage'
-    jest.mock('firebase/app', () => { return mockOnAuthStateChanged(false, errorMessage)})
+    firebase.setMockScenarioData({
+      mockSuccessCase: false,
+      errorMessage
+    })
 
     const store = mockStore({})
     const expectedActions = [
       { type: types.IS_USER_LOGGEDIN, isFetching: true },
-      { type: types.IS_USER_LOGGEDIN, status: 'error', isFetching: false, errorMessage: 'errorMessage'}
+      { type: types.IS_USER_LOGGEDIN, status: 'error', isFetching: false, errorMessage: errorMessage}
     ]
-    store.dispatch(isUserLoggedIn())
-      .then(() => {
+    return store.dispatch(isUserLoggedIn())
+      .then(() => {})
+      .catch(() => {
         expect(store.getActions()).toEqual(expectedActions)
       })
     
