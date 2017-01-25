@@ -1,5 +1,5 @@
 import React from 'react'
-import {mount} from 'enzyme'
+import {shallow} from 'enzyme'
 
 import {setupWindowMatchMedia, setupLocalStorage} from '../test/utils'
 
@@ -15,7 +15,7 @@ describe('<Root />', () => {
     setupWindowMatchMedia(true)
 
 
-    const wrapper = mount(<Root store={configureStore()} history={history} />)
+    const wrapper = shallow(<Root store={configureStore()} history={history} />)
 
     expect(wrapper.children().length).toBeGreaterThan(0)
   })

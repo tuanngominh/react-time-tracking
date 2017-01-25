@@ -1,5 +1,5 @@
 import React from 'react'
-import {mount} from 'enzyme'
+import {shallow} from 'enzyme'
 
 import Reports from './Reports'
 
@@ -9,8 +9,8 @@ describe('<Reports />', () => {
     window.matchMedia = () => {
       return true
     }
-    const wrapper = mount(<Reports />)
-    expect(wrapper.children().length).toBe(0)
+    const wrapper = shallow(<Reports />)
+    expect(wrapper.children().length).toBe(1)
 
   })
 
