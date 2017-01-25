@@ -11,6 +11,8 @@ import TimeTracker from './TimeTracker'
 
 import Login from './auth/Login'
 import Register from './auth/Register'
+import SendPasswordResetEmail from './auth/SendPasswordResetEmail'
+import VerifyPasswordResetCode from './auth/VerifyPasswordResetCode'
 
 const Root = ({store, history, requireAuth}) => (
   <Provider store={store}>
@@ -21,6 +23,8 @@ const Root = ({store, history, requireAuth}) => (
         <Route path='/reports' component={Reports}  onEnter={requireAuth} />
         <Route path='/profile' component={Profile}  onEnter={requireAuth} />
         <Route path='/login' component={Login} />
+        <Route path='/request-reset-password' component={SendPasswordResetEmail} />
+        <Route path='/reset-password' component={VerifyPasswordResetCode} />
         <Route path='/register' component={Register} />
       </Route>    
     </Router>

@@ -1,7 +1,6 @@
-import {withRouter} from 'react-router'
-import React, {Component} from 'react'
+import React, {Component, PropTypes} from 'react'
 
-import {login} from '../../actions/login'
+import {sendPasswordResetEmail} from '../../actions/resetPassword'
 import {connect} from 'react-redux'
 
 import Paper from 'material-ui/Paper'
@@ -10,39 +9,43 @@ import FormsyText from 'formsy-material-ui/lib/FormsyText'
 import RaisedButton from 'material-ui/RaisedButton'
 import RefreshIndicator from 'material-ui/RefreshIndicator';
 import FlatButton from 'material-ui/FlatButton'
+import Snackbar from 'material-ui/Snackbar'
 
 import history from '../../history'
 
-class Login extends Component {
+export class SendPasswordResetEmail extends Component {
+  static propTypes = {
+    state: PropTypes.object,
+    dispatch: PropTypes.func
+  }
+
+  defaultProps = {
+    state: {
+      isFetching: false
+    }
+  }
 
   constructor(props) {
     super(props)
+
     this.state = {
-      validationErrors: {}
+      openNotification: false
     }
   }
-
   componentWillReceiveProps(nextProps){
-    const {status, errorMessage} = nextProps.auth
+    const {status, errorMessage} = nextProps.state
     if (status === 'success') {
-      const { location } = this.props
-      if (location.state && location.state.nextPathname) {
-        this.props.router.replace(location.state.nextPathname)
-      } else {
-        this.props.router.replace('/')
-      }
+      this.setState({
+        openNotification: true
+      })
     } else {
-      this.form.updateInputsWithError({password: errorMessage})
+      this.form.updateInputsWithError({email: errorMessage})
     }
-  }
-
-  handleInvalidSubmit = (data) => {
-    console.error('Form error:', data)
   }
 
   handleSubmit = (data, reset, invalidate) => {
     const {dispatch} = this.props
-    dispatch(login(data.email, data.password))
+    dispatch(sendPasswordResetEmail(data.email))
   }
 
   render() {
@@ -51,8 +54,8 @@ class Login extends Component {
         <Formsy.Form
           ref={(node) => this.form = node}
           onValidSubmit={this.handleSubmit}
-          onInvalidSubmit={this.handleInvalidSubmit}
-        >          
+        >     
+          <h3>Reset password</h3>     
           <FormsyText
             name="email"
             hintText="email@address.com"
@@ -63,21 +66,12 @@ class Login extends Component {
             validationError="This is not an email"
             required
           /><br />
-          <FormsyText
-            name="password"
-            hintText="your password"
-            floatingLabelText="Password"
-            floatingLabelFixed={true}
-            type="password"
-            required
-            validationError="Password is required"
-          /><br />
           <RaisedButton 
-            label="Login" 
+            label="Send recover code" 
             primary={true} 
             type="submit"
           ></RaisedButton>  
-          { this.props.auth.isFetching ? <RefreshIndicator
+          { this.props.state.isFetching ? <RefreshIndicator
               loadingColor="#FF9800"
               status="loading"
               size={30}
@@ -92,13 +86,19 @@ class Login extends Component {
             ''
           }
           <FlatButton 
-            label="Reset password" 
+            label="Back to login" 
             style={{marginLeft: 10}} 
             onClick={() => {
-              history.push('/request-reset-password')
+              history.push('/login')
             }}
           />
         </Formsy.Form>
+        <Snackbar
+          open={this.state.openNotification}
+          message="Reset password instruction has sent to your email"
+          autoHideDuration={4000}
+          onRequestClose={this.handleRequestClose}
+        />        
       </Paper>
     )
   }
@@ -106,8 +106,8 @@ class Login extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    auth: state.auth
+    state: state.resetPassword.sendPasswordResetEmail
   }
 }
 
-export default connect(mapStateToProps)(withRouter(Login))
+export default connect(mapStateToProps)(SendPasswordResetEmail)

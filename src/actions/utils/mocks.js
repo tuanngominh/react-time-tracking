@@ -2,19 +2,29 @@
 Mock firebase.auth() methods
 */
 
+/*
+ * @success: true : mock success case; false: mock failed case
+ * @errorMessage: error message used in failed cae
+ */
+const createPromise = (success, errorMessage) => {
+  return new Promise(function(resolve, reject){
+    if (success) {
+      resolve()
+    } else {
+      reject({
+        message: errorMessage
+      })  
+    }              
+  })  
+}
+
 export const mockSignOut = (success, errorMessage) => {
   return {
     initializeApp: () => {},
     auth: () => {
       return {
         signOut: () => {
-          return new Promise(function(resolve, reject){
-            if (success) {
-              resolve()
-            } else {
-              reject(errorMessage)  
-            }              
-          })
+          return createPromise(success, errorMessage)
         }
       }
     }
@@ -27,13 +37,7 @@ export const mockCreateUserWithEmailAndPassword = (success, errorMessage) => {
     auth: () => {
       return {
         createUserWithEmailAndPassword: (email, password) => {
-          return new Promise(function(resolve, reject){
-            if (success) {
-              resolve()
-            } else {
-              reject(errorMessage)  
-            }              
-          })
+          return createPromise(success, errorMessage)
         }
       }
     }
@@ -46,13 +50,7 @@ export const mockOnAuthStateChanged = (success, errorMessage) => {
     auth: () => {
       return {
         onAuthStateChanged: (user) => {
-          return new Promise(function(resolve, reject){
-            if (success) {
-              resolve()
-            } else {
-              reject(errorMessage)  
-            }              
-          })
+          return createPromise(success, errorMessage)
         }
       }
     }
@@ -65,14 +63,41 @@ export const mockSignInWithEmailAndPassword = (success, errorMessage) => {
     auth: () => {
       return {
         signInWithEmailAndPassword: (email, password) => {
+          return createPromise(success, errorMessage)
+        }
+      }
+    }
+  }
+}
+
+let mockScenarioData = {
+  mockSuccessCase: true
+}
+export const mockFirebase = () => {
+  return {
+    initializeApp: () => {},
+    setMockScenarioData: (scenarioData) => {
+      mockScenarioData = scenarioData
+    },
+    auth: () => {
+      return {
+        verifyPasswordResetCode: (code) => {
           return new Promise(function(resolve, reject){
-            if (success) {
-              resolve()
+            if (mockScenarioData.mockSuccessCase) {
+              resolve(mockScenarioData.email)
             } else {
-              reject(errorMessage)  
+              reject({
+                message: mockScenarioData.errorMessage
+              })  
             }              
           })
-        }
+        },
+        sendPasswordResetEmail: (email) => {
+          return createPromise(mockScenarioData.mockSuccessCase, mockScenarioData.errorMessage)
+        },
+        confirmPasswordReset: (code, newPassword) => {
+          return createPromise(mockScenarioData.mockSuccessCase, mockScenarioData.errorMessage)
+        }        
       }
     }
   }
