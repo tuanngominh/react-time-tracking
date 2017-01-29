@@ -1,18 +1,18 @@
-import React from 'react';
-import { configure, addDecorator } from '@kadira/storybook';
+import React from 'react'
+import { configure, addDecorator } from '@kadira/storybook'
 
 // custom style for components
-import '../src/App.css';
+import '../src/App.css'
 
 // Needed for onTouchTap of material-ui.com components
-import injectTapEventPlugin from 'react-tap-event-plugin';
+import injectTapEventPlugin from 'react-tap-event-plugin'
 
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 //Add decorator to init Material UI theme
 const WrapMuiThemeProvider = (story) => {
   //hack so hot reload still working
   try {
-    injectTapEventPlugin();
+    injectTapEventPlugin()
   } catch (e) {
 
   }
@@ -24,12 +24,13 @@ const WrapMuiThemeProvider = (story) => {
   )
 }
 
-addDecorator(WrapMuiThemeProvider);
+addDecorator(WrapMuiThemeProvider)
 
 function loadStories() {
-  require('../stories/Header/DesktopNav.js');
-  require('../stories/Header/MobileNav.js');
-  require('../stories/auth/Login.js');
+  require('../stories/Header/DesktopNav.js')
+  require('../stories/Header/MobileNav.js')
+  require('../stories/auth/Login.js')
+  require('../stories/TimeEntryTracker.js')
 }
 
 configure(loadStories, module);
