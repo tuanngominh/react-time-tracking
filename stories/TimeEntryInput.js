@@ -3,15 +3,15 @@ import { storiesOf, action, linkTo, addDecorator } from '@kadira/storybook';
 
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
-import TimeEntryTracker from '../src/components/TimeEntryTracker';
+import TimeEntryInput from '../src/components/TimeEntryInput';
 
-storiesOf('<TimeEntryTracker />', module)
+storiesOf('<TimeEntryInput />', module)
   .add('Time in second', () => {
     let startTime = new Date()
     startTime.setSeconds(startTime.getSeconds() - 10)
     startTime = startTime.toJSON()
     return (
-      <TimeEntryTracker 
+      <TimeEntryInput 
         text="time entry description" 
         startTime={startTime}
         status="doing"
@@ -23,7 +23,7 @@ storiesOf('<TimeEntryTracker />', module)
     startTime.setSeconds(startTime.getSeconds() - 10 - 60)
     startTime = startTime.toJSON()
     return (
-      <TimeEntryTracker 
+      <TimeEntryInput 
         text="time entry description" 
         startTime={startTime}
         status="doing"
@@ -35,7 +35,7 @@ storiesOf('<TimeEntryTracker />', module)
     startTime.setSeconds(startTime.getSeconds() - 10 - 3600)
     startTime = startTime.toJSON()
     return (
-      <TimeEntryTracker 
+      <TimeEntryInput 
         text="time entry description" 
         startTime={startTime}
         status="doing"
