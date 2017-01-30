@@ -1,13 +1,10 @@
 import React, {Component} from 'react'
 import {getTimeDuration, toAmPm, fromAmPM, fromAmPmToDate} from '../utils/time'
 
-import {red500} from 'material-ui/styles/colors'
-
-import RaisedButton from 'material-ui/RaisedButton'
-import FlatButton  from 'material-ui/FlatButton'
-import FontIcon from 'material-ui/FontIcon'
 import TextField from 'material-ui/TextField'
 import Dialog from 'material-ui/Dialog'
+
+import TimeEntryInputForm from './TimeEntryInputForm'
 
 class TimeEntryInput extends Component {
   constructor (props) {
@@ -55,7 +52,6 @@ class TimeEntryInput extends Component {
   }
 
   handleTextChange = (e) => {
-    console.log(e.target.value)
     e.preventDefault()
     this.setState({
       text: e.target.value
@@ -94,32 +90,11 @@ class TimeEntryInput extends Component {
   render() {
     return (
       <div>
-        <TextField
-          hintText="What are you doing ?"
-          value={this.state.text}
-          onChange={this.handleTextChange}
-          name="text"
-        />
-        <span onTouchTap={this.handleOpenDialog}>{this.state.duration}</span>
-        <RaisedButton
-          icon={<FontIcon className="material-icons" style={{color: red500, width: 50, fontSize: 30}}>stop</FontIcon>}
-          style={{
-            marginLeft: 20,
-            minWidth: 50
-          }}
-          buttonStyle={{
-            width: 50
-          }}
-        />
-        <FlatButton 
-          icon={<FontIcon className="material-icons" style={{color: 'grey', width: 50, fontSize: 20}}>delete</FontIcon>}
-          style={{
-            marginLeft: 20,
-            minWidth: 50
-          }}
-          buttonStyle={{
-            width: 50
-          }}
+        <TimeEntryInputForm
+          text={this.state.text}
+          onTextChange={this.handleTextChange}
+          duration={this.state.duration}
+          onOpenDialog={this.handleOpenDialog}
         />
         <Dialog
           open={this.state.dialogOpen}
