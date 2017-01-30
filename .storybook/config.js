@@ -30,6 +30,7 @@ function loadStories() {
   require('../stories/Header/DesktopNav.js')
   require('../stories/Header/MobileNav.js')
   require('../stories/auth/Login.js')
+  require('../stories/TimeEntryInputForm.js')
   require('../stories/TimeEntryInput.js')
 }
 
