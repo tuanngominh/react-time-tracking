@@ -41,6 +41,15 @@ class TimeEntryInputForm extends Component {
     this.props.onChangeText(text)
   }
 
+  //Enter then start tracking
+  handleKeyPress = (e) => {
+    if (e.nativeEvent.keyCode === 13) {
+      if (this.state.text !== '') {
+        this.props.onStart(this.state.text)
+      }
+    }
+  }
+
   handleStart = (e) => {
     e.preventDefault()
     this.props.onStart(this.state.text)
@@ -53,6 +62,7 @@ class TimeEntryInputForm extends Component {
           hintText="What are you doing ?"
           value={this.state.text}
           onChange={this.handleChangeText}
+          onKeyPress={this.handleKeyPress}
           name="text"
         />
         <span 
