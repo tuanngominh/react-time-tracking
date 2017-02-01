@@ -17,7 +17,12 @@ export class TimeEntryInput extends Component {
     onChangeText: PropTypes.func,
     onChangeStartTime: PropTypes.func,
     onStop: PropTypes.func,
-    onStart: PropTypes.func
+    onStart: PropTypes.func,
+    isFetching: PropTypes.bool
+  }
+
+  static defaultProps = {
+    isFetching: false
   }
 
   constructor (props) {
@@ -70,7 +75,6 @@ export class TimeEntryInput extends Component {
   }
 
   componentWillReceiveProps = (nextProps) => {
-    console.log(nextProps)
     if (nextProps.startTime) {
       const startTime =  new Date(nextProps.startTime)
       const startTimeAmPm = toAmPm(startTime)
@@ -142,8 +146,9 @@ export class TimeEntryInput extends Component {
       <div>
         <TimeEntryInputForm
           text={this.state.text}
-          onChangeText={this.handleChangeText}
           duration={this.state.duration}
+          isFetching={this.props.isFetching}
+          onChangeText={this.handleChangeText}            
           onOpenDialog={this.handleOpenDialog}
           onStop={this.props.onStop}
           onStart={this.handleStart}
@@ -191,7 +196,8 @@ const mapStateToProps = (state) => {
   return {
     startTime: state.timeEntryInput.startTime,
     text: state.timeEntryInput.text,
-    uid: state.auth.user.uid
+    uid: state.auth.user.uid,
+    isFetching: state.timeEntryInput.isFetching
   }
 }
 

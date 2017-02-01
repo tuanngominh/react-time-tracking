@@ -6,6 +6,7 @@ import RaisedButton from 'material-ui/RaisedButton'
 import FlatButton  from 'material-ui/FlatButton'
 import FontIcon from 'material-ui/FontIcon'
 import TextField from 'material-ui/TextField'
+import LinearProgress from 'material-ui/LinearProgress'
 
 class TimeEntryInputForm extends Component {
   static propTypes = {
@@ -15,11 +16,13 @@ class TimeEntryInputForm extends Component {
     onOpenDialog: PropTypes.func,
     onStop: PropTypes.func,
     onDelete: PropTypes.func,
-    onStart: PropTypes.func
+    onStart: PropTypes.func,
+    isFetching: PropTypes.bool
   }
 
   static defaultProps = {
-    text: ''//having default value so the input is controlled element
+    text: '',//having default value so the input is controlled element
+    isFetching: false
   }
 
   constructor (props) {
@@ -108,7 +111,14 @@ class TimeEntryInputForm extends Component {
           />
           :
           ''
-        }        
+        }
+        {
+          this.props.isFetching
+          ?
+          <LinearProgress mode="indeterminate" style={{height: 2}} />
+          :
+          <LinearProgress mode="determinate" max={100} min={100} style={{height: 2}} />
+        }    
       </div> 
     )
   }
