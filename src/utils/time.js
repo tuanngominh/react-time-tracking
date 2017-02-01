@@ -17,7 +17,6 @@ export const getTimeDuration = (startTime, endTime) => {
     hour = durationInHour % 60
   }
 
-  const padLeft = (num) => (String('0' + num).slice(-2))
   return pad0Left(hour) + ':' + pad0Left(minute) + ':' + pad0Left(second)
 }
 
@@ -46,12 +45,12 @@ export const toAmPm = (date) => {
 }
 */
 export const fromAmPM = (amPm) => {
-  const amPmRegExp = /(\d+)\s*\:\s*(\d+)\s*(AM|PM)/i
+  const amPmRegExp = /(\d+)\s*:\s*(\d+)\s*(AM|PM)/i
   const matches = amPmRegExp.exec(amPm)
   if (matches) {
     return {
-      hours: parseInt(matches[1]),
-      minutes: parseInt(matches[2]),
+      hours: parseInt(matches[1], 10),
+      minutes: parseInt(matches[2], 10),
       amPm: matches[3].toLowerCase()
     }
   } else {

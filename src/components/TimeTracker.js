@@ -1,8 +1,9 @@
 import React from 'react'
+import TimeEntryInput from './TimeEntryInput'
 
 const TimeTracker = () => (
   <div>
-    TimeTracker
+    <TimeEntryInput />
   </div>
 )
 

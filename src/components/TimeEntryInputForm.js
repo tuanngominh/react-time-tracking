@@ -1,5 +1,4 @@
 import React, {Component, PropTypes} from 'react'
-import {getTimeDuration, toAmPm, fromAmPM, fromAmPmToDate} from '../utils/time'
 
 import {red500} from 'material-ui/styles/colors'
 
@@ -7,21 +6,41 @@ import RaisedButton from 'material-ui/RaisedButton'
 import FlatButton  from 'material-ui/FlatButton'
 import FontIcon from 'material-ui/FontIcon'
 import TextField from 'material-ui/TextField'
-import Dialog from 'material-ui/Dialog'
 
 class TimeEntryInputForm extends Component {
   static propTypes = {
     text: PropTypes.string,
     duration: PropTypes.string,
-    onTextChange: PropTypes.func,    
+    onChangeText: PropTypes.func,    
     onOpenDialog: PropTypes.func,
     onStop: PropTypes.func,
     onDelete: PropTypes.func,
     onStart: PropTypes.func
   }
 
+  static defaultProps = {
+    text: ''//having default value so the input is controlled element
+  }
+
   constructor (props) {
     super(props)
+    this.state = {
+      text: props.text
+    }
+
+  }
+
+  handleChangeText = (e) => {
+    const text = e.target.value
+    this.setState({
+      text: text
+    })
+    this.props.onChangeText(text)
+  }
+
+  handleStart = (e) => {
+    e.preventDefault()
+    this.props.onStart(this.state.text)
   }
 
   render() {
@@ -29,8 +48,8 @@ class TimeEntryInputForm extends Component {
       <div>
         <TextField
           hintText="What are you doing ?"
-          value={this.props.text}
-          onChange={this.props.onTextChange}
+          value={this.state.text}
+          onChange={this.handleChangeText}
           name="text"
         />
         <span 
@@ -70,9 +89,6 @@ class TimeEntryInputForm extends Component {
               marginLeft: 20,
               minWidth: 50
             }}
-            buttonStyle={{
-              width: 50
-            }}
             onClick={this.props.onDelete}
           />
           :
@@ -88,10 +104,7 @@ class TimeEntryInputForm extends Component {
               marginLeft: 20,
               minWidth: 50
             }}
-            buttonStyle={{
-              width: 50
-            }}
-            onClick={this.props.onStart}
+            onClick={this.handleStart}
           />
           :
           ''
