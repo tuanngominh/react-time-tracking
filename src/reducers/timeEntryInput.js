@@ -23,7 +23,14 @@ const timeEntryInput = (state = {}, action) => {
       } else {
         return Object.assign({}, state, {isFetching: action.isFetching})
       }
-      
+    
+    case types.TIME_ENTRY_INPUT__STOP:
+      if (action.status && action.status === 'success') {
+        return {}
+      } else {
+        return Object.assign({}, state, {isFetching: action.isFetching})
+      }
+
     default :
       return state
   }

@@ -55,14 +55,16 @@ export class TimeEntryInput extends Component {
     }
   }
 
+  stopTicking = () => {
+    //clear previous timer if any
+    if (this.state.timerId) {
+      clearInterval(this.state.timerId)
+      this.setState({timerId: null})
+    }
+  }
+
   startTicking = () => {
     if (this.state.startTime) {
-      //clear previous timer if any
-      if (this.state.timerId) {
-        clearInterval(this.state.timerId)
-        this.setState({timerId: null})
-      }
-
       //setup new timer to show duration
       let timerId = setInterval(()=>{
         const now = new Date()        
@@ -81,16 +83,23 @@ export class TimeEntryInput extends Component {
     if (nextProps.startTime) {
       const startTime =  new Date(nextProps.startTime)
       const startTimeAmPm = toAmPm(startTime)
-      this.setState({
+      let nextState = {
         startTime: startTime,
         startTimeAmPm: startTimeAmPm
-      }, function(){
+      }
+      if (nextProps.text) {
+        nextState.text = nextProps.text
+      }
+      this.setState(nextState, function(){
+        this.stopTicking()
         this.startTicking()  
       })
-    }
-    if (nextProps.text) {
+    } else {
+      this.stopTicking()
       this.setState({
-        text: nextProps.text
+        text: '',
+        startTime: null,
+        duration: null
       })
     }
   }
@@ -144,6 +153,10 @@ export class TimeEntryInput extends Component {
     this.props.onStart(this.props.uid, text, new Date())
   }
 
+  handleStop = () => {
+    this.props.onStop(this.props.uid, this.state.text, this.state.startTime)
+  }
+
   render() {
     return (
       <div>
@@ -153,7 +166,7 @@ export class TimeEntryInput extends Component {
           isFetching={this.props.isFetching}
           onChangeText={this.handleChangeText}            
           onOpenDialog={this.handleOpenDialog}
-          onStop={this.props.onStop}
+          onStop={this.handleStop}
           onStart={this.handleStart}
         />
         <Dialog
@@ -186,8 +199,8 @@ const mapDispatchToProps = (dispatch) => {
     onChangeStartTime: (date) => {
       dispatch(changeStartTime(date))
     },
-    onStop: () => {
-      dispatch(stop())
+    onStop: (uid, text, date) => {
+      dispatch(stop(uid, text, date))
     },
     onStart: (uid, text, date) => {
       dispatch(start(uid, text, date))

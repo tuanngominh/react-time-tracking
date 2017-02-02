@@ -20,12 +20,32 @@ export const changeStartTime = (date) => {
   }
 }
 
-export const stop = () => {
+export const stop = (uid, text, date) => {
   return function(dispatch) {
     dispatch(actionStart(types.TIME_ENTRY_INPUT__STOP))
-    console.log('stop')
-    dispatch(actionSuccess(types.TIME_ENTRY_INPUT__STOP))
-    dispatch(actionFailed(types.TIME_ENTRY_INPUT__STOP))
+
+    //create complete time entry
+    const newEntryRef = firebase.database().ref('timeEntries/' + uid).push()
+    const now = new Date()
+    const newEntryPromise = newEntryRef.set({
+      text: text,
+      startTime: date.toJSON(),
+      endTime: now.toJSON()
+    })
+    
+    //delete current tracking entry
+    newEntryPromise.then(function(){
+      const deleteEntryPromise = firebase.database().ref('timeEntryInputs/' + uid).remove()
+      deleteEntryPromise.then(function(){
+        dispatch(actionSuccess(types.TIME_ENTRY_INPUT__STOP))
+      })
+      .catch(function(){
+        dispatch(actionFailed(types.TIME_ENTRY_INPUT__STOP))
+      })
+    })
+    .catch(function(){
+      dispatch(actionFailed(types.TIME_ENTRY_INPUT__STOP))
+    })
   }
 }
 
@@ -60,12 +80,7 @@ export const start = (uid, text, date) => {
       text: text,
       startTime: date.toJSON()
     }
-    let updates = {
-      'timeEntryInputs': {
-        [uid]: entryData
-      }
-    }
-    const promise = firebase.database().ref().update(updates)
+    const promise = firebase.database().ref('timeEntryInputs/' + uid).set(entryData)
     promise
     .then((data) => {
       dispatch(actionSuccess(types.TIME_ENTRY_INPUT__START, {payload: {

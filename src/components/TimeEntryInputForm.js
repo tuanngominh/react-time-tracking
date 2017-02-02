@@ -38,6 +38,10 @@ class TimeEntryInputForm extends Component {
       this.setState({
         text: nextProps.text
       })
+    } else {
+      this.setState({
+        text: ''
+      })
     }
   }
 
