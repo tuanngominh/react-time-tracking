@@ -83,12 +83,17 @@ class TimeEntryInputForm extends Component {
 
   startTicking = () => {
     if (this.state.startTime) {
-      //setup new timer to show duration
-      let timerId = setInterval(()=>{
+      const updateDuration = () => {
         const now = new Date()        
         this.setState({
           duration: getTimeDuration(this.state.startTime, now)
         })
+      }
+
+      updateDuration()
+      //setup new timer to show duration
+      let timerId = setInterval(()=>{
+        updateDuration()
       }, 1000)
 
       this.setState({
