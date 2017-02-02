@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react'
 import {getTimeDuration, toAmPm, fromAmPM, fromAmPmToDate} from '../utils/time'
 
-import {changeText, changeStartTime, stop, start} from '../actions/timeEntryInput'
+import {changeText, changeStartTime, stop, start, pull} from '../actions/timeEntryInput'
 import {connect} from 'react-redux'
 
 import TextField from 'material-ui/TextField'
@@ -18,6 +18,7 @@ export class TimeEntryInput extends Component {
     onChangeStartTime: PropTypes.func,
     onStop: PropTypes.func,
     onStart: PropTypes.func,
+    onPull: PropTypes.func,
     isFetching: PropTypes.bool
   }
 
@@ -42,6 +43,8 @@ export class TimeEntryInput extends Component {
   }
 
   componentWillMount() {
+    this.props.onPull(this.props.uid)
+
     this.startTicking()
   }  
 
@@ -188,6 +191,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     onStart: (uid, text, date) => {
       dispatch(start(uid, text, date))
+    },
+    onPull: (uid) => {
+      dispatch(pull(uid))
     }
   }
 }

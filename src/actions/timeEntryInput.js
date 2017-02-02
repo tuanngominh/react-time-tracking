@@ -29,6 +29,29 @@ export const stop = () => {
   }
 }
 
+//Pull tracking entry from server
+export const pull = (uid) => {
+  return function(dispatch) {
+    dispatch(actionStart(types.TIME_ENTRY_INPUT__PULL))
+    
+    return new Promise((resolve, reject) => {
+      const ref = firebase.database().ref('timeEntryInputs/' + uid)
+      ref.once('value', function(snapshot){
+        const val = snapshot.val()
+        if (val) {
+          dispatch(actionSuccess(types.TIME_ENTRY_INPUT__PULL, {payload: {
+            text: val.text,
+            startTime: val.startTime
+          }}))
+        } else {
+          dispatch(actionSuccess(types.TIME_ENTRY_INPUT__PULL, {payload: null}))
+        }
+        resolve()
+      })
+    })
+  }
+}
+
 export const start = (uid, text, date) => {
   return function(dispatch) {
     dispatch(actionStart(types.TIME_ENTRY_INPUT__START))

@@ -33,6 +33,14 @@ class TimeEntryInputForm extends Component {
 
   }
 
+  componentWillReceiveProps = (nextProps) => {
+    if (nextProps.text) {
+      this.setState({
+        text: nextProps.text
+      })
+    }
+  }
+
   handleChangeText = (e) => {
     const text = e.target.value
     this.setState({
