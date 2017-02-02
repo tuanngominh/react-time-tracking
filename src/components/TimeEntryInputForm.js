@@ -1,5 +1,7 @@
 import React, {Component, PropTypes} from 'react'
 
+import {getTimeDuration, toAmPm} from '../utils/time'
+
 import {red500} from 'material-ui/styles/colors'
 
 import RaisedButton from 'material-ui/RaisedButton'
@@ -27,35 +29,102 @@ class TimeEntryInputForm extends Component {
 
   constructor (props) {
     super(props)
+
+    const startTime = props.startTime ? new Date(props.startTime) : null
+    const startTimeAmPm = props.startTime ? toAmPm(startTime) : null
+
     this.state = {
-      text: props.text
+      startTime: startTime,
+      startTimeAmPm: startTimeAmPm,
+      duration: null,      
+      text: props.text,
+      timerId: null,
+      changeTextSubmitTimeoutId: null
     }
 
+  }
+
+  componentWillMount() {
+    this.startTicking()
   }
 
   componentWillReceiveProps = (nextProps) => {
-    if (nextProps.text) {
-      this.setState({
-        text: nextProps.text
+    if (nextProps.startTime) {
+      const startTime =  new Date(nextProps.startTime)
+      const startTimeAmPm = toAmPm(startTime)
+      let nextState = {
+        startTime: startTime,
+        startTimeAmPm: startTimeAmPm
+      }
+      if (nextProps.text) {
+        nextState.text = nextProps.text
+      }
+      this.setState(nextState, function(){
+        this.stopTicking()
+        this.startTicking()
       })
     } else {
+      this.stopTicking()
       this.setState({
-        text: ''
+        text: '',
+        startTime: null,
+        duration: null
       })
     }
   }
 
-  handleChangeText = (e) => {
+  stopTicking = () => {
+    //clear previous timer if any
+    if (this.state.timerId) {
+      clearInterval(this.state.timerId)
+      this.setState({timerId: null})
+    }
+  }
+
+  startTicking = () => {
+    if (this.state.startTime) {
+      //setup new timer to show duration
+      let timerId = setInterval(()=>{
+        const now = new Date()        
+        this.setState({
+          duration: getTimeDuration(this.state.startTime, now)
+        })
+      }, 1000)
+
+      this.setState({
+        timerId: timerId
+      })      
+    }    
+  }
+
+  handleChangeText = (e) => {    
     const text = e.target.value
     this.setState({
       text: text
     })
-    this.props.onChangeText(text)
+
+    if (this.state.startTime) {
+      if (this.state.changeTextSubmitTimeoutId) {
+        clearTimeout(this.state.changeTextSubmitTimeoutId)
+      }
+
+      const timeout = setTimeout(() => {
+        this.props.onChangeText(this.state.text)    
+      }, 1000)
+      this.setState({
+        changeTextSubmitTimeoutId: timeout
+      })
+      
+    }
   }
 
   //Enter then start tracking
   handleKeyPress = (e) => {
     if (e.nativeEvent.keyCode === 13) {
+      if (this.state.startTime) {
+        return
+      }
+
       if (this.state.text !== '') {
         this.props.onStart(this.state.text)
       }
@@ -85,10 +154,10 @@ class TimeEntryInputForm extends Component {
             display: 'inline-block'
           }}
         >
-          {this.props.duration ? this.props.duration : '0:00:00'}
+          {this.state.duration ? this.state.duration : '0:00:00'}
         </span>
         {
-          this.props.duration
+          this.state.duration
           ?
           <RaisedButton
             icon={<FontIcon className="material-icons" style={{color: red500, width: 50, fontSize: 30}}>stop</FontIcon>}
@@ -106,7 +175,7 @@ class TimeEntryInputForm extends Component {
         }
 
         {
-          this.props.duration
+          this.state.duration
           ?
           <FlatButton 
             icon={<FontIcon className="material-icons" style={{color: 'grey', width: 50, fontSize: 20}}>delete</FontIcon>}
@@ -121,7 +190,7 @@ class TimeEntryInputForm extends Component {
         }
 
         {
-          !this.props.duration
+          !this.state.duration
           ?
           <FlatButton 
             icon={<FontIcon className="material-icons" style={{color: 'green', width: 50, fontSize: 30}}>play_arrow</FontIcon>}

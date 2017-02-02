@@ -31,6 +31,19 @@ const timeEntryInput = (state = {}, action) => {
         return Object.assign({}, state, {isFetching: action.isFetching})
       }
 
+    case types.TIME_ENTRY_INPUT__CHANGE_TEXT:
+      if (action.status && action.status === 'success' && action.payload) {
+        return Object.assign({}, state, {
+          text: action.payload.text,
+          isFetching: action.isFetching
+        })
+      } else {
+        return Object.assign({}, state, {
+          text: action.payload.text,
+          isFetching: action.isFetching
+        })
+      }      
+
     default :
       return state
   }

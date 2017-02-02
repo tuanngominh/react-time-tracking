@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react'
-import {getTimeDuration, toAmPm, fromAmPM, fromAmPmToDate} from '../utils/time'
+import {toAmPm, fromAmPM, fromAmPmToDate} from '../utils/time'
 
 import {changeText, changeStartTime, stop, start, pull} from '../actions/timeEntryInput'
 import {connect} from 'react-redux'
@@ -29,79 +29,13 @@ export class TimeEntryInput extends Component {
   constructor (props) {
     super(props)
 
-    const startTime = props.startTime ? new Date(props.startTime) : null
-    const startTimeAmPm = props.startTime ? toAmPm(startTime) : null
-
     this.state = {
-      dialogOpen: false,
-      text : props.text,
-      startTime: startTime,
-      startTimeAmPm: startTimeAmPm,
-      duration: null,
-      timerId: null
+      dialogOpen: false
     }
   }
 
   componentWillMount() {
     this.props.onPull(this.props.uid)
-
-    this.startTicking()
-  }  
-
-  componentWillUnmount() {
-    if (this.state.timerId) {
-      clearInterval(this.state.timerId)
-      this.setState({timerId: null})
-    }
-  }
-
-  stopTicking = () => {
-    //clear previous timer if any
-    if (this.state.timerId) {
-      clearInterval(this.state.timerId)
-      this.setState({timerId: null})
-    }
-  }
-
-  startTicking = () => {
-    if (this.state.startTime) {
-      //setup new timer to show duration
-      let timerId = setInterval(()=>{
-        const now = new Date()        
-        this.setState({
-          duration: getTimeDuration(this.state.startTime, now)
-        })
-      }, 1000)
-
-      this.setState({
-        timerId: timerId
-      })      
-    }    
-  }
-
-  componentWillReceiveProps = (nextProps) => {
-    if (nextProps.startTime) {
-      const startTime =  new Date(nextProps.startTime)
-      const startTimeAmPm = toAmPm(startTime)
-      let nextState = {
-        startTime: startTime,
-        startTimeAmPm: startTimeAmPm
-      }
-      if (nextProps.text) {
-        nextState.text = nextProps.text
-      }
-      this.setState(nextState, function(){
-        this.stopTicking()
-        this.startTicking()  
-      })
-    } else {
-      this.stopTicking()
-      this.setState({
-        text: '',
-        startTime: null,
-        duration: null
-      })
-    }
   }
 
   handleOpenDialog = () => {
@@ -113,10 +47,7 @@ export class TimeEntryInput extends Component {
   }
 
   handleChangeText = (text) => {
-    //fire change text event if a time entry is tracking
-    if (this.state.startTime) {
-      this.props.onChangeText(text)  
-    }
+    this.props.onChangeText(this.props.uid, text)
   }
 
   //validate input and save
@@ -150,19 +81,20 @@ export class TimeEntryInput extends Component {
   }
 
   handleStart = (text) => {
-    this.props.onStart(this.props.uid, text, new Date())
+    const now = new Date()
+    this.props.onStart(this.props.uid, text, now.toJSON())
   }
 
   handleStop = () => {
-    this.props.onStop(this.props.uid, this.state.text, this.state.startTime)
+    this.props.onStop(this.props.uid, this.props.text, this.props.startTime)
   }
 
   render() {
     return (
       <div>
         <TimeEntryInputForm
-          text={this.state.text}
-          duration={this.state.duration}
+          text={this.props.text}
+          startTime={this.props.startTime}
           isFetching={this.props.isFetching}
           onChangeText={this.handleChangeText}            
           onOpenDialog={this.handleOpenDialog}
@@ -193,8 +125,8 @@ export class TimeEntryInput extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onChangeText: (text) => {
-      dispatch(changeText(text))
+    onChangeText: (uid, text) => {
+      dispatch(changeText(uid, text))
     },
     onChangeStartTime: (date) => {
       dispatch(changeStartTime(date))

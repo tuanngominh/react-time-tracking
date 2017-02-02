@@ -7,11 +7,11 @@ export const actionFailed = (actionType, errorMessage) => {
   }
 }
 
-export const actionStart = (actionType) => {
-  return {
+export const actionStart = (actionType, object) => {
+  return Object.assign({
     type: actionType,
     isFetching: true
-  }
+  }, object)
 }
 
 export const actionSuccess = (actionType, object) => {
