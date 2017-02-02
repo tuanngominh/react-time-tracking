@@ -3,7 +3,11 @@ import * as types from '../constants/ActionTypes'
 const timeEntryInput = (state = {}, action) => {
   switch (action.type) {
     case types.TIME_ENTRY_INPUT__START: 
-      if (action.status && action.status === 'success') {
+      if (
+        (action.status && action.status === 'success')
+        ||
+        (action.isFetching)
+      ) {
         return { 
           text: action.payload.text,
           startTime: action.payload.startTime,
@@ -32,16 +36,17 @@ const timeEntryInput = (state = {}, action) => {
       }
 
     case types.TIME_ENTRY_INPUT__CHANGE_TEXT:
-      if (action.status && action.status === 'success' && action.payload) {
+      if (
+        (action.status && action.status === 'success')
+        ||
+        (action.isFetching)
+      ) {
         return Object.assign({}, state, {
           text: action.payload.text,
           isFetching: action.isFetching
         })
       } else {
-        return Object.assign({}, state, {
-          text: action.payload.text,
-          isFetching: action.isFetching
-        })
+        return state
       }      
 
     default :

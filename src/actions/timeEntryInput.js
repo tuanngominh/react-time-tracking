@@ -86,7 +86,10 @@ export const pull = (uid) => {
 
 export const start = (uid, text, date) => {
   return function(dispatch) {
-    dispatch(actionStart(types.TIME_ENTRY_INPUT__START))
+    dispatch(actionStart(types.TIME_ENTRY_INPUT__START, {payload: {
+        text: text,
+        startTime: date
+      }}))
     
     const entryData = {
       text: text,
