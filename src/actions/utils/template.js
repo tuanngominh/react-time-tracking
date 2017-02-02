@@ -1,10 +1,19 @@
 export const actionFailed = (actionType, errorMessage) => {
-  return {
-    type: actionType,
-    status: 'error',
-    isFetching: false,
-    errorMessage     
+  if (errorMessage) {
+    return {
+      type: actionType,
+      status: 'error',
+      isFetching: false,
+      errorMessage     
+    }    
+  } else {
+    return {
+      type: actionType,
+      status: 'error',
+      isFetching: false
+    }
   }
+
 }
 
 export const actionStart = (actionType, object) => {
