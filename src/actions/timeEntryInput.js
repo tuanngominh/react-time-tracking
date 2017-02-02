@@ -23,12 +23,24 @@ export const changeText = (uid, text) => {
   }
 }
 
-export const changeStartTime = (date) => {
+export const changeStartTime = (uid, date) => {
   return function(dispatch) {
-    dispatch(actionStart(types.TIME_ENTRY_INPUT__CHANGE_START_TIME))
-    console.log('changeStartTime' + date)
-    dispatch(actionSuccess(types.TIME_ENTRY_INPUT__CHANGE_START_TIME))
-    dispatch(actionFailed(types.TIME_ENTRY_INPUT__CHANGE_START_TIME))
+    dispatch(actionStart(types.TIME_ENTRY_INPUT__CHANGE_START_TIME, {'payload': {
+      startTime: date
+    }}))
+
+    const promise = firebase.database().ref('timeEntryInputs/' + uid).update({startTime: date})
+    promise
+    .then((data) => {
+      dispatch(actionSuccess(types.TIME_ENTRY_INPUT__CHANGE_START_TIME, {payload: {
+        startTime: date
+      }}))
+    })
+    .catch(() => {
+      dispatch(actionFailed(types.TIME_ENTRY_INPUT__CHANGE_START_TIME))  
+    })
+
+    return promise
   }
 }
 

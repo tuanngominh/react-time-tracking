@@ -47,7 +47,21 @@ const timeEntryInput = (state = {}, action) => {
         })
       } else {
         return state
-      }      
+      }
+
+    case types.TIME_ENTRY_INPUT__CHANGE_START_TIME:
+      if (
+        (action.status && action.status === 'success')
+        ||
+        (action.isFetching)
+      ) {
+        return Object.assign({}, state, {
+          startTime: action.payload.startTime,
+          isFetching: action.isFetching
+        })
+      } else {
+        return state
+      }       
 
     default :
       return state

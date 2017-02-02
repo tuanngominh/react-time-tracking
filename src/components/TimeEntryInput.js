@@ -29,13 +29,26 @@ export class TimeEntryInput extends Component {
   constructor (props) {
     super(props)
 
+    const startTimeAmPm = props.startTime ? toAmPm(new Date(props.startTime)) : null
     this.state = {
+      startTimeAmPm: startTimeAmPm,
       dialogOpen: false
     }
   }
 
   componentWillMount() {
     this.props.onPull(this.props.uid)
+  }
+
+  componentWillReceiveProps = (nextProps) => {
+    if (nextProps.startTime) {
+      const startTime =  new Date(nextProps.startTime)
+      const startTimeAmPm = toAmPm(startTime)
+
+      this.setState({
+        startTimeAmPm: startTimeAmPm
+      })
+    }
   }
 
   handleOpenDialog = () => {
@@ -63,7 +76,7 @@ export class TimeEntryInput extends Component {
         startTime: newStartTimeInDate,
         startTimeAmPm: newStartTimeAmPm
       })
-      this.props.onChangeStartTime(newStartTimeInDate)
+      this.props.onChangeStartTime(this.props.uid, newStartTimeInDate.toJSON())
     } 
     //invalid input, revert to current value
     else {
@@ -128,8 +141,8 @@ const mapDispatchToProps = (dispatch) => {
     onChangeText: (uid, text) => {
       dispatch(changeText(uid, text))
     },
-    onChangeStartTime: (date) => {
-      dispatch(changeStartTime(date))
+    onChangeStartTime: (uid, date) => {
+      dispatch(changeStartTime(uid, date))
     },
     onStop: (uid, text, date) => {
       dispatch(stop(uid, text, date))
