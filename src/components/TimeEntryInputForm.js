@@ -10,7 +10,7 @@ import FontIcon from 'material-ui/FontIcon'
 import TextField from 'material-ui/TextField'
 import LinearProgress from 'material-ui/LinearProgress'
 
-class TimeEntryInputForm extends Component {
+export class TimeEntryInputForm extends Component {
   static propTypes = {
     text: PropTypes.string,
     duration: PropTypes.string,
@@ -37,7 +37,7 @@ class TimeEntryInputForm extends Component {
       startTime: startTime,
       startTimeAmPm: startTimeAmPm,
       duration: null,      
-      text: props.text,
+      text: props.text ? props.text : '',
       timerId: null,
       changeTextSubmitTimeoutId: null
     }
@@ -152,7 +152,7 @@ class TimeEntryInputForm extends Component {
           name="text"
         />
         <span 
-          onTouchTap={this.props.onOpenDialog}
+          onClick={this.props.onOpenDialog}
           style={{
             marginLeft: 20,
             minWidth: 56,

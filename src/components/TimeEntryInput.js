@@ -1,8 +1,9 @@
 import React, {Component, PropTypes} from 'react'
-import {toAmPm, fromAmPM, fromAmPmToDate} from '../utils/time'
-
-import {changeText, changeStartTime, stop, start, pull} from '../actions/timeEntryInput'
 import {connect} from 'react-redux'
+import {get} from 'lodash'
+
+import {toAmPm, fromAmPM, fromAmPmToDate} from '../utils/time'
+import {changeText, changeStartTime, stop, start, pull} from '../actions/timeEntryInput'
 
 import TextField from 'material-ui/TextField'
 import Dialog from 'material-ui/Dialog'
@@ -23,15 +24,19 @@ export class TimeEntryInput extends Component {
   }
 
   static defaultProps = {
+    text: '',
     isFetching: false
   }
 
   constructor (props) {
     super(props)
 
+    const startTime = props.startTime ? new Date(props.startTime) : null
     const startTimeAmPm = props.startTime ? toAmPm(new Date(props.startTime)) : null
+
     this.state = {
-      startTimeAmPm: startTimeAmPm,
+      startTime,
+      startTimeAmPm,
       dialogOpen: false
     }
   }
@@ -46,7 +51,8 @@ export class TimeEntryInput extends Component {
       const startTimeAmPm = toAmPm(startTime)
 
       this.setState({
-        startTimeAmPm: startTimeAmPm
+        startTime,
+        startTimeAmPm
       })
     }
   }
@@ -158,10 +164,10 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (state) => {
   return {
-    startTime: state.timeEntryInput.startTime,
-    text: state.timeEntryInput.text,
-    uid: state.auth.user.uid,
-    isFetching: state.timeEntryInput.isFetching
+    startTime: get(state,"timeEntryInput.startTime", null),
+    text: get(state, "timeEntryInput.text", null),
+    uid: get(state,"auth.user.uid", null),
+    isFetching: get(state, "timeEntryInput.isFetching", null)
   }
 }
 

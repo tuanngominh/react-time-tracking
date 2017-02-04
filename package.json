@@ -17,6 +17,7 @@
     "formsy-material-ui": "^0.5.3",
     "formsy-react": "^0.18.1",
     "history": "^3.2.1",
+    "lodash": "^4.17.4",
     "material-ui": "^0.16.6",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
