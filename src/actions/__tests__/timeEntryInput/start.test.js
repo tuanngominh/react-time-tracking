@@ -1,3 +1,4 @@
+//TODO: extract module import to a common code
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 
@@ -12,7 +13,7 @@ import * as types from '../../../constants/ActionTypes'
 
 const middlewares = [ thunk ]
 const mockStore = configureMockStore(middlewares)
-describe('start action', () => {
+describe('TimEntryInput - start action', () => {
 
   const uid = '123'
   const text = "text"

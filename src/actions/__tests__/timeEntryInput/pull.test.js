@@ -12,7 +12,7 @@ import * as types from '../../../constants/ActionTypes'
 
 const middlewares = [ thunk ]
 const mockStore = configureMockStore(middlewares)
-describe('pull action', () => {
+describe('TimEntryInput - pull action', () => {
 
   const uid = '123'
   const text = "text"
