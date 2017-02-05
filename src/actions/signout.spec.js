@@ -4,7 +4,7 @@ import thunk from 'redux-thunk'
 import {mockFirebase} from './utils/mocks'
 jest.mock('firebase/app', () => { return mockFirebase()})
 jest.mock('firebase/auth', () => {})
-jest.mock('firebase/database', () => {})
+jest.mock('firebase/database', () => {})q
 import firebase from '../configureFirebase'
 
 import {signout} from './signout'
