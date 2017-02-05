@@ -4,6 +4,7 @@ import thunk from 'redux-thunk'
 import {mockFirebase} from './utils/mocks'
 jest.mock('firebase/app', () => { return mockFirebase()})
 jest.mock('firebase/auth', () => {})
+jest.mock('firebase/database', () => {})
 import firebase from '../configureFirebase'
 import {sendPasswordResetEmail, verifyPasswordResetCode, confirmPasswordReset} from './resetPassword'
 import * as types from '../constants/ActionTypes'
