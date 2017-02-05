@@ -2,11 +2,9 @@
 test:
   override:
     - npm test
-  ## We have passed 4Gb RAM of Circleci's container for collecting coverage. 
-  ## Will upload coverage report manually.
-  # - npm test -- --coverage
-# post:
-  # - bash <(curl -s https://codecov.io/bash)
+    - npm test -- --coverage
+  post:
+    - bash <(curl -s https://codecov.io/bash)
 
 deployment:
   production:
