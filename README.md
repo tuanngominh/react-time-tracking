@@ -17,8 +17,8 @@ Just try to build the death simple version of time tracking
 - [x] Signup using email
 - [x] Login, logout, forgot password
 
-- Can add time entry
-- Can track time spent on time entry and stop a time entry tracking
+- [x] Can add time entry
+- [x] Can track time spent on time entry and stop a time entry tracking
 - Can list time entries
 - Delete time entry
 
