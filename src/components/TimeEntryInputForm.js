@@ -165,6 +165,7 @@ export class TimeEntryInputForm extends Component {
           this.state.duration
           ?
           <RaisedButton
+            name='btn-stop'
             icon={<FontIcon className="material-icons" style={{color: red500, width: 50, fontSize: 30}}>stop</FontIcon>}
             style={{
               marginLeft: 20,

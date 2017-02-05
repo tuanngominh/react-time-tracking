@@ -32,3 +32,17 @@ Just try to build the death simple version of time tracking
 
 Low priority
 - Signup using google, facebook
+
+# Enzyme
+Simulate `onClick` event in `shallow` ([github](https://github.com/airbnb/enzyme/issues/323#issuecomment-210039710))
+```js
+const componentWrapper = shallow(<Component />)
+componentWrapper.simulate('click', { preventDefault() {} })
+```
+
+Simulate change event in [material-ui's TextField](http://www.material-ui.com/#/components/text-field) ([github](https://github.com/airbnb/enzyme/issues/364#issuecomment-217475038))
+```js
+const input = wrapper.find('input[name="text"]')
+input.node.value = "newvalue"
+input.simulate('change', input)
+```
