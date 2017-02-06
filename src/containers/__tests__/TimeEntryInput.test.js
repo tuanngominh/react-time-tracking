@@ -3,10 +3,10 @@ import {shallow, mount} from 'enzyme'
 
 import {toAmPm} from '../../utils/time'
 
-import withStoreAndTheme from '../__mocks__/withStoreAndTheme'
+import withStoreAndTheme from '../../__mocks__/withStoreAndTheme'
 import TimeEntryInput_withConnect, {TimeEntryInput} from '../TimeEntryInput'
 
-import withTheme from '../__mocks__/withTheme'
+import withTheme from '../../__mocks__/withTheme'
 
 // Needed for onTouchTap
 import injectTapEventPlugin from 'react-tap-event-plugin';

@@ -2,7 +2,7 @@ jest.useFakeTimers()
 import React from 'react'
 import {shallow, mount} from 'enzyme'
 import TimeEntryInputForm_withConnect, {TimeEntryInputForm} from '../TimeEntryInputForm'
-import withTheme from '../__mocks__/withTheme'
+import withTheme from '../../__mocks__/withTheme'
 
 // Needed for onTouchTap
 import injectTapEventPlugin from 'react-tap-event-plugin';

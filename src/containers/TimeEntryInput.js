@@ -8,7 +8,7 @@ import {changeText, changeStartTime, stop, start, pull} from '../actions/timeEnt
 import TextField from 'material-ui/TextField'
 import Dialog from 'material-ui/Dialog'
 
-import TimeEntryInputForm from './TimeEntryInputForm'
+import TimeEntryInputForm from '../components/TimeEntryInputForm'
 
 export class TimeEntryInput extends Component {
   static propTypes = {

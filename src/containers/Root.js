@@ -5,9 +5,9 @@ import {Router, Route, IndexRoute} from 'react-router'
 
 import App from './App'
 import Homepage from './Homepage'
-import Profile from './Profile'
-import Reports from './Reports'
-import TimeTracker from './TimeTracker'
+import Profile from '../components/Profile'
+import Reports from '../components/Reports'
+import TimeTracker from '../components/TimeTracker'
 
 import Login from './auth/Login'
 import Register from './auth/Register'

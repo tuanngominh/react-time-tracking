@@ -9,7 +9,7 @@ import {Provider} from 'react-redux'
 import DesktopNav from '../DesktopNav'
 
 import FlatButton from 'material-ui/FlatButton'
-import LoggedInMenu from '../LoggedInMenu'
+import LoggedInMenu from '../../../containers/Header/LoggedInMenu'
 
 // Needed for onTouchTap
 import injectTapEventPlugin from 'react-tap-event-plugin';

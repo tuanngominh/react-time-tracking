@@ -7,7 +7,7 @@ import muiThemeable from 'material-ui/styles/muiThemeable'
 import {Link} from 'react-router'
 import { withRouter } from 'react-router'
 
-import LoggedInMenu from './LoggedInMenu'
+import LoggedInMenu from '../../containers/Header/LoggedInMenu'
 import {getMenuStyle} from './utils'
 
 const DesktopNav = (props) => {
