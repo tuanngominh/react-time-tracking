@@ -6,7 +6,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {createStore} from 'redux'
 import {Provider} from 'react-redux'
 
-import LoggedInMenu from './LoggedInMenu'
+import LoggedInMenu from '../LoggedInMenu'
 import MenuItem from 'material-ui/MenuItem'
 import IconMenu from 'material-ui/IconMenu'
 

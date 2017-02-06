@@ -6,19 +6,16 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {createStore} from 'redux'
 import {Provider} from 'react-redux'
 
-import MobileNav from './MobileNav'
+import DesktopNav from '../DesktopNav'
 
-import IconButton from 'material-ui/IconButton'
 import FlatButton from 'material-ui/FlatButton'
-import {ToolbarGroup} from 'material-ui/Toolbar'
-
-import LoggedInMenu from './LoggedInMenu'
+import LoggedInMenu from '../LoggedInMenu'
 
 // Needed for onTouchTap
 import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 
-describe('<MobileNav />', () => {
+describe('<DesktopNav />', () => {
   const setup = (userLoggedIn) => {
     //FIXME: check if we need store here
     const emptyReducer = (state = {}, action) => (state)
@@ -27,7 +24,7 @@ describe('<MobileNav />', () => {
     const wrapper = mount(
       <Provider store={store}>
         <MuiThemeProvider>
-          <MobileNav userLoggedIn={userLoggedIn} />
+          <DesktopNav userLoggedIn={userLoggedIn} />
         </MuiThemeProvider>
       </Provider>
     )
@@ -35,25 +32,21 @@ describe('<MobileNav />', () => {
   }
 
   it ('logged in', () => {
-
     const wrapper = setup(true)
-
-    //FIXME: there are 2 IconButtons from MobilNav menu and 1 from LoggedInMenu
-    //haven't found a way to only query the ones from MobileNav
-    expect(wrapper.find(IconButton).length).toBe(3)
+    
+    //two menu buttons
+    expect(wrapper.find(FlatButton).length).toBe(2)
     expect(wrapper.find(LoggedInMenu).length).toBe(1)
-
-    expect(wrapper.find(FlatButton).length).toBe(0)
+    
   })
 
   it ('guest', () => {
 
     const wrapper = setup(false)
-
-    expect(wrapper.find(IconButton).length).toBe(0)
-    expect(wrapper.find(LoggedInMenu).length).toBe(0)
-
+    //1 login button
     expect(wrapper.find(FlatButton).length).toBe(2)
+    expect(wrapper.find(LoggedInMenu).length).toBe(0)
+    
   })
 
 })

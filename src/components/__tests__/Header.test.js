@@ -1,13 +1,13 @@
 import React from 'react'
 import {mount} from 'enzyme'
-import {setupWindowMatchMedia} from '../test/utils'
+import {setupWindowMatchMedia} from '../../test/utils'
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {Toolbar} from 'material-ui/Toolbar';
 
-import Header from './Header'
-import DesktopNav from './Header/DesktopNav'
-import MobileNav from './Header/MobileNav'
+import Header from '../Header'
+import DesktopNav from '../Header/DesktopNav'
+import MobileNav from '../Header/MobileNav'
 
 // Needed for onTouchTap
 import injectTapEventPlugin from 'react-tap-event-plugin';

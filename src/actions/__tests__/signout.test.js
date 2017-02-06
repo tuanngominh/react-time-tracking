@@ -1,14 +1,14 @@
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 
-import {mockFirebase} from './utils/mocks'
+import {mockFirebase} from '../__mocks__/firebase_for_auth'
 jest.mock('firebase/app', () => { return mockFirebase()})
 jest.mock('firebase/auth', () => {})
 jest.mock('firebase/database', () => {})
-import firebase from '../configureFirebase'
+import firebase from '../../configureFirebase'
 
-import {signout} from './signout'
-import * as types from '../constants/ActionTypes'
+import {signout} from '../signout'
+import * as types from '../../constants/ActionTypes'
 
 const middlewares = [ thunk ]
 const mockStore = configureMockStore(middlewares)

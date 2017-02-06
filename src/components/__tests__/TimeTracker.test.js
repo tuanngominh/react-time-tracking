@@ -1,7 +1,7 @@
 import React from 'react'
 import {shallow} from 'enzyme'
 
-import TimeTracker from './TimeTracker'
+import TimeTracker from '../TimeTracker'
 
 describe('<TimeTracker />', () => {
   it ('render', () => {

@@ -1,11 +1,11 @@
 import React from 'react'
 import {mount} from 'enzyme'
-import {setupWindowMatchMedia, setupLocalStorage} from '../test/utils'
+import {setupWindowMatchMedia, setupLocalStorage} from '../../test/utils'
 
 import {createStore} from 'redux'
 import {Provider} from 'react-redux'
 
-import App from './App'
+import App from '../App'
 
 describe('<App />', () => {
   it ('render', () => {

@@ -1,5 +1,5 @@
-import reducer from './auth'
-import * as types from '../constants/ActionTypes'
+import reducer from '../auth'
+import * as types from '../../constants/ActionTypes'
 
 describe('auth reducer', () => {
 

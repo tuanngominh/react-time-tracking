@@ -1,7 +1,7 @@
 import React from 'react'
 import {shallow} from 'enzyme'
 
-import {SendPasswordResetEmail} from './SendPasswordResetEmail'
+import {SendPasswordResetEmail} from '../SendPasswordResetEmail'
 
 // Needed for onTouchTap
 import injectTapEventPlugin from 'react-tap-event-plugin';

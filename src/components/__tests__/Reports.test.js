@@ -1,7 +1,7 @@
 import React from 'react'
 import {shallow} from 'enzyme'
 
-import Reports from './Reports'
+import Reports from '../Reports'
 
 describe('<Reports />', () => {
   it ('render', () => {

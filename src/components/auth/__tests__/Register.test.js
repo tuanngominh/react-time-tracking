@@ -1,10 +1,10 @@
 import React from 'react'
 import {mount} from 'enzyme'
 
-import {setupLocalStorage} from '../../test/utils'
+import {setupLocalStorage} from '../../../test/utils'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
-import DecoreatedRegister, {Register} from './Register'
+import DecoreatedRegister, {Register} from '../Register'
 
 // Needed for onTouchTap
 import injectTapEventPlugin from 'react-tap-event-plugin';

@@ -1,7 +1,7 @@
 import React from 'react'
 import {shallow} from 'enzyme'
 
-import {ConfirmPasswordReset} from './ConfirmPasswordReset'
+import {ConfirmPasswordReset} from '../ConfirmPasswordReset'
 
 // Needed for onTouchTap
 import injectTapEventPlugin from 'react-tap-event-plugin';

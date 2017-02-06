@@ -1,8 +1,8 @@
 import React from 'react'
 import {shallow} from 'enzyme'
-import {setupWindowMatchMedia} from '../test/utils'
+import {setupWindowMatchMedia} from '../../test/utils'
 
-import Profile from './Profile'
+import Profile from '../Profile'
 
 describe('<Profile />', () => {
   it ('render', () => {

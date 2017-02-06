@@ -1,7 +1,7 @@
 import React from 'react'
 import {mount} from 'enzyme'
 
-import {getMenuStyle} from './utils'
+import {getMenuStyle} from '../utils'
 
 describe('Header.utils', () => {
   const appBarStyle = {color: '#000', textColor: '#111'}

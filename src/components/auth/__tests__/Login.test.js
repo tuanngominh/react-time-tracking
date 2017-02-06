@@ -3,9 +3,9 @@ import {mount} from 'enzyme'
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {Provider} from 'react-redux'
-import configureStore from '../../configureStore'
+import configureStore from '../../../configureStore'
 
-import Login from './Login'
+import Login from '../Login'
 
 // Needed for onTouchTap
 import injectTapEventPlugin from 'react-tap-event-plugin';

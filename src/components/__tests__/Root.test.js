@@ -1,12 +1,12 @@
 import React from 'react'
 import {shallow} from 'enzyme'
 
-import {setupWindowMatchMedia, setupLocalStorage} from '../test/utils'
+import {setupWindowMatchMedia, setupLocalStorage} from '../../test/utils'
 
-import Root, {basename} from './Root'
-import history from '../history'
+import Root, {basename} from '../Root'
+import history from '../../history'
 
-import configureStore from '../configureStore'
+import configureStore from '../../configureStore'
 
 describe('<Root />', () => {
   setupLocalStorage()
