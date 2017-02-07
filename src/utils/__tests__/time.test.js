@@ -1,4 +1,4 @@
-import {fromAmPM, fromAmPmToDate} from './time'
+import {fromAmPM, fromAmPmToDate} from '../time'
 
 describe('fromAmPM', () => {
   it('correct format', () => {
