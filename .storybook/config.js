@@ -32,6 +32,9 @@ function loadStories() {
   require('../stories/auth/Login.js')
   require('../stories/TimeEntryInputForm.js')
   require('../stories/TimeEntryInput.js')
+  require('../stories/TimeEntryListItem.js')
+  require('../stories/TimeEntryListItemsByDay.js')
+  require('../stories/TimeEntryList.js')
 }
 
 configure(loadStories, module);

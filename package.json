@@ -9,7 +9,8 @@
     "gh-pages": "^0.12.0",
     "react-addons-test-utils": "^15.4.2",
     "react-scripts": "0.8.5",
-    "redux-mock-store": "^1.2.2"
+    "redux-mock-store": "^1.2.2",
+    "timezoned-date": "^2.0.19"
   },
   "dependencies": {
     "firebase": "^3.6.8",

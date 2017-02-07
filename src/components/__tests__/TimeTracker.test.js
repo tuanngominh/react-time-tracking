@@ -6,7 +6,7 @@ import TimeTracker from '../TimeTracker'
 describe('<TimeTracker />', () => {
   it ('render', () => {
     const wrapper = shallow(<TimeTracker />)
-    expect(wrapper.children().length).toBe(1)
+    expect(wrapper.children().length).toBeGreaterThan(0)
 
   })
 

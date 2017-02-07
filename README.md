@@ -19,7 +19,7 @@ Just try to build the death simple version of time tracking
 
 - [x] Can add time entry
 - [x] Can track time spent on time entry and stop a time entry tracking
-- Can list time entries
+- [x] Can list time entries
 - Delete time entry
 
 - Add tag to time entry
@@ -33,7 +33,7 @@ Just try to build the death simple version of time tracking
 Low priority
 - Signup using google, facebook
 
-# Enzyme
+# Enzyme notes
 Simulate `onClick` event in `shallow` ([github](https://github.com/airbnb/enzyme/issues/323#issuecomment-210039710))
 ```js
 const componentWrapper = shallow(<Component />)
@@ -46,3 +46,7 @@ const input = wrapper.find('input[name="text"]')
 input.node.value = "newvalue"
 input.simulate('change', input)
 ```
+
+# Material UI 0.16.7 notes
+Click on button in a Table's Row without select that row ([github](https://github.com/callemall/material-ui/issues/4535#issuecomment-231375019))
+

@@ -7,7 +7,7 @@ import { storiesOf, action, linkTo, addDecorator } from '@kadira/storybook';
 
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
-import TimeEntryInput from '../src/components/TimeEntryInput';
+import TimeEntryInput from '../src/containers/TimeEntryInput';
 
 storiesOf('<TimeEntryInput />', module)
   .add('Tracking', () => {

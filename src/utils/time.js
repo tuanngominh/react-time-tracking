@@ -27,11 +27,20 @@ export const getTimeDuration = (startTime, endTime) => {
 "10:10 PM"
 */
 export const toAmPm = (date) => {
-  let hours = date.getHours()
-  const minutes = date.getMinutes()
-  const amPm = hours >= 12 ? 'PM' : 'AM'
-  hours = hours % 12 || 12
-  return hours + ':' + pad0Left(minutes) + ' ' + amPm
+  if (typeof date === 'string') {
+    date = new Date(date)
+  }
+  
+  if (date instanceof Date) {
+    let hours = date.getHours()
+    const minutes = date.getMinutes()
+    const amPm = hours >= 12 ? 'PM' : 'AM'
+    hours = hours % 12 || 12
+    return hours + ':' + pad0Left(minutes) + ' ' + amPm    
+  } else {
+    console.error("input is not a date")
+    return false
+  }
 }
 
 /*
