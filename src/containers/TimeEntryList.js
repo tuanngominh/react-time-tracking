@@ -8,7 +8,7 @@ import {groupByDay} from '../utils/timeEntries'
 
 import TimeEntryListItemsByDay from '../components/TimeEntryListItemsByDay'
 
-class TimeEntryList extends Component {
+export class TimeEntryList extends Component {
   static propTypes = {
     onFetchList: PropTypes.func,
     entries: PropTypes.object

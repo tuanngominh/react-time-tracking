@@ -6,7 +6,6 @@ const timeEntries = (state = {}, action) => {
       if (
         (action.status && action.status === 'success')
       ) {
-        console.log(JSON.stringify(action.payload.entries))
         return { 
           entries: action.payload.entries,
           isFetching: action.isFetching
