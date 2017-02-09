@@ -1,6 +1,10 @@
 import React, {Component, PropTypes} from 'react'
+import {connect} from 'react-redux'
+import {get} from 'lodash'
 
 import {toAmPm} from '../utils/time'
+
+import {remove} from '../actions/timeEntries'
 
 import {TableRow, TableRowColumn} from 'material-ui/Table'
 import TextField from 'material-ui/TextField'
@@ -8,8 +12,9 @@ import FlatButton  from 'material-ui/FlatButton'
 
 import FontIcon from 'material-ui/FontIcon'
 
-class TimeEntryListItem extends Component {
+export class TimeEntryListItem extends Component {
   static propTypes = {
+    uid: PropTypes.string,
     id: PropTypes.string,
     text: PropTypes.string,
     startTime: PropTypes.string,
@@ -20,8 +25,8 @@ class TimeEntryListItem extends Component {
       text: this.props.text
     })   
   }
-  handleClick = () => {
-    console.log(this.props.id)
+  handleRemove = () => {
+    this.props.onRemove(this.props.uid, this.props.id)
   }
   handleChangeText = (e) => {
     this.setState({
@@ -52,7 +57,7 @@ class TimeEntryListItem extends Component {
           }}>
             <FlatButton
               icon={<FontIcon className="material-icons" style={{color: 'grey', width: 50, fontSize: 20}}>delete</FontIcon>}
-              onClick={this.handleClick}
+              onClick={this.handleRemove}
             />
           </div>
         </TableRowColumn>
@@ -61,4 +66,22 @@ class TimeEntryListItem extends Component {
   }
 }
 
-export default TimeEntryListItem
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onRemove: (uid, entryId) => {
+      dispatch(remove(uid, entryId))
+    }
+  }
+}
+
+const mapStateToProps = (state) => {
+  return {
+    uid: get(state,"auth.user.uid", null)
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(TimeEntryListItem)

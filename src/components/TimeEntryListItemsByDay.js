@@ -2,7 +2,7 @@ import React, {Component, PropTypes} from 'react'
 
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow} from 'material-ui/Table'
 
-import TimeEntryListItem from './TimeEntryListItem'
+import TimeEntryListItem from '../containers/TimeEntryListItem'
 
 class TimeEntryListItemsByDay extends Component {
   static propTypes = {

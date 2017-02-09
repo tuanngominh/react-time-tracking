@@ -1,6 +1,6 @@
 import firebase from '../configureFirebase'
 import * as types from '../constants/ActionTypes'
-import {actionStart, actionSuccess} from './utils/template'
+import {actionStart, actionSuccess, actionFailed} from './utils/template'
 
 export const fetchList = (uid, text) => {
   return function(dispatch) {
@@ -25,5 +25,20 @@ export const fetchList = (uid, text) => {
         resolve()
       })
     })
+  }
+}
+
+export const remove = (uid, entryId) => {
+  return function(dispatch) {
+    dispatch(actionStart(types.TIME_ENTRIES_REMOVE, {payload: {entryId}}))
+    
+    const promise = firebase.database().ref('timeEntries/' + uid + '/' + entryId).remove()
+    promise.then(function(){
+      dispatch(actionSuccess(types.TIME_ENTRIES_REMOVE))
+    })
+    .catch(function(){
+      dispatch(actionFailed(types.TIME_ENTRIES_REMOVE))
+    })
+
   }
 }

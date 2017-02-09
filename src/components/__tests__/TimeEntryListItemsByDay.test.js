@@ -34,11 +34,5 @@ describe('<TimeEntryListItemsByDay />', () => {
     />)
     expect(wrapper.children().length).toBeGreaterThan(0)    
   })
-  it ('render full', () => {
-    const wrapper = mount(<TimeEntryListItemsByDay_withTheme 
-      {...props}
-    />)
-    expect(wrapper.find('TimeEntryListItem').length).toBeGreaterThan(0)    
-  })
 
 })
