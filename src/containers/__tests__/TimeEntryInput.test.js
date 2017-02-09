@@ -100,6 +100,7 @@ describe('<TimeEntryInput />', () => {
     //earlier than now 20 minutes
     const startTime = new Date((now).setMinutes(now.getMinutes() - 20))
     const props = {
+      onPull: jest.fn(),
       onRemove: jest.fn(),
       startTime: startTime.toJSON()
     }
