@@ -10,6 +10,11 @@ injectTapEventPlugin();
 
 const TimeEntryInputForm_withTheme = withTheme(TimeEntryInputForm)
 
+const now = new Date()
+//earlier than now 20 minutes
+const startTime = new Date((now).setMinutes(now.getMinutes() - 20))
+const text = 'text123'
+
 describe('<TimeEntryInputForm />', () => {
   it ('render', () => {
     const wrapper = shallow(<TimeEntryInputForm />)
@@ -35,10 +40,6 @@ describe('<TimeEntryInputForm />', () => {
   })
 
   it('stop time tracking', () => {
-    const now = new Date()
-    //earlier than now 20 minutes
-    const startTime = new Date((now).setMinutes(now.getMinutes() - 20))
-
     const props = {
       startTime,
       onStop: jest.fn()
@@ -60,11 +61,6 @@ describe('<TimeEntryInputForm />', () => {
   })
 
   it('change time tracking text', () => {
-    // jest.useFakeTimers();
-    const now = new Date()
-    //earlier than now 20 minutes
-    const startTime = new Date((now).setMinutes(now.getMinutes() - 20))
-    const text = 'text123'
     const newText = 'text1234'
     const props = {
       startTime,
@@ -83,6 +79,25 @@ describe('<TimeEntryInputForm />', () => {
     //FIXME: runAllTimers frozen nodejs
     // jest.runAllTimers()
     // expect(props.onChangeText).toHaveBeenCalledTimes(1)
+  })
+
+  it('should be able to remove current tracking item', () => {
+    const props = {
+      startTime,
+      text,
+      onRemove: jest.fn()      
+    }
+    const wrapper = mount(<TimeEntryInputForm_withTheme {...props} />)
+    const btn = wrapper.findWhere(n => {
+      return (
+        (n.name() === 'EnhancedButton') 
+        && 
+        (n.prop('name') === 'btn-remove')
+      )
+    })
+    btn.simulate('click')
+    expect(props.onRemove).toHaveBeenCalledTimes(1)
+
   })
 
 })

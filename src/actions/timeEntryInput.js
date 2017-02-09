@@ -122,3 +122,18 @@ export const start = (uid, text, date) => {
     return promise    
   }
 }
+
+export const remove = (uid) => {
+  return function(dispatch) {
+    dispatch(actionStart(types.TIME_ENTRY_INPUT__REMOVE))
+    
+    const promise = firebase.database().ref('timeEntryInputs/' + uid).remove()
+    promise.then(function(){
+      dispatch(actionSuccess(types.TIME_ENTRY_INPUT__REMOVE))
+    })
+    .catch(function(){
+      dispatch(actionFailed(types.TIME_ENTRY_INPUT__REMOVE))
+    })
+    return promise    
+  }
+}

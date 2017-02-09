@@ -17,7 +17,7 @@ export class TimeEntryInputForm extends Component {
     onChangeText: PropTypes.func,    
     onOpenDialog: PropTypes.func,
     onStop: PropTypes.func,
-    onDelete: PropTypes.func,
+    onRemove: PropTypes.func,
     onStart: PropTypes.func,
     isFetching: PropTypes.bool
   }
@@ -184,12 +184,13 @@ export class TimeEntryInputForm extends Component {
           this.state.duration
           ?
           <FlatButton 
+            name='btn-remove'
             icon={<FontIcon className="material-icons" style={{color: 'grey', width: 50, fontSize: 20}}>delete</FontIcon>}
             style={{
               marginLeft: 20,
               minWidth: 50
             }}
-            onClick={this.props.onDelete}
+            onClick={this.props.onRemove}
           />
           :
           ''

@@ -93,6 +93,21 @@ describe('<TimeEntryInput />', () => {
     
     expect(props.onChangeStartTime).toHaveBeenCalledTimes(0)
     expect(wrapper.state().startTimeAmPm).toBe(originalStartTimeAmPm)
-  })  
+  })
+
+  it ('should be able to handle delete current tracking item', () => {
+    const now = new Date()
+    //earlier than now 20 minutes
+    const startTime = new Date((now).setMinutes(now.getMinutes() - 20))
+    const props = {
+      onRemove: jest.fn(),
+      startTime: startTime.toJSON()
+    }
+    const wrapper = shallow(<TimeEntryInput {...props} />)
+
+    wrapper.instance().handleRemove()
+    
+    expect(props.onRemove).toHaveBeenCalledTimes(1)
+  })
 
 })

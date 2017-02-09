@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {get} from 'lodash'
 
 import {toAmPm, fromAmPM, fromAmPmToDate} from '../utils/time'
-import {changeText, changeStartTime, stop, start, pull} from '../actions/timeEntryInput'
+import {changeText, changeStartTime, stop, start, pull, remove} from '../actions/timeEntryInput'
 
 import TextField from 'material-ui/TextField'
 import Dialog from 'material-ui/Dialog'
@@ -20,6 +20,7 @@ export class TimeEntryInput extends Component {
     onStop: PropTypes.func,
     onStart: PropTypes.func,
     onPull: PropTypes.func,
+    onRemove: PropTypes.func,
     isFetching: PropTypes.bool
   }
 
@@ -108,6 +109,10 @@ export class TimeEntryInput extends Component {
     this.props.onStop(this.props.uid, this.props.text, this.props.startTime)
   }
 
+  handleRemove = () => {
+    this.props.onRemove(this.props.uid)
+  }
+
   render() {
     return (
       <div>
@@ -119,6 +124,7 @@ export class TimeEntryInput extends Component {
           onOpenDialog={this.handleOpenDialog}
           onStop={this.handleStop}
           onStart={this.handleStart}
+          onRemove={this.handleRemove}
         />
         <Dialog
           open={this.state.dialogOpen}
@@ -158,6 +164,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     onPull: (uid) => {
       dispatch(pull(uid))
+    },
+    onRemove: (uid) => {
+      dispatch(remove(uid))
     }
   }
 }
