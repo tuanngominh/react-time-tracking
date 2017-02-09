@@ -1,4 +1,4 @@
-# Vivid Trace [![CircleCI](https://circleci.com/gh/tuanngominh/vivid-trace.svg?style=svg)](https://circleci.com/gh/tuanngominh/react-time-tracking) [![codecov](https://codecov.io/gh/tuanngominh/vivid-trace/branch/master/graph/badge.svg)](https://codecov.io/gh/tuanngominh/react-time-tracking)
+# Vivid Trace [![CircleCI](https://circleci.com/gh/tuanngominh/react-time-tracking.svg?style=svg)](https://circleci.com/gh/tuanngominh/react-time-tracking) [![codecov](https://codecov.io/gh/tuanngominh/react-time-tracking/branch/master/graph/badge.svg)](https://codecov.io/gh/tuanngominh/react-time-tracking)
 
 Time tracking app on [React](https://facebook.github.io/react/) ([demo](https://vivid-trace.firebaseapp.com/)).
 
