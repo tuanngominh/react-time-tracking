@@ -5,20 +5,17 @@ import Root from './containers/Root';
 import history from './history'
 
 import configureStore from './configureStore'
-import {isUserLoggedIn} from './actions/isUserLoggedIn'
 
 import '../node_modules/flexboxgrid/dist/flexboxgrid.min.css'
 import './index.css';
 
 const store = configureStore()
 
-store.dispatch(isUserLoggedIn())
-
 const requireAuth = (nextState, replace) => {
   const state = store.getState()
   if (!state.auth.userLoggedIn) {
     replace({
-      pathname: '/login',
+      pathname: '/check-auth',
       state: { nextPathname: nextState.location.pathname }
     })    
   }
