@@ -10,7 +10,7 @@ export const fetchList = (uid, text) => {
     
     const ref = firebase.database().ref('timeEntries/' + uid)
     return new Promise(function(resolve, reject){
-      ref.once('value', function(snapshot){
+      ref.on('value', function(snapshot){
         let entries = {}
         snapshot.forEach(function(childSnapshot){
           var childKey = childSnapshot.key
