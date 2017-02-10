@@ -34,6 +34,8 @@ const auth = (state = {}, action) => {
           ...action,
           userLoggedIn: true
         }
+      } else if ('isFetching' in action && action.isFetching) {
+        return Object.assign({}, state, {isFetching: action.isFetching})
       } else {
         return {
           ...action,

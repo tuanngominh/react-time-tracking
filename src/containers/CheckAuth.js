@@ -18,7 +18,10 @@ export class CheckAuth extends Component {
   }
 
   componentWillReceiveProps = (nextProps) => {
-    const {userLoggedIn, location, router} = nextProps
+    const {userLoggedIn, location, router, isFetching} = nextProps
+    if (isFetching) {
+      return
+    }
     if (userLoggedIn) {
       if (location.state && location.state.nextPathname) {
         router.replace(location.state.nextPathname)
@@ -53,7 +56,8 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (state) => {
   return {
-    userLoggedIn: get(state,"auth.userLoggedIn", false)
+    userLoggedIn: get(state,"auth.userLoggedIn", null),
+    isFetching: get(state,"auth.isFetching", null)
   }
 }
 
