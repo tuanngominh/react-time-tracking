@@ -15,14 +15,8 @@ class App extends Component {
       <MuiThemeProvider>
         <div>
           <Header userLoggedIn={this.props.auth.userLoggedIn} />
-          <div className="row">
-            <div className="col-xs-12
-                col-sm-offset-2 col-sm-8
-                col-md-offset-3 col-md-6
-                col-lg-offset-3 col-lg-6
-                ">
-              {this.props.children}
-            </div>
+          <div className="content">
+            {this.props.children}
           </div>          
         </div>
       </MuiThemeProvider>  
