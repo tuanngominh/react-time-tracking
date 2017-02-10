@@ -16,3 +16,57 @@ body {
   font-size: 15px;
   line-height: 24px;
 }
+
+/* content wrapper */
+.content {
+	margin: 5px;
+}
+
+@media screen and (min-width: 768px) {
+	.content {
+		margin: 10px;
+	}
+}
+
+@media screen and (min-width: 992px) {
+	.content {
+		margin: 20px;
+	}
+}
+
+@media screen and (min-width: 1200px) {
+	.content {
+		margin: 30px;
+	}
+}
+
+/* Report filter */
+.report-filter {
+
+}
+
+.filter-criteria {
+	display: block;
+}
+.filter-duration {
+	cursor: pointer;
+}
+
+@media screen and (min-width: 768px) {
+	.filter-criteria {
+		display: inline-block;
+		margin-left: 10px;
+		margin-right: 10px;
+		padding-left: 15px;
+		padding-right: 15px;
+		border-left: 1px solid #e6e6e6;
+	}
+
+	.filter-criteria.first {
+		margin-left: inherit;
+		margin-right: inherit;
+		border-left: inherit;
+		border-right: inherit;
+		padding-left: inherit;
+	}
+}

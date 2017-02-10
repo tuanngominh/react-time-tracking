@@ -50,3 +50,5 @@ input.simulate('change', input)
 # Material UI 0.16.7 notes
 Click on button in a Table's Row without select that row ([github](https://github.com/callemall/material-ui/issues/4535#issuecomment-231375019))
 
+Doesn't support responsive ([github](https://github.com/callemall/material-ui/issues/3614#issuecomment-235568806))
+

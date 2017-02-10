@@ -3,6 +3,7 @@ import { configure, addDecorator } from '@kadira/storybook'
 
 // custom style for components
 import '../src/App.css'
+import '../node_modules/flexboxgrid/dist/flexboxgrid.min.css'
 
 // Needed for onTouchTap of material-ui.com components
 import injectTapEventPlugin from 'react-tap-event-plugin'
@@ -34,6 +35,7 @@ function loadStories() {
   require('../stories/TimeEntryInput.js')
   require('../stories/TimeEntryListItem.js')
   require('../stories/TimeEntryListItemsByDay.js')
+  require('../stories/ReportFilter.js')
 }
 
 configure(loadStories, module);
