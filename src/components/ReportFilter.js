@@ -1,17 +1,48 @@
-import React, {Component} from 'react'
+import React, {Component, PropTypes} from 'react'
+import {connect} from 'react-redux'
+import {get} from 'lodash'
+
+import {getDurationInNaturalDescription} from '../utils/time'
 
 import TextField from 'material-ui/TextField'
 import Dialog from 'material-ui/Dialog'
 import DatePicker from 'material-ui/DatePicker'
 
-class ReportFilter extends Component {
+export class ReportFilter extends Component {
+  static propTypes = {
+    startDate: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.instanceOf(Date)
+    ]),
+    endDate: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.instanceOf(Date)
+    ]),
+    onChange: PropTypes.func
+  }
+
+  static defaultProps = {
+    text: '',
+    startDate: null,
+    endDate: null
+  }
 
   constructor(props) {
     super(props)
+
+    const toDate = (date) => {
+      if (typeof date === 'string') {
+        date = new Date(date)
+      }
+      return date
+    }
+    
     this.state = {
-      dialogOpen: false,
-      startDate: new Date(),
-      endDate: new Date()
+      text: '',      
+      startDate: toDate(this.props.startDate),
+      endDate: toDate(this.props.endDate),
+      changeTextSubmitTimeoutId: null,
+      dialogOpen: false
     }
   }
 
@@ -21,6 +52,9 @@ class ReportFilter extends Component {
 
   handleCloseDialog = () => {
     this.setState({dialogOpen:false})
+
+    const {text, startDate, endDate} = this.state
+    this.props.onChange(text, startDate, endDate)
   }
 
   handleStartDateChange = (e, date) => {
@@ -35,17 +69,40 @@ class ReportFilter extends Component {
     })
   }
 
+  handleChangeText = (e) => {    
+    const text = e.target.value
+    this.setState({
+      text: text
+    })
+
+    if (this.state.startDate) {
+      if (this.state.changeTextSubmitTimeoutId) {
+        clearTimeout(this.state.changeTextSubmitTimeoutId)
+      }
+
+      const timeout = setTimeout(() => {
+        this.props.onChange(this.state.text, this.state.startDate, this.state.endDate)
+      }, 1000)
+      this.setState({
+        changeTextSubmitTimeoutId: timeout
+      })
+      
+    }    
+  }
+
   render() {
     return (
       <div className="report-filter">
         <div className="filter-criteria first">
           <TextField
+            value={this.state.text}
+            onChange={this.handleChangeText}
             name="keyword"
             placeholder="Search keyword"
           />
         </div>        
         <div className="filter-criteria filter-duration" onClick={this.handleOpenDialog}>
-          This week <i className="fa fa-angle-down" aria-hidden="true"></i>
+          {getDurationInNaturalDescription(this.state.startDate, this.state.endDate)} <i className="fa fa-angle-down" aria-hidden="true"></i>
         </div>
         <Dialog
           open={this.state.dialogOpen}
@@ -81,4 +138,24 @@ class ReportFilter extends Component {
   }
 }
 
-export default ReportFilter
+const mapStateToProps = (state) => {
+  return {
+    uid: get(state,"auth.user.uid", null),
+    entries: get(state,"reportFilter.entries", {}),    
+    isFetching: get(state, "reportFilter.isFetching", null)
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onChange: (text, startDate, endDate) => {
+      console.log(text, startDate, endDate)
+      // dispatch(onChange(text))
+    }
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ReportFilter)
