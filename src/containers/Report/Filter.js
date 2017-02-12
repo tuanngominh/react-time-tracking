@@ -2,7 +2,8 @@ import React, {Component, PropTypes} from 'react'
 import {connect} from 'react-redux'
 import {get} from 'lodash'
 
-import {getDurationInNaturalDescription} from '../utils/time'
+import {getDurationInNaturalDescription} from '../../utils/time'
+import {fetch} from '../../actions/report'
 
 import TextField from 'material-ui/TextField'
 import Dialog from 'material-ui/Dialog'
@@ -23,7 +24,7 @@ export class ReportFilter extends Component {
 
   static defaultProps = {
     text: '',
-    startDate: null,
+    startDate: (new Date()),
     endDate: null
   }
 
@@ -36,7 +37,7 @@ export class ReportFilter extends Component {
       }
       return date
     }
-    
+
     this.state = {
       text: '',      
       startDate: toDate(this.props.startDate),
@@ -44,6 +45,11 @@ export class ReportFilter extends Component {
       changeTextSubmitTimeoutId: null,
       dialogOpen: false
     }
+  }
+
+  componentWillMount() {
+    const {text, startDate, endDate} = this.state
+    this.props.onChange(this.props.uid, text, startDate, endDate)    
   }
 
   handleOpenDialog = () => {
@@ -54,7 +60,7 @@ export class ReportFilter extends Component {
     this.setState({dialogOpen:false})
 
     const {text, startDate, endDate} = this.state
-    this.props.onChange(text, startDate, endDate)
+    this.props.onChange(this.props.uid, text, startDate, endDate)
   }
 
   handleStartDateChange = (e, date) => {
@@ -81,7 +87,7 @@ export class ReportFilter extends Component {
       }
 
       const timeout = setTimeout(() => {
-        this.props.onChange(this.state.text, this.state.startDate, this.state.endDate)
+        this.props.onChange(this.props.uid, this.state.text, this.state.startDate, this.state.endDate)
       }, 1000)
       this.setState({
         changeTextSubmitTimeoutId: timeout
@@ -140,17 +146,14 @@ export class ReportFilter extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    uid: get(state,"auth.user.uid", null),
-    entries: get(state,"reportFilter.entries", {}),    
-    isFetching: get(state, "reportFilter.isFetching", null)
+    uid: get(state,"auth.user.uid", null)
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onChange: (text, startDate, endDate) => {
-      console.log(text, startDate, endDate)
-      // dispatch(onChange(text))
+    onChange: (uid, text, startDate, endDate) => {
+      dispatch(fetch(uid, text, startDate, endDate))
     }
   }
 }

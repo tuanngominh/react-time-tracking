@@ -32,8 +32,8 @@ const MobileNav = (props) => {
       </IconButton>
       <IconButton 
         tooltip="Reports" 
-        containerElement={<Link to="/reports"/>} 
-        iconStyle={getMenuStyle(appBar, pathname, '/reports')} 
+        containerElement={<Link to="/report"/>} 
+        iconStyle={getMenuStyle(appBar, pathname, '/report')} 
         tooltipPosition='bottom-center'
         >
         <FontIcon className="material-icons">show_chart</FontIcon>

@@ -5,7 +5,7 @@ import {Router, Route, IndexRoute} from 'react-router'
 
 import App from './App'
 import Profile from '../components/Profile'
-import Reports from '../components/Reports'
+import Report from '../containers/Report'
 import TimeTracker from '../components/TimeTracker'
 import CheckAuth from './CheckAuth'
 import Login from './auth/Login'
@@ -20,7 +20,7 @@ const Root = ({store, history, requireAuth}) => (
         <IndexRoute component={TimeTracker} onEnter={requireAuth} />
         <Route path='/check-auth' component={CheckAuth} />
         <Route path='/tracker' component={TimeTracker} onEnter={requireAuth} />
-        <Route path='/reports' component={Reports} onEnter={requireAuth} />
+        <Route path='/report' component={Report} onEnter={requireAuth} />
         <Route path='/profile' component={Profile} onEnter={requireAuth} />
         <Route path='/login' component={Login} />
         <Route path='/request-reset-password' component={SendPasswordResetEmail} />

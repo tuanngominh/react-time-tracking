@@ -1,7 +1,7 @@
 jest.useFakeTimers()
 import React from 'react'
 import {shallow, mount} from 'enzyme'
-import {ReportFilter} from '../ReportFilter'
+import {ReportFilter} from '../Filter'
 import withTheme from '../../__mocks__/withTheme'
 
 // Needed for onTouchTap

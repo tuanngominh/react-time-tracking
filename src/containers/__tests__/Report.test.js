@@ -1,15 +1,15 @@
 import React from 'react'
 import {shallow} from 'enzyme'
 
-import Reports from '../Reports'
+import Report from '../Report'
 
-describe('<Reports />', () => {
+describe('<Report />', () => {
   it ('render', () => {
     //setup window.matchMedia
     window.matchMedia = () => {
       return true
     }
-    const wrapper = shallow(<Reports />)
+    const wrapper = shallow(<Report />)
     expect(wrapper.children().length).toBe(1)
 
   })

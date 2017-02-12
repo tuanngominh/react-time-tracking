@@ -2,6 +2,14 @@ export const pad0Left = (num) => (String('0' + num).slice(-2))
 
 //build time duration in format hh:mm:ss
 export const getTimeDuration = (startTime, endTime) => {
+  if (typeof startTime === 'string') {
+    startTime = new Date(startTime)
+  }
+
+  if (typeof endTime === 'string') {
+    endTime = new Date(endTime)
+  }
+
   const durationInSecond = Math.round((endTime - startTime) / 1000)
   let second = durationInSecond % 60
   let durationInMinute = 0
@@ -95,8 +103,8 @@ export const fromAmPmToDate = (amPm, now) => {
 
 Get duration description in natural language
 
-@param {string} startDate Duration's start date in yyy-mm-dd format
-@param {string} endDate Duration's end date in yyy-mm-dd format
+@param {string, date} startDate Duration's start date in yyy-mm-dd format
+@param {string, date} endDate Duration's end date in yyy-mm-dd format
 
 @return {string} 
 e.g. This Week, This Month, This Year, Jun - July
