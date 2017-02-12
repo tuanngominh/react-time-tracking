@@ -15,6 +15,8 @@ export const fetchList = (uid, text) => {
         snapshot.forEach(function(childSnapshot){
           var childKey = childSnapshot.key
           var childData = childSnapshot.val()
+          childData.startTime = new Date(childData.startTime)
+          childData.endTime = new Date(childData.endTime)
           entries[childKey] = childData
         })
 

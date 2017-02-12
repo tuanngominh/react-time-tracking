@@ -17,8 +17,8 @@ export class TimeEntryListItem extends Component {
     uid: PropTypes.string,
     id: PropTypes.string,
     text: PropTypes.string,
-    startTime: PropTypes.string,
-    endTime: PropTypes.string
+    startTime: PropTypes.instanceOf(Date),
+    endTime: PropTypes.instanceOf(Date)
   }
   componentWillMount() {
     this.setState({

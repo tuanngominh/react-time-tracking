@@ -29,7 +29,7 @@ export const changeStartTime = (uid, date) => {
       startTime: date
     }}))
 
-    const promise = firebase.database().ref('timeEntryInputs/' + uid).update({startTime: date})
+    const promise = firebase.database().ref('timeEntryInputs/' + uid).update({startTime: date.getTime()})
     promise
     .then((data) => {
       dispatch(actionSuccess(types.TIME_ENTRY_INPUT__CHANGE_START_TIME, {payload: {
@@ -53,8 +53,8 @@ export const stop = (uid, text, date) => {
     const now = new Date()
     const newEntryPromise = newEntryRef.set({
       text: text,
-      startTime: date,
-      endTime: now.toJSON()
+      startTime: date.getTime(),
+      endTime: now.getTime()
     })
     
     //delete current tracking entry
@@ -85,7 +85,7 @@ export const pull = (uid) => {
         if (val) {
           dispatch(actionSuccess(types.TIME_ENTRY_INPUT__PULL, {payload: {
             text: val.text,
-            startTime: val.startTime
+            startTime: new Date(val.startTime)
           }}))
         } else {
           dispatch(actionSuccess(types.TIME_ENTRY_INPUT__PULL, {payload: null}))
@@ -105,7 +105,7 @@ export const start = (uid, text, date) => {
     
     const entryData = {
       text: text,
-      startTime: date
+      startTime: date.getTime()
     }
     const promise = firebase.database().ref('timeEntryInputs/' + uid).set(entryData)
     promise

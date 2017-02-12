@@ -12,7 +12,7 @@ import TimeEntryInputForm from '../components/TimeEntryInputForm'
 
 export class TimeEntryInput extends Component {
   static propTypes = {
-    startTime: PropTypes.string,
+    startTime: PropTypes.instanceOf(Date),
     text: PropTypes.string,
     uid: PropTypes.string,
     onChangeText: PropTypes.func,
@@ -83,7 +83,7 @@ export class TimeEntryInput extends Component {
         startTime: newStartTimeInDate,
         startTimeAmPm: newStartTimeAmPm
       })
-      this.props.onChangeStartTime(this.props.uid, newStartTimeInDate.toJSON())
+      this.props.onChangeStartTime(this.props.uid, newStartTimeInDate)
     } 
     //invalid input, revert to current value
     else {
@@ -102,7 +102,7 @@ export class TimeEntryInput extends Component {
 
   handleStart = (text) => {
     const now = new Date()
-    this.props.onStart(this.props.uid, text, now.toJSON())
+    this.props.onStart(this.props.uid, text, now)
   }
 
   handleStop = () => {
