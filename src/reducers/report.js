@@ -6,8 +6,11 @@ const report = (state = {}, action) => {
       if (
         (action.status && action.status === 'success')
       ) {
+        const {entries, startDate, endDate} = action.payload
         return { 
-          entries: action.payload.entries,
+          entries, 
+          startDate, 
+          endDate,
           isFetching: action.isFetching
         }
       } else if ('isFetching' in action) {

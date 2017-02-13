@@ -5,14 +5,11 @@ Time tracking app on [React](https://facebook.github.io/react/) ([demo](https://
 # Tech stack
 Web application based on React (clientside) and Firebase (serverside)
 
-React requirement:
-- [x] Authencation
-- [x] Form processing
-- [x] Responsive
-- [x] Unit test
-- [x] Continous integration: circleci.com, codecov.io
+- Clientside UI libraries: (material ui)[http://material-ui.com], (flexboxgrid)[http://flexboxgrid.com/] layout, (formsy)[https://github.com/christianalfoni/formsy-react] form validation, (chartjs)[http://www.chartjs.org]
+- State management: redux, redux thunk, reselect
+- Unit test: jest + enzyme
 
-# Requirement
+# Features
 Just try to build the death simple version of time tracking
 - [x] Signup using email
 - [x] Login, logout, forgot password
@@ -22,11 +19,10 @@ Just try to build the death simple version of time tracking
 - [x] Can list time entries
 - [x] Delete time entry
 
+- [x] Report
+
 - Add tag to time entry
 - CRUD tag
-
-- Dashboard
-- Can view report and visualized chart: detail chart, summary chart
 
 - User profile
 

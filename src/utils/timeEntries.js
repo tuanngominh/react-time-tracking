@@ -1,4 +1,4 @@
-const isSameDate = (d1, d2) => {
+export const isSameDate = (d1, d2) => {
   if (
     (d1.getFullYear() === d2.getFullYear())
     &&

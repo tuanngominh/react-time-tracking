@@ -1,6 +1,6 @@
 {
-  "name": "vivid-trace",
-  "homepage": "https://vivid-trace.firebaseapp.com",
+  "name": "react-time-tracking",
+  "homepage": "https://github.com/tuanngominh/react-time-tracking",
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
@@ -13,6 +13,7 @@
     "timezoned-date": "^2.0.19"
   },
   "dependencies": {
+    "chart.js": "^2.5.0",
     "firebase": "^3.6.8",
     "flexboxgrid": "^6.3.1",
     "formsy-material-ui": "^0.5.3",
@@ -20,13 +21,16 @@
     "history": "^3.2.1",
     "lodash": "^4.17.4",
     "material-ui": "^0.16.7",
+    "moment": "^2.17.1",
     "react": "^15.4.2",
+    "react-chartjs-2": "^2.0.0",
     "react-dom": "^15.4.2",
     "react-redux": "^5.0.2",
     "react-router": "^3.0.1",
     "react-tap-event-plugin": "^2.0.1",
     "redux": "^3.6.0",
-    "redux-thunk": "^2.2.0"
+    "redux-thunk": "^2.2.0",
+    "reselect": "^2.5.4"
   },
   "scripts": {
     "start": "react-scripts start",

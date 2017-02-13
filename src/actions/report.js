@@ -35,7 +35,9 @@ export const fetch = (uid, text, startDate, endDate) => {
         }
 
         dispatch(actionSuccess(types.REPORT_FETCH, {payload: {
-          entries
+          entries,
+          startDate,
+          endDate
         }}))
 
         resolve()
