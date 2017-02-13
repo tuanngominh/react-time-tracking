@@ -48,6 +48,10 @@ export class TimeEntryInputForm extends Component {
     this.startTicking()
   }
 
+  componentWillUnmount() {
+    this.stopTicking()
+  }
+
   componentWillReceiveProps = (nextProps) => {
     if (nextProps.startTime) {
       const startTime =  new Date(nextProps.startTime)
