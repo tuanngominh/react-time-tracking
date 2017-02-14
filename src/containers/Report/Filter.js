@@ -1,9 +1,8 @@
 import React, {Component, PropTypes} from 'react'
 import {connect} from 'react-redux'
 import {get} from 'lodash'
-
-import {getDurationInNaturalDescription} from '../../utils/time'
 import {fetch} from '../../actions/report'
+import moment from 'moment'
 
 import TextField from 'material-ui/TextField'
 import Dialog from 'material-ui/Dialog'
@@ -96,6 +95,14 @@ export class ReportFilter extends Component {
     }    
   }
 
+  getDurationSummary = (startDate, endDate) => {
+    if (startDate.getYear() !== endDate.getYear()) {
+      return moment(startDate).format('D MMM, YYYY') + ' - ' + moment(endDate).format('D MMM, YYYY')
+    } else {
+      return moment(startDate).format('D MMM') + ' - ' + moment(endDate).format('D MMM')
+    }
+  }
+
   render() {
     return (
       <div className="report-filter">
@@ -108,7 +115,7 @@ export class ReportFilter extends Component {
           />
         </div>        
         <div className="filter-criteria filter-duration" onClick={this.handleOpenDialog}>
-          {getDurationInNaturalDescription(this.state.startDate, this.state.endDate)} <i className="fa fa-angle-down" aria-hidden="true"></i>
+          {this.getDurationSummary(this.state.startDate, this.state.endDate)} <i className="fa fa-angle-down" aria-hidden="true"></i>
         </div>
         <Dialog
           open={this.state.dialogOpen}

@@ -98,17 +98,3 @@ export const fromAmPmToDate = (amPm, now) => {
   }
   return null
 }
-
-/*
-
-Get duration description in natural language
-
-@param {string, date} startDate Duration's start date in yyy-mm-dd format
-@param {string, date} endDate Duration's end date in yyy-mm-dd format
-
-@return {string} 
-e.g. This Week, This Month, This Year, Jun - July
-*/
-export const getDurationInNaturalDescription = (startDate, endDate) => {
-  return 'This Week'
-}
