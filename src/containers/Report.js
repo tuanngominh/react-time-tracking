@@ -14,10 +14,11 @@ const style = {
   marginBottom: 30
 }
 
-class Report extends Component {
+export class Report extends Component {
   render() {
     let startDate = new Date()
-    startDate.setDate(startDate.getDate() - 7 )
+    startDate.setDate(startDate.getDate() - 7)
+    startDate.setHours(0, 0, 0)
     const endDate = new Date()
 
     const hasData = this.props.entries && (Object.keys(this.props.entries).length > 0)

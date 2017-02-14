@@ -55,7 +55,7 @@ describe('<TimeEntryInput />', () => {
     const props = {
       onPull: jest.fn(),
       onChangeStartTime: jest.fn(),
-      startTime: originalStartTime.toJSON(),
+      startTime: originalStartTime,
       uid
     }
     const wrapper = shallow(<TimeEntryInput {...props} />)
@@ -68,7 +68,7 @@ describe('<TimeEntryInput />', () => {
     expect(props.onChangeStartTime).toHaveBeenCalledTimes(1)
     expect(props.onChangeStartTime.mock.calls[0][0]).toBe(uid)
     //remove milisecond during compare
-    expect(props.onChangeStartTime.mock.calls[0][1].slice(0, -5)).toBe(newStartTime.toJSON().slice(0, -5))
+    expect(props.onChangeStartTime.mock.calls[0][1].toJSON().slice(0, -5)).toBe(newStartTime.toJSON().slice(0, -5))
   
   })
 
