@@ -12,7 +12,7 @@ export const getEffortByDayForBarChart = createSelector(
   (entries, startDate, endDate) => {
     let labels = [], data = []
 
-    if (startDate > endDate) {
+    if (startDate > endDate || !entries) {
       return { labels, data }
     }
 

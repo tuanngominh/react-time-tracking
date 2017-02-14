@@ -69,9 +69,11 @@ export class ReportFilter extends Component {
   }
 
   handleEndDateChange = (e, date) => {
-    this.setState({
-      endDate: date
-    })
+    if (date > this.state.startDate) {
+      this.setState({
+        endDate: date
+      })      
+    }
   }
 
   handleChangeText = (e) => {    
