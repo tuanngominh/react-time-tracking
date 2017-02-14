@@ -3,7 +3,7 @@ import {mount} from 'enzyme'
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {Provider} from 'react-redux'
-import configureStore from '../../../configureStore'
+import configureStore from '../../../store/configureStore'
 
 import Login from '../Login'
 

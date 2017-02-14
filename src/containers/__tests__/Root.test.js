@@ -6,7 +6,7 @@ import {setupWindowMatchMedia, setupLocalStorage} from '../../test/utils'
 import Root, {basename} from '../Root'
 import history from '../../history'
 
-import configureStore from '../../configureStore'
+import configureStore from '../../store/configureStore'
 
 describe('<Root />', () => {
   setupLocalStorage()
