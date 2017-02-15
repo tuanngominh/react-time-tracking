@@ -36,7 +36,7 @@ export const getSummaryReport = createSelector(
       let totalDurationByDay = moment.duration()
       Object.keys(entries).forEach((key) => {
         const entry = entries[key]
-        if (isSameDate(entry.startTime, startDate)) {
+        if (moment(entry.startTime).isSame(startDate, 'day')) {
           const ms = moment(entry.endTime).diff(moment(entry.startTime))
           const duration = moment.duration(ms)
           totalDurationByDay.add(duration)
