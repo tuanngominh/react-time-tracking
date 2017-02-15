@@ -1,19 +1,17 @@
-export const actionFailed = (actionType, errorMessage) => {
-  if (errorMessage) {
-    return {
-      type: actionType,
-      status: 'error',
-      isFetching: false,
-      errorMessage     
-    }    
-  } else {
-    return {
-      type: actionType,
-      status: 'error',
-      isFetching: false
-    }
+export const actionFailed = (actionType, errorMessage, object) => {
+  let action = {
+    type: actionType,
+    status: 'error',
+    isFetching: false
   }
 
+  if (errorMessage) {
+    action.errorMessage = errorMessage
+  }
+  if (object) {
+    action = Object.assign(action, object)
+  }
+  return action
 }
 
 export const actionStart = (actionType, object) => {
