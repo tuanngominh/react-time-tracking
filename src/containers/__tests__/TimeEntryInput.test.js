@@ -37,7 +37,7 @@ describe('<TimeEntryInput />', () => {
     expect(props.onPull).toHaveBeenCalledTimes(1)
   })
 
-  it ('onPull: pull current tracking entry from server', () => {
+  it ('can pull current tracking entry from server during first render', () => {
     const props = {
       onPull: jest.fn()
     }
@@ -45,17 +45,20 @@ describe('<TimeEntryInput />', () => {
     expect(props.onPull).toHaveBeenCalledTimes(1)
   })
 
-  it ('onChangeStartTime - success', () => {
-    
-    const now = new Date()
+  it ('can change start time', () => {
+    //20:20 PM UTC
+    const now =               new Date(Date.UTC(2017, 1, 12, 20, 20, 0))
     //earlier than now 20 minutes
-    const originalStartTime = new Date((now).setMinutes(now.getMinutes() - 20))
+    //20:00 PM UTC
+    const originalStartTime = new Date(Date.UTC(2017, 1, 12, 20, 0, 0))
     //earlier than now 10 minutes
-    const newStartTime = new Date((now).setMinutes(now.getMinutes() - 10))
+    //20:10 PM UTC
+    const newStartTime =      new Date(Date.UTC(2017, 1, 12, 20, 10, 0))
     const props = {
+      now: now.getTime(),
       onPull: jest.fn(),
       onChangeStartTime: jest.fn(),
-      startTime: originalStartTime,
+      startTime: originalStartTime.getTime(),
       uid
     }
     const wrapper = shallow(<TimeEntryInput {...props} />)
@@ -72,7 +75,7 @@ describe('<TimeEntryInput />', () => {
   
   })
 
-  it ('onChangeStartTime - failed so doesn\'t change startime', () => {
+  it ('can only change time to valid format data', () => {
     
     const now = new Date()
     //earlier than now 20 minutes
@@ -81,7 +84,7 @@ describe('<TimeEntryInput />', () => {
     const props = {
       onPull: jest.fn(),
       onChangeStartTime: jest.fn(),
-      startTime: originalStartTime.toJSON()
+      startTime: originalStartTime.getTime()
     }
     const wrapper = shallow(<TimeEntryInput {...props} />)
 
@@ -102,7 +105,7 @@ describe('<TimeEntryInput />', () => {
     const props = {
       onPull: jest.fn(),
       onRemove: jest.fn(),
-      startTime: startTime.toJSON()
+      startTime: startTime.getTime()
     }
     const wrapper = shallow(<TimeEntryInput {...props} />)
 
@@ -111,4 +114,19 @@ describe('<TimeEntryInput />', () => {
     expect(props.onRemove).toHaveBeenCalledTimes(1)
   })
 
+  it ('can stop and save current tracking data', () => {
+    const now = new Date()
+    //earlier than now 20 minutes
+    const startTime = new Date((now).setMinutes(now.getMinutes() - 20))
+    const props = {
+      onPull: jest.fn(),
+      onStop: jest.fn(),
+      startTime: startTime.getTime()
+    }
+    const wrapper = shallow(<TimeEntryInput {...props} />)
+
+    wrapper.instance().handleStop()
+    
+    expect(props.onStop).toHaveBeenCalledTimes(1)    
+  })
 })
