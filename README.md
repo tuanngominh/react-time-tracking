@@ -30,6 +30,11 @@ Tag
 Low priority
 - Signup using google, facebook
 
+# Demo
+Try demo at [https://vivid-trace.firebaseapp.com/](https://vivid-trace.firebaseapp.com/)
+
+[![React time tracking demo](https://cloud.githubusercontent.com/assets/2210733/22968269/534e1d6e-f39c-11e6-8314-9a6815146e36.png)](https://www.youtube.com/watch?v=X7dH_CCoZmQ "React time tracking demo")
+
 # Enzyme notes
 Simulate `onClick` event in `shallow` ([github](https://github.com/airbnb/enzyme/issues/323#issuecomment-210039710))
 ```js
@@ -48,4 +53,3 @@ input.simulate('change', input)
 Click on button in a Table's Row without select that row ([github](https://github.com/callemall/material-ui/issues/4535#issuecomment-231375019))
 
 Doesn't support responsive ([github](https://github.com/callemall/material-ui/issues/3614#issuecomment-235568806))
-
