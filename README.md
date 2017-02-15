@@ -5,7 +5,7 @@ Time tracking app on [React](https://facebook.github.io/react/) ([demo](https://
 # Tech stack
 Web application based on React (clientside) and Firebase (serverside)
 
-- Clientside UI libraries: (material ui)[http://material-ui.com], (flexboxgrid)[http://flexboxgrid.com/] layout, (formsy)[https://github.com/christianalfoni/formsy-react] form validation, (chartjs)[http://www.chartjs.org]
+- Clientside UI libraries: [material ui](http://material-ui.com), [flexboxgrid](http://flexboxgrid.com/) layout, [formsy](https://github.com/christianalfoni/formsy-react) form validation, [chartjs](http://www.chartjs.org) chart
 - State management: redux, redux thunk, reselect
 - Unit test: jest + enzyme
 
