@@ -10,17 +10,18 @@ Web application based on React (clientside) and Firebase (serverside)
 - Unit test: jest + enzyme
 
 # Features
-Just try to build the death simple version of time tracking
+Authentication
 - [x] Signup using email
 - [x] Login, logout, forgot password
 
+Time entry
 - [x] Can add time entry
 - [x] Can track time spent on time entry and stop a time entry tracking
 - [x] Can list time entries
 - [x] Delete time entry
-
 - [x] Report
 
+Tag
 - Add tag to time entry
 - CRUD tag
 
