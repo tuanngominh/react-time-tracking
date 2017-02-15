@@ -12,7 +12,8 @@ import TimeEntryInputForm from '../components/TimeEntryInputForm'
 
 export class TimeEntryInput extends Component {
   static propTypes = {
-    startTime: PropTypes.instanceOf(Date),
+    now: PropTypes.number,//timestamp. We need to pass now in unit test
+    startTime: PropTypes.number,
     text: PropTypes.string,
     uid: PropTypes.string,
     onChangeText: PropTypes.func,
@@ -76,7 +77,7 @@ export class TimeEntryInput extends Component {
     
     const startTimeAmPm = fromAmPM(e.target.value)
     if (startTimeAmPm) {
-      const now = new Date()
+      const now = this.props.now ? new Date(this.props.now) : new Date()
       const newStartTimeInDate = fromAmPmToDate(value, now)
       const newStartTimeAmPm = toAmPm(newStartTimeInDate)
       this.setState({
@@ -101,7 +102,7 @@ export class TimeEntryInput extends Component {
   }
 
   handleStart = (text) => {
-    const now = new Date()
+    const now = this.props.now ? new Date(this.props.now) : new Date()
     this.props.onStart(this.props.uid, text, now)
   }
 
@@ -154,13 +155,14 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(changeText(uid, text))
     },
     onChangeStartTime: (uid, date) => {
-      dispatch(changeStartTime(uid, date))
+      dispatch(changeStartTime(uid, date.getTime()))
     },
     onStop: (uid, text, date) => {
+      console.log(date)
       dispatch(stop(uid, text, date))
     },
     onStart: (uid, text, date) => {
-      dispatch(start(uid, text, date))
+      dispatch(start(uid, text, date.getTime()))
     },
     onPull: (uid) => {
       dispatch(pull(uid))

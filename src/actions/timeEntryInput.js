@@ -53,7 +53,7 @@ export const stop = (uid, text, date) => {
     const now = new Date()
     const newEntryPromise = newEntryRef.set({
       text: text,
-      startTime: date.getTime(),
+      startTime: date,
       endTime: now.getTime()
     })
     
@@ -85,7 +85,7 @@ export const pull = (uid) => {
         if (val) {
           dispatch(actionSuccess(types.TIME_ENTRY_INPUT__PULL, {payload: {
             text: val.text,
-            startTime: new Date(val.startTime)
+            startTime: val.startTime
           }}))
         } else {
           dispatch(actionSuccess(types.TIME_ENTRY_INPUT__PULL, {payload: null}))
@@ -105,7 +105,7 @@ export const start = (uid, text, date) => {
     
     const entryData = {
       text: text,
-      startTime: date.getTime()
+      startTime: date
     }
     const promise = firebase.database().ref('timeEntryInputs/' + uid).set(entryData)
     promise
