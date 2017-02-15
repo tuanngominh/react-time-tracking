@@ -1,7 +1,6 @@
 import { createSelector } from 'reselect'
 import moment from 'moment'
 import 'moment-duration-format'
-import {isSameDate} from '../../utils/timeEntries'
 
 const getEntries = (state) => state.report.entries
 const getStartDate = (state) => state.report.startDate

@@ -1,42 +1,19 @@
-export const isSameDate = (d1, d2) => {
-  if (typeof d1 === 'string' || typeof d1 === 'number') {
-    d1 = new Date(d1)
-  }
+import moment from 'moment'
 
-  if (typeof d2 === 'string' || typeof d2 === 'number') {
-    d2 = new Date(d2)
-  }
-
-  if (
-    (d1.getFullYear() === d2.getFullYear())
-    &&
-    (d1.getMonth() === d2.getMonth())
-    &&
-    (d1.getDate() === d2.getDate())
-  ) {
-      return true
-  }
-
-  return false
-}
 const getDate = (date) => {
   date = new Date(date)
 
-  const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
-  const weekday = weekdays[date.getDay()]
-  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-  const month = months[date.getMonth()]
   const today = new Date()
   let yesterday = new Date()
   yesterday.setDate(yesterday.getDate() - 1)
 
 
-  if (isSameDate(date, today)) {
+  if (moment(date).isSame(today, 'day')) {
     return 'Today'
-  } else if (isSameDate(date, yesterday)) {
+  } else if (moment(date).isSame(yesterday, 'day')) {
     return 'Yesterday'
   } else {
-    return weekday + ', ' + date.getDate() + ' ' + month
+    return moment(date).format('ddd, D MMM')
   }
 }
 
