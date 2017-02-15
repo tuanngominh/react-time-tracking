@@ -18,42 +18,36 @@ export class Report extends Component {
   render() {    
     const hasData = this.props.entries && (Object.keys(this.props.entries).length > 0)
     return (
-      <div className="row">
-        <div className="col-xs-12
-          col-sm-offset-2 col-sm-8
-          col-md-offset-2 col-md-8
-          col-lg-offset-2 col-lg-8
-          ">
-          <Paper style={style} zDepth={1} >
-            <ReportFilter />
-          </Paper>
-          {
-            this.props.isFetching
+      <div>
+        <Paper style={style} zDepth={1} >
+          <ReportFilter />
+        </Paper>
+        {
+          this.props.isFetching
+          ?
+            <div style={{textAlign: 'center', position: 'relative'}}>
+              <RefreshIndicator
+                size={40}
+                left={10}
+                top={0}
+                status="loading"
+                style={{display: 'inline-block', position: 'relative'}}
+              />
+            </div>
+          :
+            hasData
             ?
-              <div style={{textAlign: 'center', position: 'relative'}}>
-                <RefreshIndicator
-                  size={40}
-                  left={10}
-                  top={0}
-                  status="loading"
-                  style={{display: 'inline-block', position: 'relative'}}
-                />
+              <div>
+                <p>
+                  Total{' '}
+                  <span className='total-effort'>{this.props.report.totalEffort}</span>
+                </p>
+                <BarChart labels={this.props.report.effortByDayForBarChart.labels} data={this.props.report.effortByDayForBarChart.data} />
+                <ReportEntryList entries={this.props.entries} />
               </div>
             :
-              hasData
-              ?
-                <div>
-                  <p>
-                    Total{' '}
-                    <span className='total-effort'>{this.props.report.totalEffort}</span>
-                  </p>
-                  <BarChart labels={this.props.report.effortByDayForBarChart.labels} data={this.props.report.effortByDayForBarChart.data} />
-                  <ReportEntryList entries={this.props.entries} />
-                </div>
-              :
-                <p style={{textAlign: 'center'}}>No time entry found</p>
-          }
-        </div>
+              <p style={{textAlign: 'center'}}>No time entry found</p>
+        }
       </div>
     )    
   }
