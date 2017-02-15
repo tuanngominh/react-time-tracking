@@ -10,8 +10,6 @@ describe('<Report />', () => {
       return true
     }
     const wrapper = shallow(<Report />)
-    expect(wrapper.children().length).toBe(1)
-
   })
 
 })
