@@ -1,5 +1,6 @@
 import { createSelector } from 'reselect'
 import moment from 'moment'
+import 'moment-duration-format'
 import {isSameDate} from '../../utils/timeEntries'
 
 const getEntries = (state) => state.report.entries
@@ -7,7 +8,7 @@ const getStartDate = (state) => state.report.startDate
 const getEndDate = (state) => state.report.endDate
 
 //Get total effort by day which will show in a bar chart later
-export const getEffortByDayForBarChart = createSelector(
+export const getSummaryReport = createSelector(
   [getEntries, getStartDate, getEndDate],
   (entries, filterStartDate, filterEndDate) => {
     let labels = [], data = []
@@ -27,27 +28,33 @@ export const getEffortByDayForBarChart = createSelector(
       return { labels, data }
     }
 
+    let totalDuration = moment.duration()
     while (startDate <= endDate) {
       labels.push(moment(startDate).format('Do MMM'))
 
       //sum effort by startDate
-      let totalDuration = moment.duration()
+      let totalDurationByDay = moment.duration()
       Object.keys(entries).forEach((key) => {
         const entry = entries[key]
         if (isSameDate(entry.startTime, startDate)) {
           const ms = moment(entry.endTime).diff(moment(entry.startTime))
           const duration = moment.duration(ms)
-          totalDuration.add(duration)
+          totalDurationByDay.add(duration)
         }
       })
-      data.push(totalDuration.asMilliseconds())
+      data.push(totalDurationByDay.asMilliseconds())
+
+      totalDuration.add(totalDurationByDay)
 
       startDate.setDate(startDate.getDate() + 1)
     }
 
     return {
-      labels,
-      data
+      totalEffort: moment.duration(totalDuration, "minutes").format("hh:mm"), 
+      effortByDayForBarChart: {
+        labels,
+        data
+      }
     }
   }
 )

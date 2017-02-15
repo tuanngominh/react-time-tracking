@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {get} from 'lodash'
 import {connect} from 'react-redux'
-import {getEffortByDayForBarChart} from './Report/selectors.js'
+import {getSummaryReport} from './Report/selectors.js'
 import ReportFilter from './Report/Filter'
 import ReportEntryList from './Report/EntryList'
 import BarChart from './Report/BarChart'
@@ -43,7 +43,11 @@ export class Report extends Component {
               hasData
               ?
                 <div>
-                  <BarChart labels={this.props.reportBarChartData.labels} data={this.props.reportBarChartData.data} />
+                  <p>
+                    Total{' '}
+                    <span className='total-effort'>{this.props.report.totalEffort}</span>
+                  </p>
+                  <BarChart labels={this.props.report.effortByDayForBarChart.labels} data={this.props.report.effortByDayForBarChart.data} />
                   <ReportEntryList entries={this.props.entries} />
                 </div>
               :
@@ -57,7 +61,7 @@ export class Report extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    reportBarChartData: getEffortByDayForBarChart(state),
+    report: getSummaryReport(state),
     entries: get(state,"report.entries", {}),    
     isFetching: get(state, "report.isFetching", null)
   }
