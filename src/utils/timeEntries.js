@@ -1,4 +1,12 @@
 export const isSameDate = (d1, d2) => {
+  if (typeof d1 === 'string' || typeof d1 === 'number') {
+    d1 = new Date(d1)
+  }
+
+  if (typeof d2 === 'string' || typeof d2 === 'number') {
+    d2 = new Date(d2)
+  }
+
   if (
     (d1.getFullYear() === d2.getFullYear())
     &&

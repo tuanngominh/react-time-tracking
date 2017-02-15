@@ -10,14 +10,6 @@ import DatePicker from 'material-ui/DatePicker'
 
 export class ReportFilter extends Component {
   static propTypes = {
-    startDate: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.instanceOf(Date)
-    ]),
-    endDate: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.instanceOf(Date)
-    ]),
     onChange: PropTypes.func
   }
 
@@ -30,17 +22,18 @@ export class ReportFilter extends Component {
   constructor(props) {
     super(props)
 
-    const toDate = (date) => {
-      if (typeof date === 'string') {
-        date = new Date(date)
-      }
-      return date
+    const getStartDate = () => {
+      let startDate = new Date()
+      startDate.setDate(startDate.getDate() - 7)
+      startDate.setHours(0, 0, 0)
+      return startDate
     }
 
+    const endDate = new Date()
     this.state = {
       text: '',      
-      startDate: toDate(this.props.startDate),
-      endDate: toDate(this.props.endDate),
+      startDate: getStartDate(),
+      endDate: endDate,
       changeTextSubmitTimeoutId: null,
       dialogOpen: false
     }
@@ -162,7 +155,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     onChange: (uid, text, startDate, endDate) => {
-      dispatch(fetch(uid, text, startDate, endDate))
+      dispatch(fetch(uid, text, startDate.getTime(), endDate.getTime()))
     }
   }
 }

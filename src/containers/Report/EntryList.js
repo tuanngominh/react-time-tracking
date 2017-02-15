@@ -8,7 +8,7 @@ class ReportEntryList extends Component {
   }
   render() {
     const getDateMonth = (time) => {
-      if (typeof time === 'string') {
+      if (typeof time === 'string' || typeof time === 'number') {
         time = new Date(time)
       }
       return pad0Left((time.getMonth() + 1)) + '/' + pad0Left(time.getDate())

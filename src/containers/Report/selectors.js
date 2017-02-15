@@ -9,10 +9,21 @@ const getEndDate = (state) => state.report.endDate
 //Get total effort by day which will show in a bar chart later
 export const getEffortByDayForBarChart = createSelector(
   [getEntries, getStartDate, getEndDate],
-  (entries, startDate, endDate) => {
+  (entries, filterStartDate, filterEndDate) => {
     let labels = [], data = []
 
-    if (startDate > endDate || !entries) {
+    const startDate = new Date(filterStartDate)
+    const endDate = new Date(filterEndDate)
+    if (startDate > endDate) {
+      return { labels, data }
+    }
+
+    if (!entries) {
+      while (startDate <= endDate) {
+        labels.push(moment(startDate).format('Do MMM'))
+        data.push(0)
+        startDate.setDate(startDate.getDate() + 1)
+      }
       return { labels, data }
     }
 

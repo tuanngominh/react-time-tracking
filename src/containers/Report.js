@@ -15,12 +15,7 @@ const style = {
 }
 
 export class Report extends Component {
-  render() {
-    let startDate = new Date()
-    startDate.setDate(startDate.getDate() - 7)
-    startDate.setHours(0, 0, 0)
-    const endDate = new Date()
-
+  render() {    
     const hasData = this.props.entries && (Object.keys(this.props.entries).length > 0)
     return (
       <div className="row">
@@ -30,7 +25,7 @@ export class Report extends Component {
           col-lg-offset-2 col-lg-8
           ">
           <Paper style={style} zDepth={1} >
-            <ReportFilter startDate={startDate} endDate={endDate}/>
+            <ReportFilter />
           </Paper>
           {
             this.props.isFetching

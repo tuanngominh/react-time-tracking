@@ -2,11 +2,11 @@ export const pad0Left = (num) => (String('0' + num).slice(-2))
 
 //build time duration in format hh:mm:ss
 export const getTimeDuration = (startTime, endTime) => {
-  if (typeof startTime === 'string') {
+  if (typeof startTime === 'string' || typeof startTime === 'number') {
     startTime = new Date(startTime)
   }
 
-  if (typeof endTime === 'string') {
+  if (typeof endTime === 'string' || typeof endTime === 'number') {
     endTime = new Date(endTime)
   }
 
@@ -35,7 +35,7 @@ export const getTimeDuration = (startTime, endTime) => {
 "10:10 PM"
 */
 export const toAmPm = (date) => {
-  if (typeof date === 'string') {
+  if (typeof date === 'string' || typeof date === 'number') {
     date = new Date(date)
   }
   
