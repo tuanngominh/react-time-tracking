@@ -134,12 +134,6 @@ export class ReportFilter extends Component {
               />
             </div>            
           </div>
-          <div className="row">
-            <div className="col-xs-12" style={{textAlign: 'center'}}>
-            Today, This Week, This Month, This Year <br/>
-            Yesterday, Last Week, Last Month, Last Year
-            </div>
-          </div>
         </Dialog>        
       </div> 
     )
