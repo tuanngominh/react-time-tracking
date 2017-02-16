@@ -1,8 +1,8 @@
-# Vivid Trace [![CircleCI](https://circleci.com/gh/tuanngominh/react-time-tracking.svg?style=svg)](https://circleci.com/gh/tuanngominh/react-time-tracking) [![codecov](https://codecov.io/gh/tuanngominh/react-time-tracking/branch/master/graph/badge.svg)](https://codecov.io/gh/tuanngominh/react-time-tracking)
+# React time tracking [![CircleCI](https://circleci.com/gh/tuanngominh/react-time-tracking.svg?style=svg)](https://circleci.com/gh/tuanngominh/react-time-tracking) [![codecov](https://codecov.io/gh/tuanngominh/react-time-tracking/branch/master/graph/badge.svg)](https://codecov.io/gh/tuanngominh/react-time-tracking)
 
-Time tracking app on [React](https://facebook.github.io/react/) ([demo](https://vivid-trace.firebaseapp.com/)).
+Time tracking app on React, try [demo](https://vivid-trace.firebaseapp.com/).
 
-The app is inspired by [toggl.com](https://toggl.com) but a simpler one.
+The app is inspired by [toggl.com](https://toggl.com).
 
 # Tech stack
 Web application based on React (clientside) and Firebase (serverside)
@@ -33,11 +33,11 @@ Low priority
 - Signup using google, facebook
 
 # Demo
-Try demo at [https://vivid-trace.firebaseapp.com/](https://vivid-trace.firebaseapp.com/)
+Try demo at [https://vivid-trace.firebaseapp.com/](https://vivid-trace.firebaseapp.com/) and [storybook](https://tuanngominh.github.io/react-time-tracking/)
 
 [![React time tracking demo](https://cloud.githubusercontent.com/assets/2210733/22968269/534e1d6e-f39c-11e6-8314-9a6815146e36.png)](https://www.youtube.com/watch?v=X7dH_CCoZmQ "React time tracking demo")
 
-# Notes
+# Developer notes
 ## Enzyme
 Simulate `onClick` event in `shallow` ([github](https://github.com/airbnb/enzyme/issues/323#issuecomment-210039710))
 ```js
@@ -78,5 +78,7 @@ Add `src/__tests__/Storyshots.test.js`:
 import initStoryshots from 'storyshots'
 initStoryshots()
 ```
+
+Explicitly add [material ui](http://material-ui.com) component id so Jest snapshot test doesn't get failed because of auto generated id
 
 Run `npm test`

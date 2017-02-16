@@ -17,3 +17,6 @@ npm-debug.log
 # jest snapshot file AS material-ui component's generated id 
 #     break snapshot compare everytime even without code change 
 **/__snapshots__/
+
+# github.com/kadirahq/storybook-deployer temp folder
+/out*

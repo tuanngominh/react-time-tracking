@@ -7,7 +7,9 @@
     "@kadira/storybook": "^2.21.0",
     "@kadira/storybook-addons": "^1.6.1",
     "@kadira/storybook-channel": "^1.1.0",
+    "@kadira/storybook-deployer": "^1.2.0",
     "babel-core": "^6.23.1",
+    "babel-preset-es2015": "^6.22.0",
     "babel-preset-react-app": "^2.1.0",
     "enzyme": "^2.7.0",
     "gh-pages": "^0.12.0",
@@ -48,6 +50,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
     "storybook": "start-storybook -p 9009 -s public",
-    "build-storybook": "build-storybook -s public"
+    "build-storybook": "build-storybook -s public",
+    "deploy-storybook": "storybook-to-ghpages"
   }
 }
