@@ -13,3 +13,7 @@ build
 .DS_Store
 .env
 npm-debug.log
+
+# jest snapshot file AS material-ui component's generated id 
+#     break snapshot compare everytime even without code change 
+**/__snapshots__/

@@ -1,6 +1,9 @@
 import React from 'react';
 import { storiesOf, action, linkTo, addDecorator } from '@kadira/storybook';
 
+import {Provider} from 'react-redux'
+import configureStore from '../../src/store/configureStore'
+
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 import MobileNav from '../../src/components/Header/MobileNav';
@@ -16,6 +19,11 @@ storiesOf('<MobileNav />', module)
   .add('Guess', () => (
     <MobileNav userLoggedIn={false} />
   ))
-  .add('Logged in user', () => (
-    <MobileNav userLoggedIn={true} />
-  ));
+  .add('Logged in user', () => {
+    const store = configureStore()
+    return (
+      <Provider store={store}>
+        <MobileNav userLoggedIn={true} />
+      </Provider>
+    )
+  });

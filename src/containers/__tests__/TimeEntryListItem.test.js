@@ -15,8 +15,8 @@ const props = {
   uid : "123",
   text : "entry description sample",
   id : "1",
-  startTime : "2017-02-06T03:18:05.672Z",
-  endTime : "2017-02-06T04:18:05.672Z"
+  startTime : new Date("2017-02-06T03:18:05.672Z"),
+  endTime : new Date("2017-02-06T04:18:05.672Z")
 }
 
 
