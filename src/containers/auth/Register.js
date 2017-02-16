@@ -51,6 +51,7 @@ export class Register extends Component {
           ref={(node) => this.form = node}
         >
           <FormsyText
+            id="email"
             name="email"
             hintText="youremail@address.com"
             floatingLabelText="Email address"
@@ -61,6 +62,7 @@ export class Register extends Component {
             required
           /><br />
           <FormsyText
+            id="password"
             name="password"
             hintText="enter your password"
             floatingLabelText="Password"

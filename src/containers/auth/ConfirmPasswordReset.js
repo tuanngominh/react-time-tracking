@@ -59,6 +59,7 @@ export class ConfirmPasswordReset extends Component {
         >     
           <h3>Reset password</h3>     
           <FormsyText
+            id="newpassword"
             name="newpassword"
             hintText="enter new password"
             floatingLabelText="New password"

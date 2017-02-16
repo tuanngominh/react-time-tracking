@@ -54,6 +54,7 @@ class Login extends Component {
           onInvalidSubmit={this.handleInvalidSubmit}
         >          
           <FormsyText
+            id="email"
             name="email"
             hintText="email@address.com"
             floatingLabelText="Email address"
@@ -64,6 +65,7 @@ class Login extends Component {
             required
           /><br />
           <FormsyText
+            id="password"
             name="password"
             hintText="your password"
             floatingLabelText="Password"

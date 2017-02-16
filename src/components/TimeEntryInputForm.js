@@ -153,6 +153,7 @@ export class TimeEntryInputForm extends Component {
           value={this.state.text}
           onChange={this.handleChangeText}
           onKeyPress={this.handleKeyPress}
+          id="text"
           name="text"
         />
         <span 

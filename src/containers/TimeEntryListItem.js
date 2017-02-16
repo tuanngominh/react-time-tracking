@@ -42,6 +42,7 @@ export class TimeEntryListItem extends Component {
               e.stopPropagation();
             }}>
             <TextField
+              id='text'
               name='text'
               value={this.state.text}
               onChange={this.handleChangeText}

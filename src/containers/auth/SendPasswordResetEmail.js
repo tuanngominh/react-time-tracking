@@ -57,6 +57,7 @@ export class SendPasswordResetEmail extends Component {
         >     
           <h3>Reset password</h3>     
           <FormsyText
+            id="email"
             name="email"
             hintText="email@address.com"
             floatingLabelText="Email address"

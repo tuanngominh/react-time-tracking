@@ -105,6 +105,7 @@ export class ReportFilter extends Component {
           <TextField
             value={this.state.text}
             onChange={this.handleChangeText}
+            id="keyword"
             name="keyword"
             placeholder="Search keyword"
           />
