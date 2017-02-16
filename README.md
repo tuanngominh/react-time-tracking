@@ -63,14 +63,14 @@ Use [storyshots](https://github.com/storybooks/storyshots) to enable unit test. 
 Add `.babelrc` to project's root directory
 ```json
 {
-  "presets": ["react-app"]
+  "presets": ["babel-preset-es2015", "react-app"]
 }
 ```
 
 Install packages
 ```sh
 npm install storyshots @kadira/storybook-addons @kadira/storybook-channel --save-dev
-npm install babel-core babel-preset-react-app --save-dev
+npm install babel-core babel-preset-es2015 babel-preset-react-app --save-dev
 ```
 
 Add `src/__tests__/Storyshots.test.js`:
