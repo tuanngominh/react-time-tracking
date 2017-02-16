@@ -58,9 +58,9 @@ Click on button in a Table's Row without select that row ([github](https://githu
 Doesn't support responsive ([github](https://github.com/callemall/material-ui/issues/3614#issuecomment-235568806))
 
 ## Storybook 
-To enable unit test for story, need install story book addon packages and babel preset
+Use [storyshots](https://github.com/storybooks/storyshots) to enable unit test. Need install story book addon packages and babel preset
 
-Add `.babelrc`
+Add `.babelrc` to project's root directory
 ```json
 {
   "presets": ["react-app"]
