@@ -28,8 +28,8 @@ const props = {
   ]
 }
 
-storiesOf('<TimeEntryListItemsByDay />', module)
-  .add('render', () => {
+storiesOf('Time Entry Input', module)
+  .add('<TimeEntryListItemsByDay /> - render', () => {
     const store = configureStore()
     return (
       <Provider store={store}>
@@ -37,7 +37,7 @@ storiesOf('<TimeEntryListItemsByDay />', module)
       </Provider>
     )
   })
-  .add('render multiple', () => {
+  .add('<TimeEntryListItemsByDay /> - render multiple', () => {
     const store = configureStore()
     return (
       <Provider store={store}>

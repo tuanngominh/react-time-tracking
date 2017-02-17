@@ -10,8 +10,8 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import {Table, TableBody} from 'material-ui/Table'
 import TimeEntryListItem from '../src/containers/TimeEntryListItem';
 
-storiesOf('<TimeEntryListItem />', module)
-  .add('render', () => {
+storiesOf('Time Entry Input', module)
+  .add('<TimeEntryListItem /> - Single Item', () => {
     const store = configureStore()
     return (
       <Provider store={store}>

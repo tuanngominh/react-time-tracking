@@ -9,8 +9,8 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 import ReportFilter from '../src/containers/Report/Filter';
 
-storiesOf('<ReportFilter />', module)
-  .add(' ', () => {
+storiesOf('Report', module)
+  .add('<ReportFilter />', () => {
     const store = configureStore()
     return (
       <Provider store={store}>

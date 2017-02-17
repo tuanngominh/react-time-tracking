@@ -5,24 +5,29 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 import TimeEntryInputForm from '../src/components/TimeEntryInputForm';
 
-storiesOf('<TimeEntryInputForm />', module)
-  .add('Tracking', () => {
+storiesOf('Time Entry Input', module)
+  .add('<TimeEntryInputForm /> - Not tracking', () => {
+    return (
+      <TimeEntryInputForm 
+      />
+    )
+  })
+  .add('<TimeEntryInputForm /> - With loading indicator', () => {
+    return (
+      <TimeEntryInputForm 
+        isFetching={true}
+      />
+    )
+  })
+  .add('<TimeEntryInputForm /> - Tracking', () => {
     let startTime = new Date()
     startTime.setSeconds(startTime.getSeconds() - 10)
-    startTime = startTime.toJSON()
+    startTime = startTime.getTime()
     return (
       <TimeEntryInputForm 
         text="time entry description" 
-        duration="10:10 PM"
+        startTime={startTime}
       />
     )
   })
-  .add('Not tracking', () => {
-    let startTime = new Date()
-    startTime.setSeconds(startTime.getSeconds() - 10 - 60)
-    startTime = startTime.toJSON()
-    return (
-      <TimeEntryInputForm 
-      />
-    )
-  })
+

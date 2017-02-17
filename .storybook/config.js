@@ -28,14 +28,17 @@ const WrapMuiThemeProvider = (story) => {
 addDecorator(WrapMuiThemeProvider)
 
 function loadStories() {
-  require('../stories/Header/DesktopNav.js')
-  require('../stories/Header/MobileNav.js')
-  require('../stories/auth/Login.js')
+  require('../stories/header.js')
+
+  require('../stories/auth.js')
+
   require('../stories/TimeEntryInputForm.js')
-  require('../stories/TimeEntryInput.js')
   require('../stories/TimeEntryListItem.js')
   require('../stories/TimeEntryListItemsByDay.js')
+
   require('../stories/ReportFilter.js')
+
+  require('../stories/AddTagButton.js')
 }
 
 configure(loadStories, module);
