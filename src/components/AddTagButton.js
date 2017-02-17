@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from 'react'
+import React, {Component} from 'react'
 
 import FlatButton  from 'material-ui/FlatButton'
 import Popover, {PopoverAnimationVertical} from 'material-ui/Popover'
