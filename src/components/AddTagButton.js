@@ -50,8 +50,9 @@ class AddTagButton extends Component {
             paddingLeft: 10,
             paddingRight: 10
           }}
+          className="container-add-tag-popup"
         >
-          <List className="list">
+          <List className="list first">
             <FontIcon className="material-icons" style={{
               color: 'lightgrey', 
               fontSize: 18,
@@ -60,12 +61,13 @@ class AddTagButton extends Component {
             }}>search</FontIcon><TextField
               underlineShow={false}
               hintText="Find Tag"
+              className="input-filter"
             />
           </List>
           <Divider />
           <List className="list">  
-            <ListItem className='listItem' primaryText="Inbox" leftIcon={<FontIcon className="material-icons" style={{color: 'green'}}>lens</FontIcon>} />
-            <ListItem className='listItem' primaryText="Starred" leftIcon={<FontIcon className="material-icons" style={{color: 'green'}}>lens</FontIcon>} />
+            <ListItem className='list-item' primaryText="Inbox" leftIcon={<FontIcon className="material-icons" style={{color: 'green'}}>lens</FontIcon>} />
+            <ListItem className='list-item' primaryText="Starred" leftIcon={<FontIcon className="material-icons" style={{color: 'green'}}>lens</FontIcon>} />
           </List>  
           <Divider />
           <List className="list">
