@@ -25,7 +25,10 @@ const InvalidResetPasswordCode = (props) => (
 
 export class VerifyPasswordResetCode extends Component {
   static propTypes = {
-    state: PropTypes.object,
+    onVerifyPasswordResetCode: PropTypes.func,
+    state: PropTypes.shape({
+      isFetching: PropTypes.bool
+    }),    
     dispatch: PropTypes.func
   }
 

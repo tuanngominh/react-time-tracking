@@ -5,10 +5,10 @@ import {Provider} from 'react-redux'
 import configureStore from '../src/store/configureStore'
 
 import Login from '../src/containers/auth/Login'
-import Register from '../src/containers/auth/Register'
-import SendPasswordResetEmail from '../src/containers/auth/SendPasswordResetEmail'
-import ConfirmPasswordReset from '../src/containers/auth/ConfirmPasswordReset'
-import VerifyPasswordResetCode from '../src/containers/auth/VerifyPasswordResetCode'
+import {Register} from '../src/containers/auth/Register'
+import {SendPasswordResetEmail} from '../src/containers/auth/SendPasswordResetEmail'
+import {ConfirmPasswordReset} from '../src/containers/auth/ConfirmPasswordReset'
+import {VerifyPasswordResetCode} from '../src/containers/auth/VerifyPasswordResetCode'
 
 storiesOf('Authentication', module)
   .add('<Register />', () => {
@@ -33,10 +33,15 @@ storiesOf('Authentication', module)
   })
   .add('<SendPasswordResetEmail />', () => {
     const store = configureStore()
+    const props = {
+      state: {
+        isFetching: false
+      }
+    }    
     return (
       <Provider store={store}>
         <div style={{margin: 40}}>
-          <SendPasswordResetEmail />
+          <SendPasswordResetEmail {...props} />
         </div>
       </Provider>
     )
@@ -48,6 +53,12 @@ storiesOf('Authentication', module)
         query: {
           oobCode: 'code-example'
         }
+      },
+      onVerifyPasswordResetCode: function() {
+
+      },
+      state: {
+        isFetching: false
       }
     }
     return (
@@ -60,10 +71,15 @@ storiesOf('Authentication', module)
   })
   .add('<ConfirmPasswordReset />', () => {
     const store = configureStore()
+    const props = {
+      state: {
+        isFetching: false
+      }
+    }
     return (
       <Provider store={store}>
         <div style={{margin: 40}}>
-          <ConfirmPasswordReset />
+          <ConfirmPasswordReset {...props} />
         </div>
       </Provider>
     )
