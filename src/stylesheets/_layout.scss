@@ -1,0 +1,41 @@
+/* 
+From http://www.material-ui.com/css/main.css .
+Help we have the same style as in demo in http://www.material-ui.com/ :
+- Same AppBar's font style 
+*/
+html {
+  font-family: 'Roboto', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+body, h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+}
+
+body {
+  font-size: 15px;
+  line-height: 24px;
+}
+
+/* content wrapper */
+.content {
+  margin: 5px;
+}
+
+@media screen and (min-width: 768px) {
+  .content {
+    margin: 10px;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .content {
+    margin: 20px;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .content {
+    margin: 30px;
+  }
+}

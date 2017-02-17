@@ -148,7 +148,7 @@ export class TimeEntryInputForm extends Component {
 
   render() {
     return (
-      <div className="timeEntryInputForm">
+      <div className="time-entry-input-form">
         <TextField
           hintText="What are you doing ?"
           value={this.state.text}
