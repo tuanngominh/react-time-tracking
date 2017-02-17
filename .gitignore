@@ -20,3 +20,6 @@ npm-debug.log
 
 # github.com/kadirahq/storybook-deployer temp folder
 /out*
+
+# only store SASS file in source control
+src/**/*.css
