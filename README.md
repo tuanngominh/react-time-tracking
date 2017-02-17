@@ -52,6 +52,9 @@ input.node.value = "newvalue"
 input.simulate('change', input)
 ```
 
+## Sass and create-react-app
+[Enable guide](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#adding-a-css-preprocessor-sass-less-etc)
+
 ## Material UI 0.16.7
 Click on button in a Table's Row without select that row ([github](https://github.com/callemall/material-ui/issues/4535#issuecomment-231375019))
 

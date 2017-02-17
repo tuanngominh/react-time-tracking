@@ -14,6 +14,8 @@
     "enzyme": "^2.7.0",
     "gh-pages": "^0.12.0",
     "moment-timezone": "^0.5.11",
+    "node-sass": "^4.5.0",
+    "npm-run-all": "^4.0.1",
     "react-addons-test-utils": "^15.4.2",
     "react-scripts": "0.8.5",
     "redux-devtools-extension": "^2.13.0",
@@ -43,12 +45,15 @@
     "reselect": "^2.5.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start-js": "react-scripts start",
+    "start": "npm-run-all -p watch-css start-js",
+    "build": "npm run build-css && react-scripts build",
     "test": "react-scripts test --runInBand --env=jsdom",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
+    "build-css": "node-sass src/ -o src/",
+    "watch-css": "npm run build-css && node-sass src/ -o src/ --watch",
     "storybook": "start-storybook -p 9009 -s public",
     "build-storybook": "build-storybook -s public",
     "deploy-storybook": "storybook-to-ghpages"
