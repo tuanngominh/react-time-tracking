@@ -4,6 +4,7 @@ import {getTimeDuration, toAmPm} from '../utils/time'
 
 import {red500} from 'material-ui/styles/colors'
 
+import AddTagButton from './AddTagButton'
 import RaisedButton from 'material-ui/RaisedButton'
 import FlatButton  from 'material-ui/FlatButton'
 import FontIcon from 'material-ui/FontIcon'
@@ -147,7 +148,7 @@ export class TimeEntryInputForm extends Component {
 
   render() {
     return (
-      <div>
+      <div className="timeEntryInputForm">
         <TextField
           hintText="What are you doing ?"
           value={this.state.text}
@@ -156,6 +157,7 @@ export class TimeEntryInputForm extends Component {
           id="text"
           name="text"
         />
+        <AddTagButton />
         <span 
           onClick={this.props.onOpenDialog}
           style={{

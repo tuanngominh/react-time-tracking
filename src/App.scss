@@ -70,3 +70,35 @@ body {
 		padding-left: inherit;
 	}
 }
+
+/* Tag list dialog */
+$listItemPadding: 8px;
+.list {
+	padding-top: 4px;
+	padding-bottom: 4px;
+}
+.listItem {
+	padding-top: $listItemPadding !important;
+	padding-right: $listItemPadding !important;
+	padding-bottom: $listItemPadding !important;
+	&> div > div {
+		padding-top: $listItemPadding !important;
+		padding-right: $listItemPadding !important;
+		padding-bottom: $listItemPadding !important;	
+		.material-icons {
+			font-size: 15px !important; 
+			margin: auto !important;
+			top: 9px !important;
+		}
+	}
+}
+
+.container-add-tag {
+	display: inline-block;
+}
+
+.timeEntryInputForm {
+	.container-add-tag {
+		margin-left: 10px;
+	}	
+}
