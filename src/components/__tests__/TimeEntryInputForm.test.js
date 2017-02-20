@@ -75,7 +75,7 @@ describe('<TimeEntryInputForm />', () => {
     const input = wrapper.find('input[name="text"]')
     input.node.value = newText
     input.simulate('change', input)
-    expect(setTimeout.mock.calls.length).toBe(2)
+    expect(setTimeout.mock.calls.length).toBeGreaterThan(0)
     //FIXME: runAllTimers frozen nodejs
     // jest.runAllTimers()
     // expect(props.onChangeText).toHaveBeenCalledTimes(1)
