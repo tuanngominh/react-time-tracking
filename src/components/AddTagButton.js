@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 
 import ColorPicker from './ColorPicker'
+import CreateTagForm from './CreateTagForm'
 
 import FlatButton  from 'material-ui/FlatButton'
 import RaisedButton  from 'material-ui/RaisedButton'
@@ -49,8 +50,8 @@ class AddTagButton extends Component {
     })
   }
 
-  handleCreateTag = () => {
-
+  handleCreateTag = (tag, color) => {
+    this.props.onCreateTag(tag, color)
   }
 
   render() {
@@ -109,22 +110,7 @@ class AddTagButton extends Component {
           onRequestClose={this.handleCloseCreateTagDialog}
           contentStyle={{maxWidth: 400}}
         >
-          <TextField
-              hintText="Tag name"
-              id="tag-name"              
-            />
-          <br/>
-          <br/>
-          <ColorPicker />
-          <br/>
-          <br/>
-          <RaisedButton
-            secondary={true}
-            fullWidth={true}
-            label="Create tag"
-            labelStyle={{textTransform: 'none'}}
-            onClick={this.handleCreateTag}
-          />
+          <CreateTagForm onSave={this.handleCreateTag}/>
         </Dialog>        
       </div>
     )

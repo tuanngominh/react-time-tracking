@@ -54,7 +54,7 @@ class ColorPicker extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      value: ''
+      value: this.props.availableColors[0]
     }
   }
 
@@ -64,6 +64,10 @@ class ColorPicker extends Component {
     })
   }
 
+  getValue = () => {
+    return this.state.value
+  }
+  
   render() {
     let jsx = []
     for (let i = 0; i < this.props.availableColors.length; i += this.props.itemPerRow) {

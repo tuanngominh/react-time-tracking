@@ -7,15 +7,15 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import ColorPicker from '../src/components/ColorPicker'
 import FontIcon from 'material-ui/FontIcon'
 
-storiesOf('Tag', module)
-  .add('<ColorPicker /> - default option', () => {
+storiesOf('ColorPicker', module)
+  .add('default option', () => {
     return (
       <div style={{margin: 40}}>
         <ColorPicker />
       </div>
     )
   })
-  .add('<ColorPicker /> - custom color and item per row', () => {
+  .add('custom color and item per row', () => {
     const props = {
       availableColors: ['black', 'blue', 'green', 'red'],
       itemPerRow: 3
@@ -26,7 +26,7 @@ storiesOf('Tag', module)
       </div>
     )
   })
-  .add('<ColorPicker /> - custom font icon', () => {
+  .add('custom font icon', () => {
     const props = {
       iconComponent: <FontIcon className="material-icons">stop</FontIcon>,
       selectedIconComponent: <FontIcon className="material-icons">check_box</FontIcon>
