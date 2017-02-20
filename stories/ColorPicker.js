@@ -28,7 +28,8 @@ storiesOf('Tag', module)
   })
   .add('<ColorPicker /> - custom font icon', () => {
     const props = {
-      iconComponent: <FontIcon className="material-icons">stop</FontIcon>
+      iconComponent: <FontIcon className="material-icons">stop</FontIcon>,
+      selectedIconComponent: <FontIcon className="material-icons">check_box</FontIcon>
     }
     return (
       <div style={{margin: 40}}>

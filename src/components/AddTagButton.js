@@ -1,5 +1,7 @@
 import React, {Component} from 'react'
 
+import ColorPicker from './ColorPicker'
+
 import FlatButton  from 'material-ui/FlatButton'
 import RaisedButton  from 'material-ui/RaisedButton'
 import Popover, {PopoverAnimationVertical} from 'material-ui/Popover'
@@ -111,6 +113,11 @@ class AddTagButton extends Component {
               hintText="Tag name"
               id="tag-name"              
             />
+          <br/>
+          <br/>
+          <ColorPicker />
+          <br/>
+          <br/>
           <RaisedButton
             secondary={true}
             fullWidth={true}
