@@ -1,10 +1,8 @@
-import React, {Component} from 'react'
+import React, {Component, PropTypes} from 'react'
 
-import ColorPicker from './ColorPicker'
 import CreateTagForm from './CreateTagForm'
 
 import FlatButton  from 'material-ui/FlatButton'
-import RaisedButton  from 'material-ui/RaisedButton'
 import Popover, {PopoverAnimationVertical} from 'material-ui/Popover'
 import {List, ListItem} from 'material-ui/List'
 import Divider from 'material-ui/Divider'
@@ -13,6 +11,10 @@ import TextField from 'material-ui/TextField'
 import Dialog from 'material-ui/Dialog'
 
 class AddTagButton extends Component {
+  static propTypes = {
+    onCreateTag: PropTypes.func
+  }
+
   constructor (props) {
     super(props)
     this.state = {
