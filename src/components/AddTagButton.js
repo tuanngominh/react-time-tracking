@@ -1,17 +1,20 @@
 import React, {Component} from 'react'
 
 import FlatButton  from 'material-ui/FlatButton'
+import RaisedButton  from 'material-ui/RaisedButton'
 import Popover, {PopoverAnimationVertical} from 'material-ui/Popover'
 import {List, ListItem} from 'material-ui/List'
 import Divider from 'material-ui/Divider'
 import FontIcon from 'material-ui/FontIcon'
 import TextField from 'material-ui/TextField'
+import Dialog from 'material-ui/Dialog'
 
 class AddTagButton extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      openTagForm: false
+      openTagForm: false,
+      createTagDialogOpen: false
     }
   }
 
@@ -29,6 +32,23 @@ class AddTagButton extends Component {
     this.setState({
       openTagForm: false,
     });
+  }
+
+  handleOpenCreateTagDialog = () => {
+    this.setState({
+      createTagDialogOpen: true,
+      openTagForm: false
+    })
+  }
+
+  handleCloseCreateTagDialog = () => {
+    this.setState({
+      createTagDialogOpen: false
+    })
+  }
+
+  handleCreateTag = () => {
+
   }
 
   render() {
@@ -76,10 +96,29 @@ class AddTagButton extends Component {
                 label="Add Tag"
                 labelStyle={{textTransform: 'none'}}
                 icon={<FontIcon className="material-icons" style={{color: 'lightgreen'}}>add</FontIcon>}
-              />            
+                onClick={this.handleOpenCreateTagDialog}
+              />
             </div>
           </List>
-        </Popover>        
+        </Popover>
+        <Dialog
+          title="Create new tag"
+          open={this.state.createTagDialogOpen}
+          onRequestClose={this.handleCloseCreateTagDialog}
+          contentStyle={{maxWidth: 400}}
+        >
+          <TextField
+              hintText="Tag name"
+              id="tag-name"              
+            />
+          <RaisedButton
+            secondary={true}
+            fullWidth={true}
+            label="Create tag"
+            labelStyle={{textTransform: 'none'}}
+            onClick={this.handleCreateTag}
+          />
+        </Dialog>        
       </div>
     )
   }

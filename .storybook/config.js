@@ -39,6 +39,7 @@ function loadStories() {
   require('../stories/ReportFilter.js')
 
   require('../stories/AddTagButton.js')
+  require('../stories/ColorPicker.js')
 }
 
 configure(loadStories, module);
