@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {get} from 'lodash'
 
 import {toAmPm, fromAmPM, fromAmPmToDate} from '../utils/time'
-import {changeText, changeStartTime, stop, start, pull, remove} from '../actions/timeEntryInput'
+import {changeText, changeStartTime, stop, start, pull, remove, assignTag} from '../actions/timeEntryInput'
 
 import TextField from 'material-ui/TextField'
 import Dialog from 'material-ui/Dialog'
@@ -15,6 +15,8 @@ export class TimeEntryInput extends Component {
     now: PropTypes.number,//timestamp. We need to pass now in unit test
     startTime: PropTypes.number,
     text: PropTypes.string,
+    tagName: PropTypes.string,
+    tagColor: PropTypes.string,
     uid: PropTypes.string,
     onChangeText: PropTypes.func,
     onChangeStartTime: PropTypes.func,
@@ -22,6 +24,7 @@ export class TimeEntryInput extends Component {
     onStart: PropTypes.func,
     onPull: PropTypes.func,
     onRemove: PropTypes.func,
+    onCreateTag: PropTypes.func,
     isFetching: PropTypes.bool
   }
 
@@ -114,18 +117,25 @@ export class TimeEntryInput extends Component {
     this.props.onRemove(this.props.uid)
   }
 
+  handleCreateTag = (tagName, color) => {
+    this.props.onCreateTag(this.props.uid, tagName, color)
+  }
+
   render() {
     return (
       <div>
         <TimeEntryInputForm
           text={this.props.text}
           startTime={this.props.startTime}
+          tagName={this.props.tagName}
+          tagColor={this.props.tagColor}
           isFetching={this.props.isFetching}
           onChangeText={this.handleChangeText}            
           onOpenDialog={this.handleOpenDialog}
           onStop={this.handleStop}
           onStart={this.handleStart}
           onRemove={this.handleRemove}
+          onCreateTag={this.handleCreateTag}
         />
         <Dialog
           open={this.state.dialogOpen}
@@ -158,7 +168,6 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(changeStartTime(uid, date.getTime()))
     },
     onStop: (uid, text, date) => {
-      console.log(date)
       dispatch(stop(uid, text, date))
     },
     onStart: (uid, text, date) => {
@@ -169,6 +178,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     onRemove: (uid) => {
       dispatch(remove(uid))
+    },
+    onCreateTag: (uid, tagName, color) => {
+      dispatch(assignTag(uid, tagName, color))
     }
   }
 }
@@ -178,6 +190,8 @@ const mapStateToProps = (state) => {
     startTime: get(state,"timeEntryInput.startTime", null),
     text: get(state, "timeEntryInput.text", null),
     uid: get(state,"auth.user.uid", null),
+    tagName: get(state,"timeEntryInput.tagName", null),
+    tagColor: get(state,"timeEntryInput.tagColor", null),
     isFetching: get(state, "timeEntryInput.isFetching", null)
   }
 }

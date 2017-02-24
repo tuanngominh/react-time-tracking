@@ -22,7 +22,9 @@ const timeEntryInput = (state = {}, action) => {
         return {
           text: action.payload.text,
           startTime: action.payload.startTime,
-          isFetching: action.isFetching          
+          isFetching: action.isFetching,
+          tagName: action.payload.tagName,
+          tagColor: action.payload.tagColor  
         }
       } else {
         return Object.assign({}, state, {isFetching: action.isFetching})
@@ -69,7 +71,26 @@ const timeEntryInput = (state = {}, action) => {
       } else {
         return Object.assign({}, state, {isFetching: action.isFetching})
       }
-            
+
+    case types.TIME_ENTRY_INPUT__ASSIGN_TAG:
+      if (action.isFetching && action.isFetching === true) {
+        return Object.assign({}, state, {
+          isFetching: true
+        })
+      }
+
+      if (
+        (action.status && action.status === 'success')
+      ) {
+        return Object.assign({}, state, {
+          tagName: action.payload.tagName,
+          tagColor: action.payload.tagColor,
+          isFetching: false
+        })
+      }
+      
+      return state
+
     default :
       return state
   }

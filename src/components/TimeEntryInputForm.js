@@ -4,7 +4,7 @@ import {getTimeDuration, toAmPm} from '../utils/time'
 
 import {red500} from 'material-ui/styles/colors'
 
-import AddTagButton from './AddTagButton'
+import AddTagButtonContainer from './AddTagButtonContainer'
 import RaisedButton from 'material-ui/RaisedButton'
 import FlatButton  from 'material-ui/FlatButton'
 import FontIcon from 'material-ui/FontIcon'
@@ -15,11 +15,14 @@ export class TimeEntryInputForm extends Component {
   static propTypes = {
     text: PropTypes.string,
     duration: PropTypes.string,
+    tagName: PropTypes.string,
+    tagColor: PropTypes.string,
     onChangeText: PropTypes.func,    
     onOpenDialog: PropTypes.func,
     onStop: PropTypes.func,
     onRemove: PropTypes.func,
     onStart: PropTypes.func,
+    onCreateTag: PropTypes.func,
     isFetching: PropTypes.bool
   }
 
@@ -157,7 +160,7 @@ export class TimeEntryInputForm extends Component {
           id="text"
           name="text"
         />
-        <AddTagButton />
+        <AddTagButtonContainer onCreateTag={this.props.onCreateTag} tagName={this.props.tagName} tagColor={this.props.tagColor} />
         <span 
           onClick={this.props.onOpenDialog}
           style={{

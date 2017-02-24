@@ -3,33 +3,46 @@ import { storiesOf, action, linkTo, addDecorator } from '@kadira/storybook';
 
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
-import TimeEntryInputForm from '../src/components/TimeEntryInputForm';
+import {TimeEntryInput} from '../src/containers/TimeEntryInput';
 
+const commonProps = {
+  uid: 'user-id-123',
+  onChangeText: action('onChangeText'),
+  onChangeStartTime: action('onChangeStartTime'),
+  onStop: action('onStop'),
+  onStart: action('onStart'),
+  onPull: action('onPull'),
+  onRemove: action('onRemove'),
+  onCreateTag: action('onCreateTag')  
+}
 storiesOf('Time Entry Input', module)
-  .add('<TimeEntryInputForm /> - Not tracking', () => {
+  .add('<TimeEntryInput /> - Not tracking', () => {
     return (
-      <TimeEntryInputForm 
+      <TimeEntryInput 
+        {...commonProps}
       />
     )
   })
-  .add('<TimeEntryInputForm /> - With loading indicator', () => {
+  .add('<TimeEntryInput /> - With loading indicator', () => {
     //marterial-ui's LinearProgress raise error with 'mode=indeterminate' in Jest env
     //so exclude this test
     if (process.env.NODE_ENV === 'test') {
       return (<div />)
     }
     return (
-      <TimeEntryInputForm 
+      <TimeEntryInput 
+        {...commonProps}
         isFetching={true}
       />
     )
   })
-  .add('<TimeEntryInputForm /> - Tracking', () => {
+  .add('<TimeEntryInput /> - Tracking', () => {
     let startTime = new Date()
     startTime.setSeconds(startTime.getSeconds() - 10)
     startTime = startTime.getTime()
     return (
-      <TimeEntryInputForm 
+      <TimeEntryInput 
+        {...commonProps}
         text="time entry description" 
         startTime={startTime}
       />

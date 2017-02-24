@@ -12,7 +12,17 @@ import Dialog from 'material-ui/Dialog'
 
 class AddTagButton extends Component {
   static propTypes = {
-    onCreateTag: PropTypes.func
+    onCreateTag: PropTypes.func,
+    onFetchList: PropTypes.func,
+    tags: PropTypes.array,
+    tagName: PropTypes.string,
+    tagColor: PropTypes.string,
+    dialogMaxHeight: PropTypes.number
+  }
+
+  static defaultProps = {
+    tags: [],
+    dialogMaxHeight: 300
   }
 
   constructor (props) {
@@ -21,6 +31,10 @@ class AddTagButton extends Component {
       openTagForm: false,
       createTagDialogOpen: false
     }
+  }
+
+  componentWillMount() {
+    this.props.onFetchList()
   }
 
   handleOpenTagForm = (event) => {
@@ -54,16 +68,28 @@ class AddTagButton extends Component {
 
   handleCreateTag = (tag, color) => {
     this.props.onCreateTag(tag, color)
+    this.handleCloseCreateTagDialog()
   }
 
   render() {
     return (
       <div className="container-add-tag">
-        <FlatButton
-          onTouchTap={this.handleOpenTagForm}
-          label="Tag"
-          icon={<FontIcon className="material-icons" style={{color: 'green', fontSize: 30}}>add</FontIcon>}
-        />
+        {
+          this.props.tagName
+          ?
+            <FlatButton
+              onTouchTap={this.handleOpenTagForm}
+              label={this.props.tagName}
+              labelStyle={{color: this.props.tagColor, textTransform: 'none'}}
+              icon={<FontIcon className="material-icons" style={{color: this.props.tagColor, fontSize: 20}}>lens</FontIcon>}
+            />
+          :
+            <FlatButton
+              onTouchTap={this.handleOpenTagForm}
+              label="Tag"
+              icon={<FontIcon className="material-icons" style={{color: 'green', fontSize: 30}}>add</FontIcon>}
+            />
+        }
         <Popover
           open={this.state.openTagForm}
           anchorEl={this.state.anchorEl}
@@ -77,24 +103,33 @@ class AddTagButton extends Component {
           }}
           className="container-add-tag-popup"
         >
-          <List className="list first">
-            <FontIcon className="material-icons" style={{
-              color: 'lightgrey', 
-              fontSize: 18,
-              top: 5,
-              paddingRight: 8
-            }}>search</FontIcon><TextField
-              underlineShow={false}
-              hintText="Find Tag"
-              className="input-filter"
-            />
-          </List>
-          <Divider />
-          <List className="list">  
-            <ListItem className='list-item' primaryText="Inbox" leftIcon={<FontIcon className="material-icons" style={{color: 'green'}}>lens</FontIcon>} />
-            <ListItem className='list-item' primaryText="Starred" leftIcon={<FontIcon className="material-icons" style={{color: 'green'}}>lens</FontIcon>} />
-          </List>  
-          <Divider />
+          {
+            (this.props.tags.length && this.props.tags.length > 0)
+            ?
+              <div>
+                <List className="list first">
+                  <FontIcon className="material-icons" style={{
+                    color: 'lightgrey', 
+                    fontSize: 18,
+                    top: 5,
+                    paddingRight: 8
+                  }}>search</FontIcon>
+                  <TextField
+                    underlineShow={false}
+                    hintText="Find Tag"
+                    className="input-filter"
+                  />
+                </List>
+                <Divider />
+                <List className="list" style={{maxHeight: this.props.dialogMaxHeight, 'overflowY': 'scroll', 'overflowX': 'hidden'}}>
+                  {this.props.tags.map((tag) => (
+                    <ListItem key={tag.key} className='list-item' primaryText={tag.name} leftIcon={<FontIcon className="material-icons" style={{color: tag.color}}>lens</FontIcon>} />
+                  ))}
+                </List>
+              </div>
+            :
+              ''
+          }
           <List className="list">
             <div style={{textAlign: 'center'}}>
               <FlatButton
