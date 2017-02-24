@@ -196,7 +196,7 @@ export const assignTag = (uid, tagName, color) => {
         }        
         //create tag
         const newTagPromise = firebase.database().ref('tags/' + uid).push(tag)
-        const tagId = newTagPromise.key()
+        const tagId = newTagPromise.key
         newTagPromise
         .then(() => {
           assignTag(tagId)

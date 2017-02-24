@@ -21,3 +21,6 @@ export const TIME_ENTRIES_REMOVE = 'TIME_ENTRIES_REMOVE'
 
 //report
 export const REPORT_FETCH = 'REPORT_FETCH'
+
+//tags
+export const TAGS_FETCH_LIST = 'TAGS_FETCH_LIST'
