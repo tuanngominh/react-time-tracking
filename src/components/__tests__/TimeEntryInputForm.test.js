@@ -2,13 +2,13 @@ jest.useFakeTimers()
 import React from 'react'
 import {shallow, mount} from 'enzyme'
 import TimeEntryInputForm_withConnect, {TimeEntryInputForm} from '../TimeEntryInputForm'
-import withTheme from '../../__mocks__/withTheme'
+import withStoreAndTheme from '../../__mocks__/withStoreAndTheme'
 
 // Needed for onTouchTap
 import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 
-const TimeEntryInputForm_withTheme = withTheme(TimeEntryInputForm)
+const TimeEntryInputForm_withStoreAndTheme = withStoreAndTheme(TimeEntryInputForm)
 
 const now = new Date()
 //earlier than now 20 minutes
@@ -45,7 +45,7 @@ describe('<TimeEntryInputForm />', () => {
       onStop: jest.fn()
     }
 
-    const wrapper = mount(<TimeEntryInputForm_withTheme {...props} />)
+    const wrapper = mount(<TimeEntryInputForm_withStoreAndTheme {...props} />)
     //Stop button is a RaisedButton which include an EnhancedButton
     const stopButton = wrapper.findWhere(n => {
       return (
@@ -70,7 +70,7 @@ describe('<TimeEntryInputForm />', () => {
 
 
     setTimeout.mockReset()
-    const wrapper = mount(<TimeEntryInputForm_withTheme {...props} />)
+    const wrapper = mount(<TimeEntryInputForm_withStoreAndTheme {...props} />)
     
     const input = wrapper.find('input[name="text"]')
     input.node.value = newText
@@ -87,7 +87,7 @@ describe('<TimeEntryInputForm />', () => {
       text,
       onRemove: jest.fn()      
     }
-    const wrapper = mount(<TimeEntryInputForm_withTheme {...props} />)
+    const wrapper = mount(<TimeEntryInputForm_withStoreAndTheme {...props} />)
     const btn = wrapper.findWhere(n => {
       return (
         (n.name() === 'EnhancedButton') 

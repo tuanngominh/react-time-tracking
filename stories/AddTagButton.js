@@ -7,8 +7,8 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import AddTagButton from '../src/components/AddTagButton'
 
 const tags = [
-  {name: 'tag 1', color: '#ac725e'},
-  {name: 'tag 2', color: '#8f8f8f'}
+  {key: '1', name: 'tag 1', color: '#ac725e'},
+  {key: '2', name: 'tag 2', color: '#8f8f8f'}
 ]
 
 let manyTags = []
