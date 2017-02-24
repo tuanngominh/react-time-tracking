@@ -32,7 +32,7 @@ function loadStories() {
 
   require('../stories/auth.js')
 
-  require('../stories/TimeEntryInputForm.js')
+  require('../stories/TimeEntryInput.js')
   require('../stories/TimeEntryListItem.js')
   require('../stories/TimeEntryListItemsByDay.js')
 

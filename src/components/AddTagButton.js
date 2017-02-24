@@ -12,7 +12,9 @@ import Dialog from 'material-ui/Dialog'
 
 class AddTagButton extends Component {
   static propTypes = {
-    onCreateTag: PropTypes.func
+    onCreateTag: PropTypes.func,
+    tagName: PropTypes.string,
+    tagColor: PropTypes.string
   }
 
   constructor (props) {
@@ -59,11 +61,22 @@ class AddTagButton extends Component {
   render() {
     return (
       <div className="container-add-tag">
-        <FlatButton
-          onTouchTap={this.handleOpenTagForm}
-          label="Tag"
-          icon={<FontIcon className="material-icons" style={{color: 'green', fontSize: 30}}>add</FontIcon>}
-        />
+        {
+          this.props.tagName
+          ?
+            <FlatButton
+              onTouchTap={this.handleOpenTagForm}
+              label={this.props.tagName}
+              labelStyle={{color: this.props.tagColor, textTransform: 'none'}}
+              icon={<FontIcon className="material-icons" style={{color: this.props.tagColor, fontSize: 20}}>lens</FontIcon>}
+            />
+          :
+            <FlatButton
+              onTouchTap={this.handleOpenTagForm}
+              label="Tag"
+              icon={<FontIcon className="material-icons" style={{color: 'green', fontSize: 30}}>add</FontIcon>}
+            />
+        }
         <Popover
           open={this.state.openTagForm}
           anchorEl={this.state.anchorEl}
