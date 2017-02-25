@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {get} from 'lodash'
 
 import {toAmPm, fromAmPM, fromAmPmToDate} from '../utils/time'
-import {changeText, changeStartTime, stop, start, pull, remove, assignTag} from '../actions/timeEntryInput'
+import {changeText, changeStartTime, stop, start, pull, remove, assignTag, assignTagKey} from '../actions/timeEntryInput'
 
 import TextField from 'material-ui/TextField'
 import Dialog from 'material-ui/Dialog'
@@ -25,6 +25,7 @@ export class TimeEntryInput extends Component {
     onPull: PropTypes.func,
     onRemove: PropTypes.func,
     onCreateTag: PropTypes.func,
+    onSelectTag: PropTypes.func,
     isFetching: PropTypes.bool
   }
 
@@ -121,6 +122,10 @@ export class TimeEntryInput extends Component {
     this.props.onCreateTag(this.props.uid, tagName, color)
   }
 
+  handleSelectTag = (tagKey) => {
+    this.props.onSelectTag(this.props.uid, tagKey)
+  }
+
   render() {
     return (
       <div>
@@ -136,6 +141,7 @@ export class TimeEntryInput extends Component {
           onStart={this.handleStart}
           onRemove={this.handleRemove}
           onCreateTag={this.handleCreateTag}
+          onSelectTag={this.handleSelectTag}
         />
         <Dialog
           open={this.state.dialogOpen}
@@ -181,6 +187,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     onCreateTag: (uid, tagName, color) => {
       dispatch(assignTag(uid, tagName, color))
+    },
+    onSelectTag: (uid, tagKey) => {
+      dispatch(assignTagKey(uid, tagKey))
     }
   }
 }

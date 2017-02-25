@@ -91,6 +91,25 @@ const timeEntryInput = (state = {}, action) => {
       
       return state
 
+    case types.TIME_ENTRY_INPUT__ASSIGN_TAG_KEY:
+      if (action.isFetching && action.isFetching === true) {
+        return Object.assign({}, state, {
+          isFetching: true
+        })
+      }
+
+      if (
+        (action.status && action.status === 'success')
+      ) {
+        return Object.assign({}, state, {
+          tagName: action.payload.tagName,
+          tagColor: action.payload.tagColor,
+          isFetching: false
+        })
+      }
+      
+      return state      
+
     default :
       return state
   }

@@ -23,6 +23,7 @@ export class TimeEntryInputForm extends Component {
     onRemove: PropTypes.func,
     onStart: PropTypes.func,
     onCreateTag: PropTypes.func,
+    onSelectTag: PropTypes.func,
     isFetching: PropTypes.bool
   }
 
@@ -160,7 +161,12 @@ export class TimeEntryInputForm extends Component {
           id="text"
           name="text"
         />
-        <AddTagButtonContainer onCreateTag={this.props.onCreateTag} tagName={this.props.tagName} tagColor={this.props.tagColor} />
+        <AddTagButtonContainer 
+          onCreateTag={this.props.onCreateTag} 
+          onSelectTag={this.props.onSelectTag} 
+          tagName={this.props.tagName} 
+          tagColor={this.props.tagColor} 
+        />
         <span 
           onClick={this.props.onOpenDialog}
           style={{

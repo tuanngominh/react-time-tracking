@@ -27,7 +27,8 @@ const setupActionProps = () => ({
   onStart: jest.fn(),
   onPull: jest.fn(),
   onRemove: jest.fn(),
-  onCreateTag: jest.fn()  
+  onCreateTag: jest.fn(),
+  onSelectTag: jest.fn()
 })
 
 const getTimeInThePast = () => {
@@ -119,5 +120,17 @@ describe('<TimeEntryInput />', () => {
     wrapper.instance().handleStop()
     
     expect(props.onStop).toHaveBeenCalledTimes(1)    
+  })
+
+  it('can change tag', () => {
+    const props = Object.assign({
+      startTime: getTimeInThePast()
+    }, setupActionProps())
+    const wrapper = shallow(<TimeEntryInput {...props} uid={uid} />)
+
+    const tagKey = 'tag1'
+    wrapper.instance().handleSelectTag(tagKey)
+    
+    expect(props.onSelectTag).toHaveBeenCalledWith(uid, tagKey)       
   })
 })

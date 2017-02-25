@@ -177,6 +177,8 @@ export const assignTag = (uid, tagName, color) => {
       })
     }
 
+    dispatch(actionStart(types.TIME_ENTRY_INPUT__ASSIGN_TAG))
+
     //check if tag name exist return error
     const ref = firebase.database().ref('tags/' + uid)
       .orderByChild('name')
@@ -203,5 +205,29 @@ export const assignTag = (uid, tagName, color) => {
         })      
       }
     })
+  }
+}
+
+export const assignTagKey = (uid, tagKey) => {
+  return dispatch => {
+    dispatch(actionStart(types.TIME_ENTRY_INPUT__ASSIGN_TAG_KEY))
+
+    const promise = firebase.database().ref('timeEntryInputs/' + uid).update({tag: tagKey})
+
+    promise
+    .then(() => {      
+      firebase.database().ref('tags/' + uid + '/' + tagKey).once('value', (snapshot) => {
+        const tagName = snapshot.val().name, tagColor = snapshot.val().color
+        dispatch(actionSuccess(types.TIME_ENTRY_INPUT__ASSIGN_TAG_KEY, {payload: {
+          tagName,
+          tagColor
+        }}))
+      })
+    })
+    .catch(() => {
+      dispatch(actionFailed(types.TIME_ENTRY_INPUT__ASSIGN_TAG_KEY))  
+    })
+
+    return promise
   }
 }

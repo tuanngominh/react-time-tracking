@@ -10,19 +10,79 @@ import FontIcon from 'material-ui/FontIcon'
 import TextField from 'material-ui/TextField'
 import Dialog from 'material-ui/Dialog'
 
-class AddTagButton extends Component {
+export class TagItem extends Component {
   static propTypes = {
-    onCreateTag: PropTypes.func,
-    onFetchList: PropTypes.func,
+    onSelectTag: PropTypes.func,
+    name: PropTypes.string,
+    color: PropTypes.string,
+    id: PropTypes.string
+  }
+
+  handleSelectTag = () => {
+    this.props.onSelectTag(this.props.id)
+  }
+
+  render() {
+    return (
+      <ListItem
+        className='list-item' 
+        primaryText={this.props.name} 
+        leftIcon={<FontIcon className="material-icons" style={{color: this.props.color}}>lens</FontIcon>} 
+        onClick={this.handleSelectTag}
+      />      
+    )
+  }
+}
+
+export class TagItemList extends Component {
+  static propTypes = {
+    onSelectTag: PropTypes.func,
     tags: PropTypes.array,
-    tagName: PropTypes.string,
-    tagColor: PropTypes.string,
     dialogMaxHeight: PropTypes.number
   }
 
   static defaultProps = {
     tags: [],
     dialogMaxHeight: 300
+  }
+
+  render() {
+    return (
+      <div>
+        <List className="list first">
+          <FontIcon className="material-icons" style={{
+            color: 'lightgrey', 
+            fontSize: 18,
+            top: 5,
+            paddingRight: 8
+          }}>search</FontIcon>
+          <TextField
+            id="find-tag"
+            underlineShow={false}
+            hintText="Find Tag"
+            className="input-filter"
+          />
+        </List>
+        <Divider />
+        <List className="list" style={{maxHeight: this.props.dialogMaxHeight, 'overflowY': 'scroll', 'overflowX': 'hidden'}}>
+          {this.props.tags.map((tag) => (
+            <TagItem key={tag.key} id={tag.key} onSelectTag={this.props.onSelectTag} {...tag} />
+          ))}
+        </List>
+      </div>
+    )
+  }
+}
+
+class AddTagButton extends Component {
+  static propTypes = {
+    onCreateTag: PropTypes.func,
+    onFetchList: PropTypes.func,
+    onSelectTag: PropTypes.func,
+    tags: PropTypes.array,
+    tagName: PropTypes.string,
+    tagColor: PropTypes.string,
+    dialogMaxHeight: PropTypes.number
   }
 
   constructor (props) {
@@ -71,6 +131,11 @@ class AddTagButton extends Component {
     this.handleCloseCreateTagDialog()
   }
 
+  handleSelectTag = (tagKey) => {
+    this.props.onSelectTag(tagKey)
+    this.handleCloseTagForm()
+  }
+
   render() {
     return (
       <div className="container-add-tag">
@@ -104,31 +169,8 @@ class AddTagButton extends Component {
           className="container-add-tag-popup"
         >
           {
-            (this.props.tags.length && this.props.tags.length > 0)
-            ?
-              <div>
-                <List className="list first">
-                  <FontIcon className="material-icons" style={{
-                    color: 'lightgrey', 
-                    fontSize: 18,
-                    top: 5,
-                    paddingRight: 8
-                  }}>search</FontIcon>
-                  <TextField
-                    underlineShow={false}
-                    hintText="Find Tag"
-                    className="input-filter"
-                  />
-                </List>
-                <Divider />
-                <List className="list" style={{maxHeight: this.props.dialogMaxHeight, 'overflowY': 'scroll', 'overflowX': 'hidden'}}>
-                  {this.props.tags.map((tag) => (
-                    <ListItem key={tag.key} className='list-item' primaryText={tag.name} leftIcon={<FontIcon className="material-icons" style={{color: tag.color}}>lens</FontIcon>} />
-                  ))}
-                </List>
-              </div>
-            :
-              ''
+            ('tags' in this.props && this.props.tags.length > 0) &&
+              <TagItemList onSelectTag={this.handleSelectTag} tags={this.props.tags} dialogMaxHeight={this.props.dialogMaxHeight} />
           }
           <List className="list">
             <div style={{textAlign: 'center'}}>
