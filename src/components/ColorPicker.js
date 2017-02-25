@@ -2,7 +2,7 @@ import React, {Component, PropTypes} from 'react'
 import FontIcon from 'material-ui/FontIcon'
 import IconButton from 'material-ui/IconButton'
 
-class ColorPickerItem extends Component {
+export class ColorPickerItem extends Component {
   static propsTypes = {
     iconComponent: PropTypes.instanceOf(FontIcon),
     selectedIconComponent: PropTypes.instanceOf(FontIcon),
