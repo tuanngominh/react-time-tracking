@@ -4,52 +4,52 @@ import {shallow, mount} from 'enzyme'
 import {toAmPm} from '../../utils/time'
 
 import withStoreAndTheme from '../../__mocks__/withStoreAndTheme'
-import TimeEntryInput_withConnect, {TimeEntryInput} from '../TimeEntryInput'
-
-import withTheme from '../../__mocks__/withTheme'
+import {TimeEntryInput} from '../TimeEntryInput'
 
 // Needed for onTouchTap
 import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 
 const uid = '123'
-const TimeEntryInput_withStoreAndTheme = withStoreAndTheme(TimeEntryInput_withConnect, {
+const TimeEntryInput_withStoreAndTheme = withStoreAndTheme(TimeEntryInput, {
   auth: {
     user: {
       uid
     }
   }
 })
-const TimeEntryInput_withTheme = withTheme(TimeEntryInput)
+
+const setupActionProps = () => ({
+  onPull: jest.fn(),
+  onChangeText: jest.fn(),
+  onChangeStartTime: jest.fn(),
+  onStop: jest.fn(),
+  onStart: jest.fn(),
+  onPull: jest.fn(),
+  onRemove: jest.fn(),
+  onCreateTag: jest.fn()  
+})
+
+const getTimeInThePast = () => {
+  const now = new Date()
+  //try a specific time in the past so snapshot test doesn't failed
+  const startTime = new Date(Date.UTC(2015, 1, 12, 20, 20, 0))
+  return startTime.getTime()
+}
 
 describe('<TimeEntryInput />', () => {
-  it ('render with store and theme', () => {
-    const wrapper = mount(<TimeEntryInput_withStoreAndTheme />)
-    expect(wrapper.children().length).toBeGreaterThan(0)
-  })
 
   it ('render', () => {
-    const props = {
-      onPull: jest.fn(),
-      onChangeText: jest.fn(),
-      onChangeStartTime: jest.fn(),
-      onStop: jest.fn(),
-      onStart: jest.fn(),
-      onPull: jest.fn(),
-      onRemove: jest.fn(),
-      onCreateTag: jest.fn()
-    }
+    const props = setupActionProps()
     const wrapper = mount(<TimeEntryInput_withStoreAndTheme {...props} />)
     expect(wrapper.children().length).toBeGreaterThan(0)
-    // expect(props.onPull).toHaveBeenCalledTimes(1)
+    expect(props.onPull).toHaveBeenCalledTimes(1)
   })
 
   it ('can pull current tracking entry from server during first render', () => {
-    const props = {
-      onPull: jest.fn()
-    }
+    const props = setupActionProps()
     const wrapper = mount(<TimeEntryInput_withStoreAndTheme {...props} />)
-    // expect(props.onPull).toHaveBeenCalledTimes(1)
+    expect(props.onPull).toHaveBeenCalledTimes(1)
   })
 
   it ('can change start time', () => {
@@ -61,13 +61,11 @@ describe('<TimeEntryInput />', () => {
     //earlier than now 10 minutes
     //20:10 PM UTC
     const newStartTime =      new Date(Date.UTC(2017, 1, 12, 20, 10, 0))
-    const props = {
+    const props = Object.assign({
       now: now.getTime(),
-      onPull: jest.fn(),
-      onChangeStartTime: jest.fn(),
       startTime: originalStartTime.getTime(),
       uid
-    }
+    }, setupActionProps())
     const wrapper = shallow(<TimeEntryInput {...props} />)
 
     wrapper.instance().handleUpdateStartTimeAmPm({
@@ -84,15 +82,11 @@ describe('<TimeEntryInput />', () => {
 
   it ('can only change time to valid format data', () => {
     
-    const now = new Date()
-    //earlier than now 20 minutes
-    const originalStartTime = new Date((now).setMinutes(now.getMinutes() - 20))
-    const originalStartTimeAmPm = toAmPm(originalStartTime)
-    const props = {
-      onPull: jest.fn(),
-      onChangeStartTime: jest.fn(),
-      startTime: originalStartTime.getTime()
-    }
+    const originalStartTime = getTimeInThePast()
+    const originalStartTimeAmPm = toAmPm(new Date(originalStartTime))
+    const props = Object.assign({
+      startTime: originalStartTime
+    }, setupActionProps())
     const wrapper = shallow(<TimeEntryInput {...props} />)
 
     wrapper.instance().handleUpdateStartTimeAmPm({
@@ -106,14 +100,9 @@ describe('<TimeEntryInput />', () => {
   })
 
   it ('should be able to handle delete current tracking item', () => {
-    const now = new Date()
-    //earlier than now 20 minutes
-    const startTime = new Date((now).setMinutes(now.getMinutes() - 20))
-    const props = {
-      onPull: jest.fn(),
-      onRemove: jest.fn(),
-      startTime: startTime.getTime()
-    }
+    const props = Object.assign({
+      startTime: getTimeInThePast()
+    }, setupActionProps())
     const wrapper = shallow(<TimeEntryInput {...props} />)
 
     wrapper.instance().handleRemove()
@@ -122,14 +111,9 @@ describe('<TimeEntryInput />', () => {
   })
 
   it ('can stop and save current tracking data', () => {
-    const now = new Date()
-    //earlier than now 20 minutes
-    const startTime = new Date((now).setMinutes(now.getMinutes() - 20))
-    const props = {
-      onPull: jest.fn(),
-      onStop: jest.fn(),
-      startTime: startTime.getTime()
-    }
+    const props = Object.assign({
+      startTime: getTimeInThePast()
+    }, setupActionProps())
     const wrapper = shallow(<TimeEntryInput {...props} />)
 
     wrapper.instance().handleStop()
