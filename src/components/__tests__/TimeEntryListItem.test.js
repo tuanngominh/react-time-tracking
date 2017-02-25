@@ -3,13 +3,13 @@ import {shallow, mount} from 'enzyme'
 
 import withStoreAndTheme from '../../__mocks__/withStoreAndTheme'
 import withTheme from '../../__mocks__/withTheme'
-import TimeEntryListItem_withConnect, {TimeEntryListItem} from '../TimeEntryListItem'
+import TimeEntryListItem from '../TimeEntryListItem'
 
 // Needed for onTouchTap
 import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 
-const TimeEntryListItem_withTheme = withTheme(TimeEntryListItem)
+const TimeEntryListItem_withStoreAndTheme = withStoreAndTheme(TimeEntryListItem)
 
 const props = {
   uid : "123",
@@ -32,7 +32,7 @@ describe('<TimeEntryListItem />', () => {
   })
 
   it ('should render correctly and without error', () => {
-    const wrapper = mount(<TimeEntryListItem_withTheme {...props} />)
+    const wrapper = mount(<TimeEntryListItem_withStoreAndTheme {...props} />)
     
     expect(wrapper.find('TextField').length).toBeGreaterThan(0)
     expect(wrapper.find('FlatButton').length).toBeGreaterThan(0)

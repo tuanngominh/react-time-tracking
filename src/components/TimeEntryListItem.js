@@ -4,13 +4,12 @@ import {get} from 'lodash'
 
 import {toAmPm} from '../utils/time'
 
-import {remove} from '../actions/timeEntries'
-
 import {TableRow, TableRowColumn} from 'material-ui/Table'
 import TextField from 'material-ui/TextField'
 import FlatButton  from 'material-ui/FlatButton'
-
 import FontIcon from 'material-ui/FontIcon'
+
+import AddTagButtonContainer from './AddTagButtonContainer'
 
 export class TimeEntryListItem extends Component {
   static propTypes = {
@@ -20,19 +19,31 @@ export class TimeEntryListItem extends Component {
     startTime: PropTypes.instanceOf(Date),
     endTime: PropTypes.instanceOf(Date)
   }
+
   componentWillMount() {
     this.setState({
       text: this.props.text
     })   
   }
+
   handleRemove = () => {
     this.props.onRemove(this.props.uid, this.props.id)
   }
+
   handleChangeText = (e) => {
     this.setState({
       text: e.target.value
     })
   }
+
+  handleCreateTag = (tagName, color) => {
+    this.props.onCreateTag(this.props.uid, this.props.id, tagName, color)
+  }
+
+  handleSelectTag = (tagId) => {
+    this.props.onSelectTag(this.props.uid, this.props.id, tagId)
+  }
+
   render() {
     return(
       <TableRow>
@@ -48,6 +59,7 @@ export class TimeEntryListItem extends Component {
               onChange={this.handleChangeText}
               underlineShow={false}
             />
+            <AddTagButtonContainer />
           </div>
         </TableRowColumn>
         <TableRowColumn>{toAmPm(this.props.startTime)} - {toAmPm(this.props.endTime)}</TableRowColumn>
@@ -67,22 +79,4 @@ export class TimeEntryListItem extends Component {
   }
 }
 
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onRemove: (uid, entryId) => {
-      dispatch(remove(uid, entryId))
-    }
-  }
-}
-
-const mapStateToProps = (state) => {
-  return {
-    uid: get(state,"auth.user.uid", null)
-  }
-}
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(TimeEntryListItem)
+export default TimeEntryListItem

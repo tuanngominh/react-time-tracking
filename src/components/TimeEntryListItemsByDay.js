@@ -2,7 +2,7 @@ import React, {Component, PropTypes} from 'react'
 
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow} from 'material-ui/Table'
 
-import TimeEntryListItem from '../containers/TimeEntryListItem'
+import TimeEntryListItemContainer from './TimeEntryListItemContainer'
 
 class TimeEntryListItemsByDay extends Component {
   static propTypes = {
@@ -20,7 +20,7 @@ class TimeEntryListItemsByDay extends Component {
           {
             this.props.entries.map((timeEntry) => {
               return (
-                <TimeEntryListItem 
+                <TimeEntryListItemContainer 
                   key={timeEntry.key} 
                   text={timeEntry.text} 
                   id={timeEntry.key} 

@@ -8,7 +8,7 @@ import { storiesOf, action, linkTo, addDecorator } from '@kadira/storybook';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 import {Table, TableBody} from 'material-ui/Table'
-import TimeEntryListItem from '../src/containers/TimeEntryListItem';
+import TimeEntryListItem from '../src/components/TimeEntryListItem';
 
 storiesOf('Time Entry Input', module)
   .add('<TimeEntryListItem /> - Single Item', () => {
