@@ -91,7 +91,7 @@ const timeEntryInput = (state = {}, action) => {
       
       return state
 
-    case types.TIME_ENTRY_INPUT__ASSIGN_TAG_KEY:
+    case types.TIME_ENTRY_INPUT__ASSIGN_TAG_ID:
       if (action.isFetching && action.isFetching === true) {
         return Object.assign({}, state, {
           isFetching: true

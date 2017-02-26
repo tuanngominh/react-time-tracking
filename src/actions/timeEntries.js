@@ -9,7 +9,28 @@ export const fetchList = (uid, text) => {
       }}))
     
     const ref = firebase.database().ref('timeEntries/' + uid)
-    return new Promise(function(resolve, reject){
+    return new Promise((resolve, reject) => {
+
+      let tags = {}
+      const getTag = (tagId) => {
+        return new Promise((resolveTag, rejectTag) => {
+          if (tagId in tags) {
+            resolveTag(tags[tagId])
+          } else {
+            firebase.database().ref('tags/' + uid + '/' + tagId).once('value')
+              .then(snapshot => {
+                //cache for later use
+                const tag = snapshot.val()
+                if (tag) {
+                  tags[snapshot.key] = tag
+                }
+                resolveTag(tag)
+              })
+          }
+        })
+      }
+
+      let getTagPromises = []
       ref.on('value', function(snapshot){
         let entries = {}
         snapshot.forEach(function(childSnapshot){
@@ -17,14 +38,26 @@ export const fetchList = (uid, text) => {
           var childData = childSnapshot.val()
           childData.startTime = new Date(childData.startTime)
           childData.endTime = new Date(childData.endTime)
+
+          //fetch tag async
+          const getTagPromise = getTag(childData.tag)
+          getTagPromises.push(getTagPromise)
+          getTagPromise.then(tag => {
+            childData.tagName = (tag && tag.name) ? tag.name : null
+            childData.tagColor = (tag && tag.color) ? tag.color : null
+          })
+
           entries[childKey] = childData
         })
 
-        dispatch(actionSuccess(types.TIME_ENTRIES_FETCH_LIST, {payload: {
-          entries
-        }}))
+        //success when fetch all tags done
+        Promise.all(getTagPromises).then(() => {
+          dispatch(actionSuccess(types.TIME_ENTRIES_FETCH_LIST, {payload: {
+            entries
+          }}))
+          resolve()
+        })
 
-        resolve()
       })
     })
   }

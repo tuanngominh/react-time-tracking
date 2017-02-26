@@ -1,7 +1,7 @@
 import React from 'react'
 import {shallow, mount} from 'enzyme'
 import withTheme from '../../__mocks__/withTheme'
-import AddTagButton, {TagItem, TagItemList} from '../AddTagButton'
+import AddTagButton, {TagItem, TagItemList, TagButton} from '../AddTagButton'
 
 // Needed for onTouchTap
 import injectTapEventPlugin from 'react-tap-event-plugin';
@@ -44,6 +44,28 @@ describe('TagItemList widget', () => {
     expect(wrapper.find('List').length).toBe(2)
     expect(wrapper.find('TagItem').length).toBe(2)
   })
+})
+
+describe('AddTag button', () => {
+  const actionProps = () => ({
+    onClick: jest.fn()
+  })
+
+  it('Can render without value', () => {
+    const wrapper = shallow(<TagButton {...actionProps()}/>)
+  })
+
+  it('Can render with value', () => {
+    const wrapper = shallow(<TagButton tagName='tag 1' tagColor='black' {...actionProps()}/>)
+  })
+
+  it('Can click to open tag form', () => {
+    const actionsProp = actionProps()
+    const wrapper = shallow(<TagButton tagName='tag 1' tagColor='black' {...actionsProp}/>)
+    wrapper.find('FlatButton').simulate('click')
+    expect(actionsProp.onClick).toHaveBeenCalledTimes(1)
+  })  
+
 })
 
 const AddTagButton_withTheme = withTheme(AddTagButton)

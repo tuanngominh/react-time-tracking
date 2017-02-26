@@ -128,9 +128,9 @@ describe('<TimeEntryInput />', () => {
     }, setupActionProps())
     const wrapper = shallow(<TimeEntryInput {...props} uid={uid} />)
 
-    const tagKey = 'tag1'
-    wrapper.instance().handleSelectTag(tagKey)
+    const tagId = 'tag1'
+    wrapper.instance().handleSelectTag(tagId)
     
-    expect(props.onSelectTag).toHaveBeenCalledWith(uid, tagKey)       
+    expect(props.onSelectTag).toHaveBeenCalledWith(uid, tagId)       
   })
 })

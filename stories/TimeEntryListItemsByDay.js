@@ -17,7 +17,9 @@ const props = {
       "key": "KbxshEl9QNUZP15DU0h",
       startTime: new Date("2017-02-02T08:13:37.638Z"),
       endTime: new Date("2017-02-02T08:13:01.618Z"),
-      text: "track log 1 track log 1 track log 1 track log 1"
+      text: "track log 1 track log 1 track log 1 track log 1",
+      tagName: 'tag1',
+      tagColor: 'blue'
     },
     {
       "key": "KbxxMXkuLAQcwpM5AD3",
@@ -29,7 +31,7 @@ const props = {
 }
 
 storiesOf('Time Entry Input', module)
-  .add('<TimeEntryListItemsByDay /> - render', () => {
+  .add('TimeEntryListItemsByDay - single day', () => {
     const store = configureStore()
     return (
       <Provider store={store}>
@@ -37,7 +39,7 @@ storiesOf('Time Entry Input', module)
       </Provider>
     )
   })
-  .add('<TimeEntryListItemsByDay /> - render multiple', () => {
+  .add('TimeEntryListItemsByDay - multiple days', () => {
     const store = configureStore()
     return (
       <Provider store={store}>

@@ -1,6 +1,4 @@
 import React, {Component, PropTypes} from 'react'
-import {connect} from 'react-redux'
-import {get} from 'lodash'
 
 import {toAmPm} from '../utils/time'
 
@@ -17,7 +15,11 @@ export class TimeEntryListItem extends Component {
     id: PropTypes.string,
     text: PropTypes.string,
     startTime: PropTypes.instanceOf(Date),
-    endTime: PropTypes.instanceOf(Date)
+    endTime: PropTypes.instanceOf(Date),
+    tagName: PropTypes.string,
+    tagColor: PropTypes.string,
+    onCreateTag: PropTypes.func,
+    onSelectTag: PropTypes.func
   }
 
   componentWillMount() {
@@ -59,7 +61,12 @@ export class TimeEntryListItem extends Component {
               onChange={this.handleChangeText}
               underlineShow={false}
             />
-            <AddTagButtonContainer />
+            <AddTagButtonContainer 
+              onCreateTag={this.props.onCreateTag} 
+              onSelectTag={this.props.onSelectTag} 
+              tagName={this.props.tagName}
+              tagColor={this.props.tagColor}
+            />
           </div>
         </TableRowColumn>
         <TableRowColumn>{toAmPm(this.props.startTime)} - {toAmPm(this.props.endTime)}</TableRowColumn>

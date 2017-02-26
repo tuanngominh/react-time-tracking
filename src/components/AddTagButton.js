@@ -74,6 +74,34 @@ export class TagItemList extends Component {
   }
 }
 
+export class TagButton extends Component {
+  static propTypes = {
+    onClick: PropTypes.func,
+    tagName: PropTypes.string,
+    tagColor: PropTypes.string    
+  }
+
+  render() {
+    return(
+      this.props.tagName
+      ?
+        <FlatButton
+          onClick={this.props.onClick}
+          label={this.props.tagName}
+          labelStyle={{color: this.props.tagColor, textTransform: 'none'}}
+          icon={<FontIcon className="material-icons" style={{color: this.props.tagColor, fontSize: 20}}>lens</FontIcon>}
+        />
+      :
+        <FlatButton
+          onClick={this.props.onClick}
+          label="Tag"
+          labelStyle={{textTransform: 'none'}}
+          icon={<FontIcon className="material-icons" style={{color: 'green', fontSize: 30}}>add</FontIcon>}
+        />      
+    )
+  }
+}
+
 class AddTagButton extends Component {
   static propTypes = {
     onCreateTag: PropTypes.func,
@@ -131,30 +159,15 @@ class AddTagButton extends Component {
     this.handleCloseCreateTagDialog()
   }
 
-  handleSelectTag = (tagKey) => {
-    this.props.onSelectTag(tagKey)
+  handleSelectTag = (tagId) => {
+    this.props.onSelectTag(tagId)
     this.handleCloseTagForm()
   }
 
   render() {
     return (
       <div className="container-add-tag">
-        {
-          this.props.tagName
-          ?
-            <FlatButton
-              onTouchTap={this.handleOpenTagForm}
-              label={this.props.tagName}
-              labelStyle={{color: this.props.tagColor, textTransform: 'none'}}
-              icon={<FontIcon className="material-icons" style={{color: this.props.tagColor, fontSize: 20}}>lens</FontIcon>}
-            />
-          :
-            <FlatButton
-              onTouchTap={this.handleOpenTagForm}
-              label="Tag"
-              icon={<FontIcon className="material-icons" style={{color: 'green', fontSize: 30}}>add</FontIcon>}
-            />
-        }
+        <TagButton onClick={this.handleOpenTagForm} tagName={this.props.tagName} tagColor={this.props.tagColor} />
         <Popover
           open={this.state.openTagForm}
           anchorEl={this.state.anchorEl}

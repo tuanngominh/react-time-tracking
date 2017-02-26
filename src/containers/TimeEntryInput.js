@@ -3,7 +3,8 @@ import {connect} from 'react-redux'
 import {get} from 'lodash'
 
 import {toAmPm, fromAmPM, fromAmPmToDate} from '../utils/time'
-import {changeText, changeStartTime, stop, start, pull, remove, assignTag, assignTagKey} from '../actions/timeEntryInput'
+import {changeText, changeStartTime, stop, start, pull, remove} from '../actions/timeEntryInput'
+import {assignTagToTimeEntryInput, assignTagIdToTimeEntryInput} from '../actions/tags'
 
 import TextField from 'material-ui/TextField'
 import Dialog from 'material-ui/Dialog'
@@ -122,8 +123,8 @@ export class TimeEntryInput extends Component {
     this.props.onCreateTag(this.props.uid, tagName, color)
   }
 
-  handleSelectTag = (tagKey) => {
-    this.props.onSelectTag(this.props.uid, tagKey)
+  handleSelectTag = (tagId) => {
+    this.props.onSelectTag(this.props.uid, tagId)
   }
 
   render() {
@@ -186,10 +187,10 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(remove(uid))
     },
     onCreateTag: (uid, tagName, color) => {
-      dispatch(assignTag(uid, tagName, color))
+      dispatch(assignTagToTimeEntryInput(uid, tagName, color))
     },
-    onSelectTag: (uid, tagKey) => {
-      dispatch(assignTagKey(uid, tagKey))
+    onSelectTag: (uid, tagId) => {
+      dispatch(assignTagIdToTimeEntryInput(uid, tagId))
     }
   }
 }

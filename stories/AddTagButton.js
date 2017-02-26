@@ -14,7 +14,8 @@ const tags = [
 let manyTags = []
 for (let i = 0; i < 30; i++) {
   manyTags.push({
-    key: i,
+    key: 'tag' + i,
+    id: 'tag' + i,
     name: 'tag ' + i,
     color: ((i % 2) === 0) ? 'black': 'blue'
   })
