@@ -1,11 +1,11 @@
 import React from 'react'
 import TimeEntryInput from '../containers/TimeEntryInput'
-import TimeEntryList from '../containers/TimeEntryList'
+import TimeEntryListContainer from './TimeEntryListContainer'
 
 const TimeTracker = () => (
   <div>
     <TimeEntryInput />
-    <TimeEntryList />
+    <TimeEntryListContainer />
   </div>
 )
 

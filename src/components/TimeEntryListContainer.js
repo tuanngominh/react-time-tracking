@@ -8,7 +8,7 @@ import {groupByDay} from '../utils/timeEntries'
 
 import TimeEntryListItemsByDay from '../components/TimeEntryListItemsByDay'
 
-export class TimeEntryList extends Component {
+export class TimeEntryListContainer extends Component {
   static propTypes = {
     onFetchList: PropTypes.func,
     entries: PropTypes.object
@@ -56,4 +56,4 @@ const mapStateToProps = (state) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(TimeEntryList)
+)(TimeEntryListContainer)
