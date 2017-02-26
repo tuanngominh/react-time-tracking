@@ -10,13 +10,13 @@ import DatePicker from 'material-ui/DatePicker'
 
 export class ReportFilter extends Component {
   static propTypes = {
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+    startDate: PropTypes.number,
+    endDate: PropTypes.number
   }
 
   static defaultProps = {
-    text: '',
-    startDate: (new Date()),
-    endDate: null
+    text: ''
   }
 
   constructor(props) {
@@ -32,8 +32,8 @@ export class ReportFilter extends Component {
     const endDate = new Date()
     this.state = {
       text: '',      
-      startDate: getStartDate(),
-      endDate: endDate,
+      startDate: props.startDate ? new Date(props.startDate) : getStartDate(),
+      endDate: props.endDate ? new Date(props.endDate) : endDate,
       changeTextSubmitTimeoutId: null,
       dialogOpen: false
     }

@@ -12,9 +12,12 @@ import ReportFilter from '../src/containers/Report/Filter';
 storiesOf('Report', module)
   .add('<ReportFilter />', () => {
     const store = configureStore()
+    let startDate = (new Date(Date.UTC(2017, 1, 12, 20, 20, 0))).getTime()
+    let endDateDate = (new Date(Date.UTC(2017, 1, 19, 20, 20, 0))).getTime()
+    const props = {startDate, endDateDate}
     return (
       <Provider store={store}>
-        <ReportFilter />
+        <ReportFilter {...props} />
       </Provider>
     )
   })
