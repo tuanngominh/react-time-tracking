@@ -2,11 +2,9 @@ import firebase from '../configureFirebase'
 import * as types from '../constants/ActionTypes'
 import {actionStart, actionSuccess, actionFailed} from './utils/template'
 
-export const fetchList = (uid, text) => {
+export const fetchList = (uid) => {
   return function(dispatch) {
-    dispatch(actionStart(types.TIME_ENTRIES_FETCH_LIST, {payload: {
-        text
-      }}))
+    dispatch(actionStart(types.TIME_ENTRIES_FETCH_LIST))
     
     const ref = firebase.database().ref('timeEntries/' + uid)
     return new Promise((resolve, reject) => {

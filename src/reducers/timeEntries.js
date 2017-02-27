@@ -19,6 +19,7 @@ const timeEntries = (state = {}, action) => {
       return state
 
     case types.TIME_ENTRIES__ASSIGN_TAG_ID:
+    case types.TIME_ENTRIES__ASSIGN_TAG:
       if (action.isFetching && action.isFetching === true) {
         return Object.assign({}, state, {
           isFetching: true

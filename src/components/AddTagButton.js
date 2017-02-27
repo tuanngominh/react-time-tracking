@@ -182,7 +182,7 @@ class AddTagButton extends Component {
           className="container-add-tag-popup"
         >
           {
-            ('tags' in this.props && this.props.tags.length > 0) &&
+            ('tags' in this.props && this.props.tags && this.props.tags.length > 0) &&
               <TagItemList onSelectTag={this.handleSelectTag} tags={this.props.tags} dialogMaxHeight={this.props.dialogMaxHeight} />
           }
           <List className="list">

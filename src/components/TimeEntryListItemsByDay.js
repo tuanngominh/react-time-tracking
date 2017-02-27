@@ -13,7 +13,7 @@ class TimeEntryListItemsByDay extends Component {
       <Table>
         <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
           <TableRow>
-            <TableHeaderColumn colSpan="3">{this.props.date}</TableHeaderColumn>
+            <TableHeaderColumn colSpan="4">{this.props.date}</TableHeaderColumn>
           </TableRow>
         </TableHeader>
         <TableBody displayRowCheckbox={false}>

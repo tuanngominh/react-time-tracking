@@ -2,13 +2,13 @@ import firebase from '../configureFirebase'
 import * as types from '../constants/ActionTypes'
 import {actionStart, actionSuccess, actionFailed} from './utils/template'
 
-export const fetchList = (uid, text) => {
+export const fetchList = (uid) => {
   return function(dispatch) {
     dispatch(actionStart(types.TAGS_FETCH_LIST))
     
     const ref = firebase.database().ref('tags/' + uid)
     return new Promise(function(resolve, reject){
-      ref.on('value', function(snapshot){
+      ref.once('value', function(snapshot){
         let entries = []
         snapshot.forEach(function(childSnapshot){
           entries.push(Object.assign(childSnapshot.val(), {key : childSnapshot.key}))
@@ -28,7 +28,7 @@ Get tag if existed or create new tag then assign to entry by calling a callback
 @param string tagColor tag color
 @param function assignFn callback to call to assign tag to entry
 */
-const assignTagToEntry = (uid, tagName, tagColor, assignFn) => {
+const assignTagToEntry = (dispatch, uid, tagName, tagColor, assignFn) => {
   //use existed tag
   const ref = firebase.database().ref('tags/' + uid)
     .orderByChild('name')
@@ -52,6 +52,7 @@ const assignTagToEntry = (uid, tagName, tagColor, assignFn) => {
       newTagPromise
       .then(() => {
         assignFn(tagId)
+        dispatch(fetchList(uid))
       })      
     }
   })  
@@ -76,7 +77,7 @@ export const assignTagToTimeEntryInput = (uid, tagName, tagColor) => {
 
     dispatch(actionStart(types.TIME_ENTRY_INPUT__ASSIGN_TAG))
 
-    assignTagToEntry(uid, tagName, tagColor, assignFn)
+    assignTagToEntry(dispatch, uid, tagName, tagColor, assignFn)
   }
 }
 
@@ -113,7 +114,8 @@ export const assignTagToTimeEntry = (uid, entryId, tagName, tagColor) => {
       .then(() => {
         dispatch(actionSuccess(types.TIME_ENTRIES__ASSIGN_TAG, {payload: {
           tagName: tagName,
-          tagColor: tagColor
+          tagColor: tagColor,
+          entryId
         }}))
       })
       .catch(() => {
@@ -123,7 +125,7 @@ export const assignTagToTimeEntry = (uid, entryId, tagName, tagColor) => {
 
     dispatch(actionStart(types.TIME_ENTRIES__ASSIGN_TAG))
 
-    assignTagToEntry(uid, tagName, tagColor, assignFn)
+    assignTagToEntry(dispatch, uid, tagName, tagColor, assignFn)
   }
 }
 

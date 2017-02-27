@@ -61,13 +61,20 @@ export class TimeEntryListItem extends Component {
               onChange={this.handleChangeText}
               underlineShow={false}
             />
+          </div>
+        </TableRowColumn>
+        <TableRowColumn>
+          <div onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+            }}>
             <AddTagButtonContainer 
               onCreateTag={this.props.onCreateTag} 
               onSelectTag={this.props.onSelectTag} 
               tagName={this.props.tagName}
               tagColor={this.props.tagColor}
-            />
-          </div>
+            />            
+          </div>        
         </TableRowColumn>
         <TableRowColumn>{toAmPm(this.props.startTime)} - {toAmPm(this.props.endTime)}</TableRowColumn>
         <TableRowColumn>

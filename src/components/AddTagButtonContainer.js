@@ -7,7 +7,10 @@ import {fetchList} from '../actions/tags'
 
 class AddTagButtonContainer extends Component {
   handleFetchList = () => {
-    this.props.onFetchList(this.props.uid)
+    const {tags, onFetchList, uid} = this.props
+    if (!tags) {
+      onFetchList(uid)
+    }
   }
   render() {
     return (
@@ -26,7 +29,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
 const mapStateToProps = (state) => {
   return {
-    tags: get(state,"tags.tags", []),
+    tags: get(state,"tags.tags", null),
     uid: get(state,"auth.user.uid", null)
   }
 }
