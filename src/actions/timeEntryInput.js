@@ -45,7 +45,7 @@ export const changeStartTime = (uid, date) => {
   }
 }
 
-export const stop = (uid, text, date) => {
+export const stop = (uid, text, tagId, date) => {
   return function(dispatch) {
     dispatch(actionStart(types.TIME_ENTRY_INPUT__STOP))
 
@@ -55,7 +55,8 @@ export const stop = (uid, text, date) => {
     const newEntryPromise = newEntryRef.set({
       text: text,
       startTime: date,
-      endTime: now.getTime()
+      endTime: now.getTime(),
+      tag: tagId
     })
     
     //delete current tracking entry
@@ -86,30 +87,15 @@ export const pull = (uid) => {
         const entry = snapshot.val()
         if (entry) {
 
-          const dispatchSuccess = (entry, tag) => {
-            const payload = {
-              text: entry.text,
-              startTime: entry.startTime
-            }
-            if (tag) {
-              payload.tagName = tag.name
-              payload.tagColor = tag.color
-            }
-            dispatch(actionSuccess(types.TIME_ENTRY_INPUT__PULL, {payload: payload}))
+          const payload = {
+            text: entry.text,
+            startTime: entry.startTime
+          }
+          if (entry.tag) {
+            payload.tagId = entry.tag
           }
 
-          //entry with tag
-          if (entry.tag) {
-            const tagRef = firebase.database().ref('tags/' + uid + "/" + entry.tag)
-            tagRef.once('value', snapshot => {
-              const tag = snapshot.val()
-              dispatchSuccess(entry, tag)
-            })
-          } 
-          //entry without tag
-          else {
-            dispatchSuccess(entry)
-          }
+          dispatch(actionSuccess(types.TIME_ENTRY_INPUT__PULL, {payload: payload}))
 
         } else {
           dispatch(actionSuccess(types.TIME_ENTRY_INPUT__PULL, {payload: null}))
@@ -120,24 +106,40 @@ export const pull = (uid) => {
   }
 }
 
-export const start = (uid, text, date) => {
+export const start = (uid, text, tagId, date) => {
   return function(dispatch) {
     dispatch(actionStart(types.TIME_ENTRY_INPUT__START, {payload: {
-        text: text,
-        startTime: date
+        text,
+        startTime: date,
+        tagId
       }}))
     
     const entryData = {
-      text: text,
-      startTime: date
+      text,
+      startTime: date,
     }
+    
+    if (tagId) {
+      entryData.tag = tagId
+    }
+    
     const promise = firebase.database().ref('timeEntryInputs/' + uid).set(entryData)
     promise
     .then((data) => {
-      dispatch(actionSuccess(types.TIME_ENTRY_INPUT__START, {payload: {
-        text: text,
-        startTime: date
-      }}))
+
+      if (tagId) {
+        dispatch(actionSuccess(types.TIME_ENTRY_INPUT__START, {payload: {
+          text,
+          startTime: date,
+          tagId
+        }}))
+      } else {
+        dispatch(actionSuccess(types.TIME_ENTRY_INPUT__START, {payload: {
+          text,
+          startTime: date
+        }}))
+      }
+
     })
     .catch(() => {
       dispatch(actionFailed(types.TIME_ENTRY_INPUT__START))  

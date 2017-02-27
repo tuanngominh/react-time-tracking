@@ -15,8 +15,7 @@ export class TimeEntryInputForm extends Component {
   static propTypes = {
     text: PropTypes.string,
     duration: PropTypes.string,
-    tagName: PropTypes.string,
-    tagColor: PropTypes.string,
+    tagId: PropTypes.string,
     onChangeText: PropTypes.func,    
     onOpenDialog: PropTypes.func,
     onStop: PropTypes.func,
@@ -44,6 +43,7 @@ export class TimeEntryInputForm extends Component {
       duration: null,      
       text: props.text ? props.text : '',
       timerId: null,
+      tagId: props.tagId ? props.tagId : null,
       changeTextSubmitTimeoutId: null
     }
 
@@ -78,6 +78,11 @@ export class TimeEntryInputForm extends Component {
         text: '',
         startTime: null,
         duration: null
+      })
+    }
+    if ('tagId' in nextProps) {
+      this.setState({
+        tagId: nextProps.tagId
       })
     }
   }
@@ -147,7 +152,15 @@ export class TimeEntryInputForm extends Component {
 
   handleStart = (e) => {
     e.preventDefault()
-    this.props.onStart(this.state.text)
+    this.props.onStart(this.state.text, this.state.tagId)
+  }
+
+  handleSelectTag = (tagId) => {
+    if (this.props.startTime) {
+      this.props.onSelectTag(tagId)
+    } else {
+      this.setState({tagId})
+    }    
   }
 
   render() {
@@ -163,9 +176,8 @@ export class TimeEntryInputForm extends Component {
         />
         <AddTagButtonContainer 
           onCreateTag={this.props.onCreateTag} 
-          onSelectTag={this.props.onSelectTag} 
-          tagName={this.props.tagName} 
-          tagColor={this.props.tagColor} 
+          onSelectTag={this.handleSelectTag} 
+          tagId={this.state.tagId} 
         />
         <span 
           onClick={this.props.onOpenDialog}

@@ -16,8 +16,7 @@ export class TimeEntryListItem extends Component {
     text: PropTypes.string,
     startTime: PropTypes.instanceOf(Date),
     endTime: PropTypes.instanceOf(Date),
-    tagName: PropTypes.string,
-    tagColor: PropTypes.string,
+    tagId: PropTypes.string,
     onCreateTag: PropTypes.func,
     onSelectTag: PropTypes.func
   }
@@ -71,8 +70,7 @@ export class TimeEntryListItem extends Component {
             <AddTagButtonContainer 
               onCreateTag={this.props.onCreateTag} 
               onSelectTag={this.props.onSelectTag} 
-              tagName={this.props.tagName}
-              tagColor={this.props.tagColor}
+              tagId={this.props.tagId}
             />            
           </div>        
         </TableRowColumn>

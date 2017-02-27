@@ -16,8 +16,7 @@ export class TimeEntryInput extends Component {
     now: PropTypes.number,//timestamp. We need to pass now in unit test
     startTime: PropTypes.number,
     text: PropTypes.string,
-    tagName: PropTypes.string,
-    tagColor: PropTypes.string,
+    tagId: PropTypes.string,
     uid: PropTypes.string,
     onChangeText: PropTypes.func,
     onChangeStartTime: PropTypes.func,
@@ -106,13 +105,13 @@ export class TimeEntryInput extends Component {
     })
   }
 
-  handleStart = (text) => {
+  handleStart = (text, tagId) => {
     const now = this.props.now ? new Date(this.props.now) : new Date()
-    this.props.onStart(this.props.uid, text, now)
+    this.props.onStart(this.props.uid, text, tagId, now)
   }
 
   handleStop = () => {
-    this.props.onStop(this.props.uid, this.props.text, this.props.startTime)
+    this.props.onStop(this.props.uid, this.props.text, this.props.tagId, this.props.startTime)
   }
 
   handleRemove = () => {
@@ -133,8 +132,7 @@ export class TimeEntryInput extends Component {
         <TimeEntryInputForm
           text={this.props.text}
           startTime={this.props.startTime}
-          tagName={this.props.tagName}
-          tagColor={this.props.tagColor}
+          tagId={this.props.tagId}
           isFetching={this.props.isFetching}
           onChangeText={this.handleChangeText}            
           onOpenDialog={this.handleOpenDialog}
@@ -174,11 +172,11 @@ const mapDispatchToProps = (dispatch) => {
     onChangeStartTime: (uid, date) => {
       dispatch(changeStartTime(uid, date.getTime()))
     },
-    onStop: (uid, text, date) => {
-      dispatch(stop(uid, text, date))
+    onStop: (uid, text, tagId, date) => {
+      dispatch(stop(uid, text, tagId, date))
     },
-    onStart: (uid, text, date) => {
-      dispatch(start(uid, text, date.getTime()))
+    onStart: (uid, text, tagId, date) => {
+      dispatch(start(uid, text, tagId, date.getTime()))
     },
     onPull: (uid) => {
       dispatch(pull(uid))
@@ -200,8 +198,7 @@ const mapStateToProps = (state) => {
     startTime: get(state,"timeEntryInput.startTime", null),
     text: get(state, "timeEntryInput.text", null),
     uid: get(state,"auth.user.uid", null),
-    tagName: get(state,"timeEntryInput.tagName", null),
-    tagColor: get(state,"timeEntryInput.tagColor", null),
+    tagId: get(state,"timeEntryInput.tagId", null),
     isFetching: get(state, "timeEntryInput.isFetching", null)
   }
 }

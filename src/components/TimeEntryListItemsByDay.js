@@ -26,8 +26,7 @@ class TimeEntryListItemsByDay extends Component {
                   id={timeEntry.key} 
                   startTime={timeEntry.startTime} 
                   endTime={timeEntry.endTime}
-                  tagName={timeEntry.tagName}
-                  tagColor={timeEntry.tagColor}
+                  tagId={timeEntry.tagId}
                 />
               )
             })

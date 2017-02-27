@@ -2,20 +2,25 @@ import * as types from '../constants/ActionTypes'
 
 const timeEntryInput = (state = {}, action) => {
   switch (action.type) {
-    case types.TIME_ENTRY_INPUT__START: 
-      if (
-        (action.status && action.status === 'success')
-        ||
-        (action.isFetching)
-      ) {
-        return { 
-          text: action.payload.text,
-          startTime: action.payload.startTime,
-          isFetching: action.isFetching
-        }
-      } else {
-        return Object.assign({}, state, {isFetching: action.isFetching})
+    case types.TIME_ENTRY_INPUT__START:
+      let newState = { 
+        text: action.payload.text,
+        startTime: action.payload.startTime,
+        isFetching: action.isFetching,
       }
+      if (action.payload.tagId) {
+        newState.tagId = action.payload.tagId
+      }
+
+      if (
+        (action.isFetching && action.isFetching === true) 
+        ||
+        (action.status && action.status === 'success')
+      ) {
+        return newState
+      }
+
+      return state
 
     case types.TIME_ENTRY_INPUT__PULL:
       if (action.status && action.status === 'success' && action.payload) {
@@ -23,8 +28,9 @@ const timeEntryInput = (state = {}, action) => {
           text: action.payload.text,
           startTime: action.payload.startTime,
           isFetching: action.isFetching,
-          tagName: action.payload.tagName,
-          tagColor: action.payload.tagColor  
+          tagId: action.payload.tagId
+          // tagName: action.payload.tagName,
+          // tagColor: action.payload.tagColor  
         }
       } else {
         return Object.assign({}, state, {isFetching: action.isFetching})

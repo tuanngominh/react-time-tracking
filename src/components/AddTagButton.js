@@ -19,7 +19,8 @@ export class TagItem extends Component {
   }
 
   handleSelectTag = () => {
-    this.props.onSelectTag(this.props.id)
+    const {onSelectTag, id, name, color} = this.props    
+    onSelectTag(id, name, color)
   }
 
   render() {
@@ -130,16 +131,66 @@ class AddTagButton extends Component {
     onFetchList: PropTypes.func,
     onSelectTag: PropTypes.func,
     tags: PropTypes.array,
-    tagName: PropTypes.string,
-    tagColor: PropTypes.string,
+    tagId: PropTypes.string,
     dialogMaxHeight: PropTypes.number
   }
 
   constructor (props) {
     super(props)
+    const tagValue = this.getTagButtonValue(props.tagId, props)
+
     this.state = {
       openTagForm: false,
-      createTagDialogOpen: false
+      createTagDialogOpen: false,
+      tagName: tagValue ? tagValue.name : null,
+      tagColor: tagValue ? tagValue.color : null,
+      tagId: props.tagId ? props.tagId : null
+    }
+  }
+
+  getTagButtonValue = (tagId, props) => {
+    let result = null
+    if (props.tags && props.tags.length && props.tags.length > 0) {
+      props.tags.forEach((tag) => {
+        if (tag.key === tagId) {
+          result = tag
+          return false
+        }
+      })
+    }
+    return result
+  }
+
+  componentWillReceiveProps(nextProps) {
+    //we got tagId pass in
+    if ('tagId' in nextProps) {
+      if (nextProps.tagId) {
+        //if tags available in nextProps use it
+        let props = null
+        if (nextProps.tags && nextProps.tags.length && nextProps.tags.length > 0) {
+          props = nextProps
+        } else if (this.props.tags && this.props.tags.length && this.props.tags.length > 0) {
+          props = this.props
+        }
+
+        if (!props) {
+          return
+        }
+        const tagValue = this.getTagButtonValue(nextProps.tagId, props)
+        if (tagValue) {
+          this.setState({
+            tagName: tagValue.name,
+            tagColor: tagValue.color
+          })
+        }
+      } 
+      //empty tag id
+      else {
+        this.setState({
+          tagName: null,
+          tagColor: null
+        })        
+      }
     }
   }
 
@@ -181,15 +232,16 @@ class AddTagButton extends Component {
     this.handleCloseCreateTagDialog()
   }
 
-  handleSelectTag = (tagId) => {
+  handleSelectTag = (tagId, tagName, tagColor) => {    
     this.props.onSelectTag(tagId)
+    this.setState({tagName, tagColor})
     this.handleCloseTagForm()
   }
 
   render() {
     return (
       <div className="container-add-tag">
-        <TagButton onClick={this.handleOpenTagForm} tagName={this.props.tagName} tagColor={this.props.tagColor} />
+        <TagButton onClick={this.handleOpenTagForm} tagName={this.state.tagName} tagColor={this.state.tagColor} />
         <Popover
           open={this.state.openTagForm}
           anchorEl={this.state.anchorEl}
