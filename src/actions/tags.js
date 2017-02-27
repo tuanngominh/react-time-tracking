@@ -66,8 +66,7 @@ export const assignTagToTimeEntryInput = (uid, tagName, tagColor) => {
       promise
       .then(() => {
         dispatch(actionSuccess(types.TIME_ENTRY_INPUT__ASSIGN_TAG, {payload: {
-          tagName: tagName,
-          tagColor: tagColor
+          tagId
         }}))
       })
       .catch(() => {
@@ -83,7 +82,9 @@ export const assignTagToTimeEntryInput = (uid, tagName, tagColor) => {
 
 export const assignTagIdToTimeEntryInput = (uid, tagId) => {
   return dispatch => {
-    dispatch(actionStart(types.TIME_ENTRY_INPUT__ASSIGN_TAG_ID))
+    dispatch(actionStart(types.TIME_ENTRY_INPUT__ASSIGN_TAG_ID, {payload: {
+      tagId
+    }}))
 
     const promise = firebase.database().ref('timeEntryInputs/' + uid).update({tag: tagId})
 
@@ -92,8 +93,7 @@ export const assignTagIdToTimeEntryInput = (uid, tagId) => {
       firebase.database().ref('tags/' + uid + '/' + tagId).once('value', (snapshot) => {
         const tagName = snapshot.val().name, tagColor = snapshot.val().color
         dispatch(actionSuccess(types.TIME_ENTRY_INPUT__ASSIGN_TAG_ID, {payload: {
-          tagName,
-          tagColor
+          tagId
         }}))
       })
     })
@@ -113,8 +113,7 @@ export const assignTagToTimeEntry = (uid, entryId, tagName, tagColor) => {
       promise
       .then(() => {
         dispatch(actionSuccess(types.TIME_ENTRIES__ASSIGN_TAG, {payload: {
-          tagName: tagName,
-          tagColor: tagColor,
+          tagId,
           entryId
         }}))
       })
@@ -140,8 +139,7 @@ export const assignTagIdToTimeEntry = (uid, entryId, tagId) => {
       firebase.database().ref('tags/' + uid + '/' + tagId).once('value', (snapshot) => {
         const tagName = snapshot.val().name, tagColor = snapshot.val().color
         dispatch(actionSuccess(types.TIME_ENTRIES__ASSIGN_TAG_ID, {payload: {
-          tagName,
-          tagColor,
+          tagId,
           entryId
         }}))
       })

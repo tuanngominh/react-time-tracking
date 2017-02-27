@@ -29,8 +29,6 @@ const timeEntryInput = (state = {}, action) => {
           startTime: action.payload.startTime,
           isFetching: action.isFetching,
           tagId: action.payload.tagId
-          // tagName: action.payload.tagName,
-          // tagColor: action.payload.tagColor  
         }
       } else {
         return Object.assign({}, state, {isFetching: action.isFetching})
@@ -89,8 +87,7 @@ const timeEntryInput = (state = {}, action) => {
         (action.status && action.status === 'success')
       ) {
         return Object.assign({}, state, {
-          tagName: action.payload.tagName,
-          tagColor: action.payload.tagColor,
+          tagId: action.payload.tagId,
           isFetching: false
         })
       }
@@ -100,6 +97,7 @@ const timeEntryInput = (state = {}, action) => {
     case types.TIME_ENTRY_INPUT__ASSIGN_TAG_ID:
       if (action.isFetching && action.isFetching === true) {
         return Object.assign({}, state, {
+          tagId: action.payload.tagId,
           isFetching: true
         })
       }
@@ -108,8 +106,7 @@ const timeEntryInput = (state = {}, action) => {
         (action.status && action.status === 'success')
       ) {
         return Object.assign({}, state, {
-          tagName: action.payload.tagName,
-          tagColor: action.payload.tagColor,
+          tagId: action.payload.tagId,
           isFetching: false
         })
       }
