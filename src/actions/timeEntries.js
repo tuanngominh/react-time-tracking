@@ -31,7 +31,7 @@ export const fetchList = (uid, text) => {
       }
 
       let getTagPromises = []
-      ref.on('value', function(snapshot){
+      ref.once('value', function(snapshot){
         let entries = {}
         snapshot.forEach(function(childSnapshot){
           var childKey = childSnapshot.key

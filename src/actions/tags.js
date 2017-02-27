@@ -139,7 +139,8 @@ export const assignTagIdToTimeEntry = (uid, entryId, tagId) => {
         const tagName = snapshot.val().name, tagColor = snapshot.val().color
         dispatch(actionSuccess(types.TIME_ENTRIES__ASSIGN_TAG_ID, {payload: {
           tagName,
-          tagColor
+          tagColor,
+          entryId
         }}))
       })
     })
