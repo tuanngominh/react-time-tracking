@@ -46,10 +46,19 @@ export class TagItemList extends Component {
     dialogMaxHeight: 300
   }
 
+  state = {
+    filterTag: ''
+  }
+
   componentDidMount () {
     this.findTag.focus()
   }
-  
+
+  handleFilterTagChange = (e) => {
+    this.setState({
+      filterTag: e.target.value
+    })
+  }
   render() {
     return (
       <div>
@@ -66,13 +75,21 @@ export class TagItemList extends Component {
             hintText="Find Tag"
             className="input-filter"
             ref={node => this.findTag = node}
+            value={this.state.filterTag}
+            onChange={this.handleFilterTagChange}
           />
         </List>
         <Divider />
         <List className="list" style={{maxHeight: this.props.dialogMaxHeight, 'overflowY': 'scroll', 'overflowX': 'hidden'}}>
-          {this.props.tags.map((tag) => (
-            <TagItem key={tag.key} id={tag.key} onSelectTag={this.props.onSelectTag} {...tag} />
-          ))}
+          {this.props.tags.map((tag) => {
+            if (this.state.filterTag === '' || tag.name.indexOf(this.state.filterTag) !== -1) {
+              return (
+                <TagItem key={tag.key} id={tag.key} onSelectTag={this.props.onSelectTag} {...tag} />
+              )
+            } else {
+              return undefined;
+            }
+          })}
         </List>
       </div>
     )
