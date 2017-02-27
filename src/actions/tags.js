@@ -91,7 +91,6 @@ export const assignTagIdToTimeEntryInput = (uid, tagId) => {
     promise
     .then(() => {      
       firebase.database().ref('tags/' + uid + '/' + tagId).once('value', (snapshot) => {
-        const tagName = snapshot.val().name, tagColor = snapshot.val().color
         dispatch(actionSuccess(types.TIME_ENTRY_INPUT__ASSIGN_TAG_ID, {payload: {
           tagId
         }}))
@@ -137,7 +136,6 @@ export const assignTagIdToTimeEntry = (uid, entryId, tagId) => {
     promise
     .then(() => {      
       firebase.database().ref('tags/' + uid + '/' + tagId).once('value', (snapshot) => {
-        const tagName = snapshot.val().name, tagColor = snapshot.val().color
         dispatch(actionSuccess(types.TIME_ENTRIES__ASSIGN_TAG_ID, {payload: {
           tagId,
           entryId
