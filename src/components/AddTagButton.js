@@ -46,6 +46,10 @@ export class TagItemList extends Component {
     dialogMaxHeight: 300
   }
 
+  componentDidMount () {
+    this.findTag.focus()
+  }
+  
   render() {
     return (
       <div>
@@ -61,6 +65,7 @@ export class TagItemList extends Component {
             underlineShow={false}
             hintText="Find Tag"
             className="input-filter"
+            ref={node => this.findTag = node}
           />
         </List>
         <Divider />
