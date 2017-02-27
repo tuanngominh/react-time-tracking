@@ -1,6 +1,7 @@
 import firebase from '../configureFirebase'
 import * as types from '../constants/ActionTypes'
 import {actionStart, actionFailed, actionSuccess} from './utils/template'
+import {fetchList} from './timeEntries'
 
 export const changeText = (uid, text) => {
   return function(dispatch) {
@@ -62,6 +63,7 @@ export const stop = (uid, text, date) => {
       const deleteEntryPromise = firebase.database().ref('timeEntryInputs/' + uid).remove()
       deleteEntryPromise.then(function(){
         dispatch(actionSuccess(types.TIME_ENTRY_INPUT__STOP))
+        dispatch(fetchList(uid))
       })
       .catch(function(){
         dispatch(actionFailed(types.TIME_ENTRY_INPUT__STOP))

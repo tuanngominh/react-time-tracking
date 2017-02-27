@@ -68,6 +68,7 @@ export const remove = (uid, entryId) => {
     const promise = firebase.database().ref('timeEntries/' + uid + '/' + entryId).remove()
     promise.then(function(){
       dispatch(actionSuccess(types.TIME_ENTRIES_REMOVE))
+      dispatch(fetchList(uid))      
     })
     .catch(function(){
       dispatch(actionFailed(types.TIME_ENTRIES_REMOVE))
