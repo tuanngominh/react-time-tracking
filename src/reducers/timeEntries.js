@@ -4,9 +4,19 @@ const timeEntries = (state = {}, action) => {
   switch (action.type) {
     case types.TIME_ENTRIES_FETCH_LIST:
       if (action.isFetching && action.isFetching === true) {
-        return Object.assign({}, state, {
-          isFetching: true
-        })
+        //keep current entries untouch during fetching
+        if (state.entries) {
+          return Object.assign({}, state, {
+            isFetching: true
+          })  
+        } 
+        //if no entries present then provide empty list
+        else {
+          return Object.assign({}, state, {
+            entries: {},
+            isFetching: true
+          })
+        }
       }
 
       if (action.status && action.status === 'success') {
