@@ -37,8 +37,7 @@ const timeEntries = (state = {}, action) => {
       }
       if (action.status && action.status === 'success') {
         let entry = Object.assign({}, state.entries[action.payload.entryId])
-        entry.tagName = action.payload.tagName
-        entry.tagColor = action.payload.tagColor
+        entry.tagId = action.payload.tagId
 
         let entries = Object.assign({}, state.entries)
         entries[action.payload.entryId] = entry

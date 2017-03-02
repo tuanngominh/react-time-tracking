@@ -24,7 +24,7 @@ Time entry
 - [x] Report
 
 Tag
-- Add tag to time entry
+- [x] Add tag to time entry
 - CRUD tag
 
 - User profile
