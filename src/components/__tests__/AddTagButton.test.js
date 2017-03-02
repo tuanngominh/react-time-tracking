@@ -24,7 +24,7 @@ describe('TagItem widget', () => {
     }, actionProps())
     const wrapper = shallow(<TagItem {...props}/>)
     wrapper.instance().handleSelectTag()
-    expect(props.onSelectTag).toHaveBeenCalledWith(props.id)
+    expect(props.onSelectTag).toHaveBeenCalledWith(props.id, props.name, props.color)
 
   })
 })
