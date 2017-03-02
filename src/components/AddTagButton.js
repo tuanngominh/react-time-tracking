@@ -19,8 +19,8 @@ export class TagItem extends Component {
   }
 
   handleSelectTag = () => {
-    const {onSelectTag, id, name, color} = this.props    
-    onSelectTag(id, name, color)
+    const {onSelectTag, id} = this.props    
+    onSelectTag(id)
   }
 
   render() {
