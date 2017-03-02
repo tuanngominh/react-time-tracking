@@ -1,23 +1,23 @@
 jest.useFakeTimers()
 import React from 'react'
 import {shallow, mount} from 'enzyme'
-import TimeEntryInputForm_withConnect, {TimeEntryInputForm} from '../TimeEntryInputForm'
+import TimeEntryInput_withConnect, {TimeEntryInput} from '../TimeEntryInput'
 import withStoreAndTheme from '../../__mocks__/withStoreAndTheme'
 
 // Needed for onTouchTap
 import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 
-const TimeEntryInputForm_withStoreAndTheme = withStoreAndTheme(TimeEntryInputForm)
+const TimeEntryInput_withStoreAndTheme = withStoreAndTheme(TimeEntryInput)
 
 const now = new Date()
 //earlier than now 20 minutes
 const startTime = new Date((now).setMinutes(now.getMinutes() - 20))
 const text = 'text123'
 
-describe('<TimeEntryInputForm />', () => {
+describe('<TimeEntryInput />', () => {
   it ('render', () => {
-    const wrapper = shallow(<TimeEntryInputForm />)
+    const wrapper = shallow(<TimeEntryInput />)
     expect(wrapper.children().length).toBeGreaterThan(0)    
   })
 
@@ -25,7 +25,7 @@ describe('<TimeEntryInputForm />', () => {
     const props = {
       onStart: jest.fn()
     }
-    const wrapper = shallow(<TimeEntryInputForm {...props} />)
+    const wrapper = shallow(<TimeEntryInput {...props} />)
     wrapper.find('FlatButton').simulate('click', { preventDefault() {} })
     expect(props.onStart).toHaveBeenCalledTimes(1)
   })
@@ -34,7 +34,7 @@ describe('<TimeEntryInputForm />', () => {
     const props = {
       onOpenDialog: jest.fn()
     }
-    const wrapper = shallow(<TimeEntryInputForm {...props} />)
+    const wrapper = shallow(<TimeEntryInput {...props} />)
     wrapper.find('span').simulate('click')
     expect(props.onOpenDialog).toHaveBeenCalledTimes(1)
   })
@@ -45,7 +45,7 @@ describe('<TimeEntryInputForm />', () => {
       onStop: jest.fn()
     }
 
-    const wrapper = mount(<TimeEntryInputForm_withStoreAndTheme {...props} />)
+    const wrapper = mount(<TimeEntryInput_withStoreAndTheme {...props} />)
     //Stop button is a RaisedButton which include an EnhancedButton
     const stopButton = wrapper.findWhere(n => {
       return (
@@ -70,7 +70,7 @@ describe('<TimeEntryInputForm />', () => {
 
 
     setTimeout.mockReset()
-    const wrapper = mount(<TimeEntryInputForm_withStoreAndTheme {...props} />)
+    const wrapper = mount(<TimeEntryInput_withStoreAndTheme {...props} />)
     
     const input = wrapper.find('input[name="text"]')
     input.node.value = newText
@@ -87,7 +87,7 @@ describe('<TimeEntryInputForm />', () => {
       text,
       onRemove: jest.fn()      
     }
-    const wrapper = mount(<TimeEntryInputForm_withStoreAndTheme {...props} />)
+    const wrapper = mount(<TimeEntryInput_withStoreAndTheme {...props} />)
     const btn = wrapper.findWhere(n => {
       return (
         (n.name() === 'EnhancedButton') 

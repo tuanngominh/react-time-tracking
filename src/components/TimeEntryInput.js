@@ -11,7 +11,7 @@ import FontIcon from 'material-ui/FontIcon'
 import TextField from 'material-ui/TextField'
 import LinearProgress from 'material-ui/LinearProgress'
 
-export class TimeEntryInputForm extends Component {
+export class TimeEntryInput extends Component {
   static propTypes = {
     text: PropTypes.string,
     duration: PropTypes.string,
@@ -250,4 +250,4 @@ export class TimeEntryInputForm extends Component {
   }
 }
 
-export default TimeEntryInputForm
+export default TimeEntryInput

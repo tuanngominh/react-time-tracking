@@ -4,14 +4,14 @@ import {shallow, mount} from 'enzyme'
 import {toAmPm} from '../../utils/time'
 
 import withStoreAndTheme from '../../__mocks__/withStoreAndTheme'
-import {TimeEntryInput} from '../TimeEntryInput'
+import {TimeEntryInputContainer} from '../TimeEntryInputContainer'
 
 // Needed for onTouchTap
 import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 
 const uid = '123'
-const TimeEntryInput_withStoreAndTheme = withStoreAndTheme(TimeEntryInput, {
+const TimeEntryInputContainer_withStoreAndTheme = withStoreAndTheme(TimeEntryInputContainer, {
   auth: {
     user: {
       uid
@@ -38,18 +38,18 @@ const getTimeInThePast = () => {
   return startTime.getTime()
 }
 
-describe('<TimeEntryInput />', () => {
+describe('<TimeEntryInputContainer />', () => {
 
   it ('render', () => {
     const props = setupActionProps()
-    const wrapper = mount(<TimeEntryInput_withStoreAndTheme {...props} />)
+    const wrapper = mount(<TimeEntryInputContainer_withStoreAndTheme {...props} />)
     expect(wrapper.children().length).toBeGreaterThan(0)
     expect(props.onPull).toHaveBeenCalledTimes(1)
   })
 
   it ('can pull current tracking entry from server during first render', () => {
     const props = setupActionProps()
-    const wrapper = mount(<TimeEntryInput_withStoreAndTheme {...props} />)
+    const wrapper = mount(<TimeEntryInputContainer_withStoreAndTheme {...props} />)
     expect(props.onPull).toHaveBeenCalledTimes(1)
   })
 
@@ -67,7 +67,7 @@ describe('<TimeEntryInput />', () => {
       startTime: originalStartTime.getTime(),
       uid
     }, setupActionProps())
-    const wrapper = shallow(<TimeEntryInput {...props} />)
+    const wrapper = shallow(<TimeEntryInputContainer {...props} />)
 
     wrapper.instance().handleUpdateStartTimeAmPm({
       target: {
@@ -88,7 +88,7 @@ describe('<TimeEntryInput />', () => {
     const props = Object.assign({
       startTime: originalStartTime
     }, setupActionProps())
-    const wrapper = shallow(<TimeEntryInput {...props} />)
+    const wrapper = shallow(<TimeEntryInputContainer {...props} />)
 
     wrapper.instance().handleUpdateStartTimeAmPm({
       target: {
@@ -104,7 +104,7 @@ describe('<TimeEntryInput />', () => {
     const props = Object.assign({
       startTime: getTimeInThePast()
     }, setupActionProps())
-    const wrapper = shallow(<TimeEntryInput {...props} />)
+    const wrapper = shallow(<TimeEntryInputContainer {...props} />)
 
     wrapper.instance().handleRemove()
     
@@ -115,7 +115,7 @@ describe('<TimeEntryInput />', () => {
     const props = Object.assign({
       startTime: getTimeInThePast()
     }, setupActionProps())
-    const wrapper = shallow(<TimeEntryInput {...props} />)
+    const wrapper = shallow(<TimeEntryInputContainer {...props} />)
 
     wrapper.instance().handleStop()
     
@@ -126,7 +126,7 @@ describe('<TimeEntryInput />', () => {
     const props = Object.assign({
       startTime: getTimeInThePast()
     }, setupActionProps())
-    const wrapper = shallow(<TimeEntryInput {...props} uid={uid} />)
+    const wrapper = shallow(<TimeEntryInputContainer {...props} uid={uid} />)
 
     const tagId = 'tag1'
     wrapper.instance().handleSelectTag(tagId)

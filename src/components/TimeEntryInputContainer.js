@@ -9,9 +9,9 @@ import {assignTagToTimeEntryInput, assignTagIdToTimeEntryInput} from '../actions
 import TextField from 'material-ui/TextField'
 import Dialog from 'material-ui/Dialog'
 
-import TimeEntryInputForm from '../components/TimeEntryInputForm'
+import TimeEntryInput from '../components/TimeEntryInput'
 
-export class TimeEntryInput extends Component {
+export class TimeEntryInputContainer extends Component {
   static propTypes = {
     now: PropTypes.number,//timestamp. We need to pass now in unit test
     startTime: PropTypes.number,
@@ -129,7 +129,7 @@ export class TimeEntryInput extends Component {
   render() {
     return (
       <div>
-        <TimeEntryInputForm
+        <TimeEntryInput
           text={this.props.text}
           startTime={this.props.startTime}
           tagId={this.props.tagId}
@@ -206,4 +206,4 @@ const mapStateToProps = (state) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(TimeEntryInput)
+)(TimeEntryInputContainer)
