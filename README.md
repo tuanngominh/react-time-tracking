@@ -13,8 +13,7 @@ Web application based on React (clientside) and Firebase (serverside)
 
 # Features
 Authentication
-- [x] Signup using email
-- [x] Login, logout, forgot password
+- [x] Signup using email/password
 
 Time entry
 - [x] Can add time entry
@@ -27,15 +26,10 @@ Tag
 - [x] Add tag to time entry
 - CRUD tag
 
-- User profile
-
-Low priority
-- Signup using google, facebook
-
 # Demo
 Try demo at [https://vivid-trace.firebaseapp.com/](https://vivid-trace.firebaseapp.com/) and [storybook](https://tuanngominh.github.io/react-time-tracking/)
 
-[![React time tracking demo](https://cloud.githubusercontent.com/assets/2210733/22968269/534e1d6e-f39c-11e6-8314-9a6815146e36.png)](https://www.youtube.com/watch?v=X7dH_CCoZmQ "React time tracking demo")
+[![React time tracking demo](https://cloud.githubusercontent.com/assets/2210733/23502781/a0795b00-ff6b-11e6-9f97-f42f7a5c9661.png)](https://www.youtube.com/watch?v=zXlkU7Qjp6Q&fmt=22 "React time tracking demo")
 
 # Developer notes
 ## Enzyme
