@@ -7,7 +7,7 @@ import { storiesOf, action, linkTo, addDecorator } from '@kadira/storybook';
 
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
-import {TimeEntryInput} from '../src/containers/TimeEntryInput';
+import {TimeEntryInputContainer} from '../src/components/TimeEntryInputContainer';
 
 const store = configureStore()
 
@@ -26,7 +26,7 @@ storiesOf('Time Entry Input', module)
   .add('<TimeEntryInput /> - Not tracking', () => {
     return (
       <Provider store={store}>
-        <TimeEntryInput 
+        <TimeEntryInputContainer 
           {...commonProps}
         />
       </Provider>
@@ -40,7 +40,7 @@ storiesOf('Time Entry Input', module)
     }
     return (
       <Provider store={store}>
-        <TimeEntryInput 
+        <TimeEntryInputContainer 
           {...commonProps}
           isFetching={true}
         />
@@ -53,7 +53,7 @@ storiesOf('Time Entry Input', module)
     startTime = startTime.getTime()
     return (
       <Provider store={store}>
-        <TimeEntryInput 
+        <TimeEntryInputContainer 
           {...commonProps}
           text="time entry description" 
           startTime={startTime}
