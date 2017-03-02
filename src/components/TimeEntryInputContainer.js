@@ -172,11 +172,11 @@ const mapDispatchToProps = (dispatch) => {
     onChangeStartTime: (uid, date) => {
       dispatch(changeStartTime(uid, date.getTime()))
     },
-    onStop: (uid, text, date, tagId) => {
+    onStop: (uid, text, date, tagId) => {      
       dispatch(stop(uid, text, date, tagId))
     },
     onStart: (uid, text, date, tagId) => {
-      dispatch(start(uid, text, date.getTime()), tagId)
+      dispatch(start(uid, text, date.getTime(), tagId))
     },
     onPull: (uid) => {
       dispatch(pull(uid))

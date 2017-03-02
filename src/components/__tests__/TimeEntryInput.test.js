@@ -15,19 +15,71 @@ const now = new Date()
 const startTime = new Date((now).setMinutes(now.getMinutes() - 20))
 const text = 'text123'
 
+const tagId = 'tag1'
+const setupActionProps = () => ({
+  onStart: jest.fn(),
+  onSelectTag: jest.fn()
+})
+
+const changeEntryTextValue = (wrapper, newText) => {
+  const input = wrapper.find('input[name="text"]')
+  input.node.value = newText
+  input.simulate('change', input)
+}
+
 describe('<TimeEntryInput />', () => {
   it ('render', () => {
     const wrapper = shallow(<TimeEntryInput />)
     expect(wrapper.children().length).toBeGreaterThan(0)    
   })
 
-  it('start time tracking', () => {
-    const props = {
-      onStart: jest.fn()
+  it('start time tracking without description and tag', () => {
+    const setupComponent = () => {
+      const props = setupActionProps()
+      const wrapper = shallow(<TimeEntryInput {...props} />)
+      return {props, wrapper}
     }
-    const wrapper = shallow(<TimeEntryInput {...props} />)
-    wrapper.find('FlatButton').simulate('click', { preventDefault() {} })
-    expect(props.onStart).toHaveBeenCalledTimes(1)
+    it(('without description and tag'), () => {
+      const {props, wrapper} = setupComponent()
+      wrapper.find('FlatButton').simulate('click', { preventDefault() {} })
+      expect(props.onStart).toHaveBeenCalledTimes(1)
+    })
+    it(('with description and without tag'), () => {
+      const {props, wrapper} = setupComponent()
+      const description = 'description'
+      changeEntryTextValue(wrapper, description)
+      wrapper.find('FlatButton').simulate('click', { preventDefault() {} })
+      expect(props.onStart).toHaveBeenCalledWith(description)
+    })
+    it(('with description and tag'), () => {
+      const {props, wrapper} = setupComponent()
+      const description = 'description'
+      const tagId = 'tag1'
+      changeEntryTextValue(wrapper, description)
+      wrapper.instance().handleSelectTag(tagId)
+      wrapper.find('FlatButton').simulate('click', { preventDefault() {} })
+      expect(props.onStart).toHaveBeenCalledWith(description, tagId)
+    })
+    it(('start by click the button'), () => {
+      const {props, wrapper} = setupComponent()
+      wrapper.instance().handleStart({ preventDefault() {} })
+      expect(props.onStart).toHaveBeenCalledTimes(1)
+    })
+  })
+
+  it('Can specify tag before start tracking new item', () => {
+    const actionProps = setupActionProps()
+    const wrapper = shallow(<TimeEntryInput {...actionProps} />)
+    wrapper.instance().handleSelectTag(tagId)
+    expect(wrapper.state().tagId).toBe(tagId)
+  })
+
+  it('Can specify tag for current start tracking item', () => {
+    const actionProps = setupActionProps()
+    const startTime = (new Date()).getTime()
+    const wrapper = shallow(<TimeEntryInput startTime={startTime} {...actionProps} />)
+    wrapper.instance().handleSelectTag(tagId)
+    expect(actionProps.onSelectTag).toHaveBeenCalledWith(tagId)
   })
 
   it('open time dialog', () => {
@@ -71,10 +123,7 @@ describe('<TimeEntryInput />', () => {
 
     setTimeout.mockReset()
     const wrapper = mount(<TimeEntryInput_withStoreAndTheme {...props} />)
-    
-    const input = wrapper.find('input[name="text"]')
-    input.node.value = newText
-    input.simulate('change', input)
+    changeEntryTextValue(wrapper, newText)
     expect(setTimeout.mock.calls.length).toBeGreaterThan(0)
     //FIXME: runAllTimers frozen nodejs
     // jest.runAllTimers()

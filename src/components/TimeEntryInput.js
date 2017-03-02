@@ -152,6 +152,7 @@ export class TimeEntryInput extends Component {
 
   handleStart = (e) => {
     e.preventDefault()
+    console.log(this.state.text, this.state.tagId)
     this.props.onStart(this.state.text, this.state.tagId)
   }
 
