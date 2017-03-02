@@ -45,7 +45,7 @@ export const changeStartTime = (uid, date) => {
   }
 }
 
-export const stop = (uid, text, tagId, date) => {
+export const stop = (uid, text, date, tagId) => {
   return function(dispatch) {
     dispatch(actionStart(types.TIME_ENTRY_INPUT__STOP))
 
@@ -106,7 +106,7 @@ export const pull = (uid) => {
   }
 }
 
-export const start = (uid, text, tagId, date) => {
+export const start = (uid, text, date, tagId) => {
   return function(dispatch) {
     dispatch(actionStart(types.TIME_ENTRY_INPUT__START, {payload: {
         text,

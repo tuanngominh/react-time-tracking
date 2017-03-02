@@ -107,11 +107,11 @@ export class TimeEntryInputContainer extends Component {
 
   handleStart = (text, tagId) => {
     const now = this.props.now ? new Date(this.props.now) : new Date()
-    this.props.onStart(this.props.uid, text, tagId, now)
+    this.props.onStart(this.props.uid, text, now, tagId)
   }
 
   handleStop = () => {
-    this.props.onStop(this.props.uid, this.props.text, this.props.tagId, this.props.startTime)
+    this.props.onStop(this.props.uid, this.props.text, this.props.startTime, this.props.tagId)
   }
 
   handleRemove = () => {
@@ -172,11 +172,11 @@ const mapDispatchToProps = (dispatch) => {
     onChangeStartTime: (uid, date) => {
       dispatch(changeStartTime(uid, date.getTime()))
     },
-    onStop: (uid, text, tagId, date) => {
-      dispatch(stop(uid, text, tagId, date))
+    onStop: (uid, text, date, tagId) => {
+      dispatch(stop(uid, text, date, tagId))
     },
-    onStart: (uid, text, tagId, date) => {
-      dispatch(start(uid, text, tagId, date.getTime()))
+    onStart: (uid, text, date, tagId) => {
+      dispatch(start(uid, text, date.getTime()), tagId)
     },
     onPull: (uid) => {
       dispatch(pull(uid))
