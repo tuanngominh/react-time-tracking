@@ -1,6 +1,7 @@
 import { createSelector } from 'reselect'
 import moment from 'moment'
 import 'moment-duration-format'
+import {indexOf} from 'lodash'
 
 const getEntries = (state) => state.report.entries
 const getStartDate = (state) => state.report.startDate
@@ -57,3 +58,52 @@ export const getSummaryReport = createSelector(
     }
   }
 )
+
+//Get total effort by tag, to show on a doughnut chart
+export const getEffortByTagForDoughnutChart = createSelector(
+  [getEntries, getStartDate, getEndDate],
+  (entries, filterStartDate, filterEndDate) => {
+    let labels = [], data = []
+
+    const startDate = new Date(filterStartDate)
+    const endDate = new Date(filterEndDate)
+    if (startDate > endDate || !entries) {
+      return { labels, data }
+    }
+
+
+    //get tag list, and effort by tag
+    let tagNames = [], tagColors = [], effortByTag = []
+    const sumEffortByTag = (tagId) => {
+      let totalDurationByTag = moment.duration()
+      Object.keys(entries).forEach(key => {
+        const entry = entries[key]
+        if (entry.tag === tagId) {
+          const ms = moment(entry.endTime).diff(moment(entry.startTime))
+          const duration = moment.duration(ms)
+          totalDurationByTag.add(duration)
+        }
+      })
+      return totalDurationByTag.asMilliseconds()
+    }
+
+    Object.keys(entries).forEach(key => {
+      const entry = entries[key]
+      const {tagName, tagColor, tag} = entries[key]
+      if (tagName && indexOf(tagNames, tagName) === -1) {
+        tagNames.push(tagName)
+        tagColors.push(tagColor)
+        effortByTag.push(sumEffortByTag(tag))
+      }
+    })
+
+    return {
+      labels: tagNames,
+      datasets: [{
+        data: effortByTag,
+        backgroundColor: tagColors
+      }]
+    }
+  }
+)
+

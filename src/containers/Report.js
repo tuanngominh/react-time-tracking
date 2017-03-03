@@ -1,10 +1,11 @@
 import React, {Component} from 'react'
 import {get} from 'lodash'
 import {connect} from 'react-redux'
-import {getSummaryReport} from './Report/selectors.js'
+import {getSummaryReport, getEffortByTagForDoughnutChart} from './Report/selectors.js'
 import ReportFilter from './Report/Filter'
 import ReportEntryList from './Report/EntryList'
 import BarChart from './Report/BarChart'
+import DoughnutChart from './Report/DoughnutChart'
 import Paper from 'material-ui/Paper'
 import RefreshIndicator from 'material-ui/RefreshIndicator'
 
@@ -18,7 +19,7 @@ export class Report extends Component {
   render() {    
     const hasData = this.props.entries && (Object.keys(this.props.entries).length > 0)
     return (
-      <div>
+      <div className="report">
         <Paper style={style} zDepth={1} >
           <ReportFilter />
         </Paper>
@@ -43,7 +44,14 @@ export class Report extends Component {
                   <span className='total-effort'>{this.props.report.totalEffort}</span>
                 </p>
                 <BarChart labels={this.props.report.effortByDayForBarChart.labels} data={this.props.report.effortByDayForBarChart.data} />
-                <ReportEntryList entries={this.props.entries} />
+                <div className="row row2">
+                  <div className="col-xs-12 col-sm-6">
+                    <ReportEntryList entries={this.props.entries} />
+                  </div>
+                  <div className="col-xs-12 col-sm-6">
+                    <DoughnutChart labels={this.props.doughnutChart.labels} datasets={this.props.doughnutChart.datasets} />
+                  </div>
+                </div>                
               </div>
             :
               <p style={{textAlign: 'center'}}>No time entry found</p>
@@ -56,6 +64,7 @@ export class Report extends Component {
 const mapStateToProps = (state) => {
   return {
     report: getSummaryReport(state),
+    doughnutChart: getEffortByTagForDoughnutChart(state),
     entries: get(state,"report.entries", {}),    
     isFetching: get(state, "report.isFetching", null)
   }

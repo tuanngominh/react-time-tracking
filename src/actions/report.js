@@ -16,7 +16,7 @@ export const fetch = (uid, text, startDate, endDate) => {
         .endAt(endDate)
 
     return new Promise(function(resolve, reject){      
-      ref.on('value', function(snapshot){
+      ref.once('value', function(snapshot){
         let entries = snapshot.val()
         let filteredEntries = {}
 
@@ -35,13 +35,28 @@ export const fetch = (uid, text, startDate, endDate) => {
           entries = filteredEntries
         }
 
-        dispatch(actionSuccess(types.REPORT_FETCH, {payload: {
-          entries,
-          startDate,
-          endDate
-        }}))
+        //add tag detail for entry
+        let tagPromises = []
+        Object.keys(entries).forEach(key => {
+          let entry = entries[key]
+          if (entry.tag) {
+            const promise = firebase.database().ref('tags/' + uid + '/' + entry.tag).once('value', snapshot => {
+              entry.tagName = snapshot.val().name
+              entry.tagColor = snapshot.val().color
+            })
+            tagPromises.push(promise)
+          }
+        })
+        
+        Promise.all(tagPromises).then(() => {
+          dispatch(actionSuccess(types.REPORT_FETCH, {payload: {
+            entries,
+            startDate,
+            endDate
+          }}))
+          resolve()
+        })
 
-        resolve()
       })
     })
   }
