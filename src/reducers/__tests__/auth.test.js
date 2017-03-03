@@ -1,4 +1,5 @@
 import reducer from '../auth'
+import rootReducer from '../index'
 import * as types from '../../constants/ActionTypes'
 
 describe('auth reducer', () => {
@@ -87,44 +88,47 @@ describe('auth reducer', () => {
     })
   })  
 
-  it('signout success', () => {
-    expect(
-      reducer(undefined, {
-        type: types.SIGNOUT,
-        status: 'success'
-      })
-    ).toEqual({
+  it('signout will reset all state', () => {
+    const startTime = new Date(Date.UTC(2015, 1, 12, 20, 20, 0))
+    const endTime = new Date(Date.UTC(2015, 1, 12, 22, 20, 0))
+    const loggedInState = {
+      timeEntryInput: {
+        startTime : startTime.getTime(),
+        endTime : endTime.getTime()
+      }
+    }
+    const state = rootReducer(loggedInState, {
       type: types.SIGNOUT,
-      status: 'success',
-      userLoggedIn: false
+      status: 'success'
     })
+    expect(state.timeEntryInput).toEqual({})
   })
 
-  it('signout failed', () => {
+  it('signout failed does\'t change current logged in status', () => {
+    let userLoggedIn = true
     expect(
       reducer({
-        userLoggedIn: true
+        userLoggedIn
       }, {
         type: types.SIGNOUT,
         status: 'error'
       })
     ).toEqual({
-      type: types.SIGNOUT,
-      status: 'error',
-      userLoggedIn: true
+      isFetching: false,
+      userLoggedIn
     })
 
+    userLoggedIn = false
     expect(
       reducer({
-        userLoggedIn: false
+        userLoggedIn
       }, {
         type: types.SIGNOUT,
         status: 'error'
       })
     ).toEqual({
-      type: types.SIGNOUT,
-      status: 'error',
-      userLoggedIn: false
+      isFetching: false,
+      userLoggedIn
     })
   })
 

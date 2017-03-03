@@ -6,7 +6,9 @@ import timeEntries from './timeEntries'
 import tags from './tags'
 import report from './report'
 
-const rootReducer = combineReducers({
+import * as types from '../constants/ActionTypes'
+
+const appReducer = combineReducers({
   auth,
   resetPassword,
   timeEntryInput,
@@ -15,4 +17,11 @@ const rootReducer = combineReducers({
   report
 })
 
+const rootReducer = (state, action) => {
+  //clear all state when signout
+  if (action.type === types.SIGNOUT && action.status === 'success') {
+    state = undefined
+  }
+  return appReducer(state, action)
+}
 export default rootReducer

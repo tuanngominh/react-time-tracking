@@ -44,17 +44,19 @@ const auth = (state = {}, action) => {
       }
 
     case types.SIGNOUT:
-      if (action.status === 'success') {
+      if (action.isFetching === true) {
         return {
-          ...action,
-          userLoggedIn: false
-        }
-      } else {
-        return {
-          ...action,
-          userLoggedIn: state.userLoggedIn
+          ...state,
+          isFetching: true
         }
       }
+      if (action.status === 'error') {
+        return {
+          ...state,
+          isFetching: false
+        }
+      }
+      return state
 
     default :
       return state
