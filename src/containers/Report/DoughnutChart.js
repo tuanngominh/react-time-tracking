@@ -31,7 +31,7 @@ class DoughnutChart extends Component{
         callbacks: {
           label: (tooltipItem, data) => {
             if (data) {
-              return durationsInHourMinute[tooltipItem.index]  
+              return ' ' + data.labels[tooltipItem.index] + ' ' + durationsInHourMinute[tooltipItem.index]  
             }
           },
           title: () => ('')

@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react'
-import {getTimeDuration, toAmPm, pad0Left} from '../../utils/time'
+import {getTimeDuration} from '../../utils/time'
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRowColumn, TableRow} from 'material-ui/Table'
 
 class ReportEntryList extends Component {
@@ -7,12 +7,6 @@ class ReportEntryList extends Component {
     entries: PropTypes.object
   }
   render() {
-    const getDateMonth = (time) => {
-      if (typeof time === 'string' || typeof time === 'number') {
-        time = new Date(time)
-      }
-      return pad0Left((time.getMonth() + 1)) + '/' + pad0Left(time.getDate())
-    }
     return (
       <Table>
         <TableHeader displaySelectAll={false} adjustForCheckbox={false}>

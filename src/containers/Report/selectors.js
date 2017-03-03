@@ -88,7 +88,6 @@ export const getEffortByTagForDoughnutChart = createSelector(
     }
 
     Object.keys(entries).forEach(key => {
-      const entry = entries[key]
       const {tagName, tagColor, tag} = entries[key]
       if (tagName && indexOf(tagNames, tagName) === -1) {
         tagNames.push(tagName)
