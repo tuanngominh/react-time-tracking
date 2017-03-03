@@ -1,6 +1,8 @@
-import React from 'react'
+import React, {Component, PropTypes} from 'react'
 import {shallow, mount} from 'enzyme'
 import withTheme from '../../__mocks__/withTheme'
+import getMuiTheme from 'material-ui/styles/getMuiTheme'
+
 import AddTagButton, {TagItem, TagItemList, TagButton} from '../AddTagButton'
 
 // Needed for onTouchTap
@@ -44,6 +46,17 @@ describe('TagItemList widget', () => {
     expect(wrapper.find('List').length).toBe(2)
     expect(wrapper.find('TagItem').length).toBe(2)
   })
+
+  it('can filter', () => {
+    const wrapper = shallow(<TagItemList tags={tags} {...actionProps} />)
+    //enter existing tag name
+    wrapper.instance().handleFilterTagChange({target: {value: 'tag'}})
+    expect(wrapper.find('TagItem').length).toBeGreaterThan(0)
+
+    //enter none existing tag name
+    wrapper.instance().handleFilterTagChange({target: {value: 'not existing tag name'}})
+    expect(wrapper.find('TagItem').length).toBe(0)
+  })  
 })
 
 describe('AddTag button', () => {
@@ -69,27 +82,88 @@ describe('AddTag button', () => {
 })
 
 const AddTagButton_withTheme = withTheme(AddTagButton)
+
 describe('Add tag button widget', () => {
-  const actionProps = () => ({
+  const setupActionProps = () => ({
     onCreateTag: jest.fn(),
     onFetchList: jest.fn(),
-    onSelectTag: jest.fn()
+    onSelectTag: jest.fn()    
   })
-
-  it('can render without error', () => {
-    const wrapper = shallow(<AddTagButton {...actionProps()}/>)
-  })
+  const setupComponent = (props = {}) => {
+    const actionProps = setupActionProps()
+    const wrapper = shallow(<AddTagButton {...props} {...actionProps}/>)
+    return {actionProps, wrapper}  
+  }
 
   it('can fetch data when render', () => {
-    const props = actionProps()
-    const wrapper = mount(<AddTagButton_withTheme {...props}/>)
-    expect(props.onFetchList).toHaveBeenCalled()
+    const {actionProps, wrapper} = setupComponent()
+    expect(actionProps.onFetchList).toHaveBeenCalled()
   })
 
   it('can create', () => {
-    const props = actionProps()
-    const wrapper = shallow(<AddTagButton {...props}/>)
+    const {actionProps, wrapper} = setupComponent()
     wrapper.instance().handleCreateTag()
-    expect(props.onCreateTag).toHaveBeenCalled()
+    expect(actionProps.onCreateTag).toHaveBeenCalled()
+  })
+
+  it('can select another tag', () => {
+    const {actionProps, wrapper} = setupComponent()
+    const tagId = 'tag1', tagName = 'tag name 1', tagColor = 'black'
+    wrapper.instance().handleSelectTag(tagId, tagName, tagColor)
+    expect(actionProps.onSelectTag).toHaveBeenCalledWith(tagId)
+    expect(wrapper.state().tagName).toBe(tagName)
+    expect(wrapper.state().tagColor).toBe(tagColor)
+  })
+
+  it('can open create tag dialog', () => {
+    const {actionProps, wrapper} = setupComponent()
+    wrapper.instance().handleOpenCreateTagDialog()
+    expect(wrapper.state().createTagDialogOpen).toBe(true)
+    expect(wrapper.state().openTagForm).toBe(false)
+  })
+
+  it('can close create tag dialog', () => {
+    const {actionProps, wrapper} = setupComponent()
+    wrapper.instance().handleCloseCreateTagDialog()
+    expect(wrapper.state().createTagDialogOpen).toBe(false)
+  })
+
+  it('can open tag form dialog', () => {
+    const {actionProps, wrapper} = setupComponent()
+    wrapper.instance().handleOpenTagForm({preventDefault(){}})
+    expect(wrapper.state().openTagForm).toBe(true)
+  })
+
+  it('can close tag form dialog', () => {
+    const {actionProps, wrapper} = setupComponent()
+    wrapper.instance().handleCloseTagForm()
+    expect(wrapper.state().openTagForm).toBe(false)
+  })
+
+  it('can change to new tag', () => {
+    let tags = []
+    for (let i = 0; i < 30; i++) {
+      tags.push({
+        key: 'key' + i,
+        id: 'key' + i,
+        name: 'name' + i,
+        color: 'color' + i
+      })
+    }
+    const actionProps = setupActionProps()
+    const wrapper = shallow(<AddTagButton_withTheme tags={tags} {...actionProps}/>)
+
+    //change to existing tag
+    wrapper.setProps({tagId: 'key1'})
+    expect(wrapper.find('AddTagButton').dive().state().tagName).toBe('name1')
+    expect(wrapper.find('AddTagButton').dive().state().tagColor).toBe('color1')
+    wrapper.setProps({tagId: 'key2'})
+    expect(wrapper.find('AddTagButton').dive().state().tagName).toBe('name2')
+    expect(wrapper.find('AddTagButton').dive().state().tagColor).toBe('color2')
+
+    //change to none existing tag
+    wrapper.setProps({tagId: 'awrongkey'})
+    expect(wrapper.find('AddTagButton').dive().state().tagName).toBeNull()
+    expect(wrapper.find('AddTagButton').dive().state().tagColor).toBeNull()
   })
 })
