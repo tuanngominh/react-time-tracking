@@ -33,12 +33,12 @@ describe('<TimeEntryInput />', () => {
     expect(wrapper.children().length).toBeGreaterThan(0)    
   })
 
+  const setupComponent = () => {
+    const props = setupActionProps()
+    const wrapper = shallow(<TimeEntryInput {...props} />)
+    return {props, wrapper}
+  }
   it('start time tracking without description and tag', () => {
-    const setupComponent = () => {
-      const props = setupActionProps()
-      const wrapper = shallow(<TimeEntryInput {...props} />)
-      return {props, wrapper}
-    }
     it(('without description and tag'), () => {
       const {props, wrapper} = setupComponent()
       wrapper.find('FlatButton').simulate('click', { preventDefault() {} })
@@ -66,6 +66,26 @@ describe('<TimeEntryInput />', () => {
       expect(props.onStart).toHaveBeenCalledTimes(1)
     })
   })
+
+  it('Can start by press enter key', () => {
+    const {props, wrapper} = setupComponent()
+    const text = 'time entry description'
+    wrapper.setState({
+      text
+    })
+    wrapper.instance().handleKeyPress({nativeEvent: {keyCode: 13}})
+    expect(props.onStart).toHaveBeenCalledWith(text)
+  })
+
+  it('when press enter key, will not start again if already start', () => {
+    const {props, wrapper} = setupComponent()
+    const text = 'time entry description'
+    wrapper.setState({
+      startTime: (new Date()).getTime()
+    })
+    wrapper.instance().handleKeyPress({nativeEvent: {keyCode: 13}})
+    expect(props.onStart).toHaveBeenCalledTimes(0)
+  })  
 
   it('Can specify tag before start tracking new item', () => {
     const actionProps = setupActionProps()
