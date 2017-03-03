@@ -189,10 +189,7 @@ export class TimeEntryInput extends Component {
         >
           {this.state.duration ? this.state.duration : '0:00:00'}
         </span>
-        {
-          this.state.duration
-          ?
-          <RaisedButton
+        { this.state.duration && <RaisedButton
             name='btn-stop'
             icon={<FontIcon className="material-icons" style={{color: red500, width: 50, fontSize: 30}}>stop</FontIcon>}
             style={{
@@ -204,14 +201,9 @@ export class TimeEntryInput extends Component {
             }}
             onClick={this.props.onStop}
           />
-          :
-          ''
         }
 
-        {
-          this.state.duration
-          ?
-          <FlatButton 
+        { this.state.duration && <FlatButton 
             name='btn-remove'
             icon={<FontIcon className="material-icons" style={{color: 'grey', width: 50, fontSize: 20}}>delete</FontIcon>}
             style={{
@@ -220,14 +212,9 @@ export class TimeEntryInput extends Component {
             }}
             onClick={this.props.onRemove}
           />
-          :
-          ''
         }
 
-        {
-          !this.state.duration
-          ?
-          <FlatButton 
+        { !this.state.duration && <FlatButton 
             icon={<FontIcon className="material-icons" style={{color: 'green', width: 50, fontSize: 30}}>play_arrow</FontIcon>}
             style={{
               marginLeft: 20,
@@ -235,8 +222,6 @@ export class TimeEntryInput extends Component {
             }}
             onClick={this.handleStart}
           />
-          :
-          ''
         }
         {
           this.props.isFetching
