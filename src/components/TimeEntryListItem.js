@@ -9,7 +9,7 @@ import FontIcon from 'material-ui/FontIcon'
 
 import AddTagButtonContainer from './AddTagButtonContainer'
 
-export class TimeEntryListItem extends Component {
+class TimeEntryListItem extends Component {
   static propTypes = {
     uid: PropTypes.string,
     id: PropTypes.string,

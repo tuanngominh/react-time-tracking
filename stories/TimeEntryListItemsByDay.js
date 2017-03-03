@@ -8,7 +8,7 @@ import { storiesOf, action, linkTo, addDecorator } from '@kadira/storybook';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 import {Table, TableBody} from 'material-ui/Table'
-import TimeEntryListItemsByDay from '../src/components/TimeEntryListItemsByDay';
+import {TimeEntryListItemsByDay} from '../src/components/TimeEntryListContainer';
 
 const props = {
   date: 'Mon, 6 Feb',
