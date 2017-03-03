@@ -24,7 +24,7 @@ describe('<EntryList />', () => {
     }
     const wrapper = mount(<EntryList_withTheme {...props} />)
     expect(wrapper.find('TableHeader').length).toBe(1)
-    expect(wrapper.find('TableHeaderColumn').length).toBe(4)
+    expect(wrapper.find('TableHeaderColumn').length).toBe(2)
     expect(wrapper.find('TableRow').length).toBe(3)
   })
 
