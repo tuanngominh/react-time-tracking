@@ -81,6 +81,7 @@ const timeEntryInput = (state = {}, action) => {
           isFetching: true
         })
       }
+      return state
 
     case types.TIME_ENTRY_INPUT__ASSIGN_TAG:
       if (action.isFetching && action.isFetching === true) {
