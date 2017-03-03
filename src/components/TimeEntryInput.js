@@ -10,6 +10,7 @@ import FlatButton  from 'material-ui/FlatButton'
 import FontIcon from 'material-ui/FontIcon'
 import TextField from 'material-ui/TextField'
 import LinearProgress from 'material-ui/LinearProgress'
+import Snackbar from 'material-ui/Snackbar'
 
 export class TimeEntryInput extends Component {
   static propTypes = {
@@ -23,12 +24,14 @@ export class TimeEntryInput extends Component {
     onStart: PropTypes.func,
     onCreateTag: PropTypes.func,
     onSelectTag: PropTypes.func,
-    isFetching: PropTypes.bool
+    isFetching: PropTypes.bool,
+    removedSuccess: PropTypes.bool,
   }
 
   static defaultProps = {
     text: '',//having default value so the input is controlled element
-    isFetching: false
+    isFetching: false,
+    removedSuccess: false
   }
 
   constructor (props) {
@@ -229,7 +232,12 @@ export class TimeEntryInput extends Component {
           <LinearProgress mode="indeterminate" style={{height: 2}} />
           :
           <LinearProgress mode="determinate" max={100} min={100} style={{height: 2}} />
-        }    
+        }
+        <Snackbar
+          open={this.props.removedSuccess}
+          message="The time entry was deleted"
+          autoHideDuration={4000}
+        />
       </div> 
     )
   }

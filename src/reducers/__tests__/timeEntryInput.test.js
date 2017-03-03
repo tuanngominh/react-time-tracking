@@ -118,4 +118,42 @@ describe('timeEntryInput reducer', () => {
     ).toEqual({isFetching: false, tagId})    
   })  
 
+  it('assign tag to current time tracking', () => {
+    expect(
+      reducer(undefined, {
+        type: types.TIME_ENTRY_INPUT__ASSIGN_TAG_ID,
+        payload: {tagId},
+        isFetching: true
+      })
+    ).toEqual({isFetching: true, tagId})
+
+    expect(
+      reducer(undefined, {
+        type: types.TIME_ENTRY_INPUT__ASSIGN_TAG_ID,
+        status: 'success',
+        payload: {tagId},
+        isFetching: false
+      })
+    ).toEqual({isFetching: false, tagId})    
+  })
+
+  it('delete current time tracking', () => {
+    expect(
+      reducer(undefined, {
+        type: types.TIME_ENTRY_INPUT__REMOVE,
+        isFetching: true
+      })
+    ).toEqual({isFetching: true})
+
+    expect(
+      reducer(undefined, {
+        type: types.TIME_ENTRY_INPUT__REMOVE,
+        status: 'success',
+        isFetching: false
+      })
+    ).toEqual({
+      isFetching: false,
+      removedSuccess: true
+    })    
+  })  
 })

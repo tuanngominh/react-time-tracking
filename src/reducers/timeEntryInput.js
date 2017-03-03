@@ -71,9 +71,15 @@ const timeEntryInput = (state = {}, action) => {
 
     case types.TIME_ENTRY_INPUT__REMOVE:
       if (action.status && action.status === 'success') {
-        return {}
-      } else {
-        return Object.assign({}, state, {isFetching: action.isFetching})
+        return {
+          removedSuccess: true, 
+          isFetching: false
+        }
+      } 
+      if (action.isFetching && action.isFetching === true) {
+        return Object.assign({}, state, {
+          isFetching: true
+        })
       }
 
     case types.TIME_ENTRY_INPUT__ASSIGN_TAG:

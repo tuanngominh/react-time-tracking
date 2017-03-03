@@ -141,6 +141,7 @@ export class TimeEntryInputContainer extends Component {
           onRemove={this.handleRemove}
           onCreateTag={this.handleCreateTag}
           onSelectTag={this.handleSelectTag}
+          removedSuccess={this.props.removedSuccess}
         />
         <Dialog
           open={this.state.dialogOpen}
@@ -199,7 +200,8 @@ const mapStateToProps = (state) => {
     text: get(state, "timeEntryInput.text", null),
     uid: get(state,"auth.user.uid", null),
     tagId: get(state,"timeEntryInput.tagId", null),
-    isFetching: get(state, "timeEntryInput.isFetching", null)
+    isFetching: get(state, "timeEntryInput.isFetching", null),
+    removedSuccess: get(state, "timeEntryInput.removedSuccess", false),
   }
 }
 
