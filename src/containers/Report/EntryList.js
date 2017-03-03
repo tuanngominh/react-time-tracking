@@ -19,8 +19,6 @@ class ReportEntryList extends Component {
           <TableRow>
             <TableHeaderColumn>Time Entry</TableHeaderColumn>
             <TableHeaderColumn>Duration</TableHeaderColumn>
-            <TableHeaderColumn>Time</TableHeaderColumn>
-            <TableHeaderColumn>Date</TableHeaderColumn>
           </TableRow>
         </TableHeader>      
         <TableBody displayRowCheckbox={false}>
@@ -33,8 +31,6 @@ class ReportEntryList extends Component {
                     {entry.text}
                   </TableRowColumn>
                   <TableRowColumn>{getTimeDuration(entry.startTime, entry.endTime)}</TableRowColumn>
-                  <TableRowColumn>{toAmPm(entry.startTime)} - {toAmPm(entry.endTime)}</TableRowColumn>
-                  <TableRowColumn>{getDateMonth(entry.startTime)}</TableRowColumn>
                 </TableRow>              
               )
             })
