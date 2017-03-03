@@ -6,21 +6,24 @@ const timeEntries = (state = {}, action) => {
       if (action.isFetching && action.isFetching === true) {
         //keep current entries untouch during fetching
         if (state.entries) {
-          return Object.assign({}, state, {
+          return {
+            ...state,
             isFetching: true
-          })  
+          }
         } 
         //if no entries present then provide empty list
         else {
-          return Object.assign({}, state, {
+          return {
+            ...state,
             entries: {},
             isFetching: true
-          })
+          }
         }
       }
 
       if (action.status && action.status === 'success') {
-        return { 
+        return {
+          ...state,
           entries: action.payload.entries,
           isFetching: false
         }
@@ -31,9 +34,10 @@ const timeEntries = (state = {}, action) => {
     case types.TIME_ENTRIES__ASSIGN_TAG_ID:
     case types.TIME_ENTRIES__ASSIGN_TAG:
       if (action.isFetching && action.isFetching === true) {
-        return Object.assign({}, state, {
+        return {
+          ...state,
           isFetching: true
-        })
+        }
       }
       if (action.status && action.status === 'success') {
         let entry = Object.assign({}, state.entries[action.payload.entryId])
@@ -43,12 +47,29 @@ const timeEntries = (state = {}, action) => {
         entries[action.payload.entryId] = entry
 
         return {
+          ...state,
           isFetching: false,
           entries: entries
         }
       }
       return state
       
+    case types.TIME_ENTRIES_REMOVE:
+      if (action.isFetching && action.isFetching === true) {
+        return {
+          ...state,
+          isFetching: true
+        }
+      }
+      if (action.status && action.status === 'success') {
+        return {
+          ...state,
+          removedSuccess: true, 
+          isFetching: false
+        }
+      }
+      return state      
+
     default :
       return state
   }

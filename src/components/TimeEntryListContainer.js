@@ -4,6 +4,7 @@ import {get} from 'lodash'
 import {fetchList} from '../actions/timeEntries'
 import {groupByDay} from '../utils/timeEntries'
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow} from 'material-ui/Table'
+import Snackbar from 'material-ui/Snackbar'
 import TimeEntryListItemContainer from './TimeEntryListItemContainer'
 
 export class TimeEntryListItemsByDay extends Component {
@@ -42,11 +43,13 @@ export class TimeEntryListItemsByDay extends Component {
 export class TimeEntryListContainer extends Component {
   static propTypes = {
     onFetchList: PropTypes.func,
-    entries: PropTypes.object
+    entries: PropTypes.object,
+    removedSuccess: PropTypes.bool
   }
 
   static defaultProps = {
-    entries: {}
+    entries: {},
+    removedSuccess: false
   }
  
   componentWillMount() {
@@ -62,6 +65,11 @@ export class TimeEntryListContainer extends Component {
           <TimeEntryListItemsByDay key={e.date} date={e.date} entries={e.entries} />
         ))      
       }
+      <Snackbar
+        open={this.props.removedSuccess}
+        message="The time entry was deleted"
+        autoHideDuration={4000}
+      />      
       </div>
     )
   }
@@ -80,7 +88,8 @@ const mapStateToProps = (state) => {
   return {
     entries: get(state,"timeEntries.entries", {}),
     uid: get(state,"auth.user.uid", null),
-    isFetching: get(state, "timeEntries.isFetching", null)
+    isFetching: get(state, "timeEntries.isFetching", null),
+    removedSuccess: get(state, "timeEntries.removedSuccess", false),
   }
 }
 

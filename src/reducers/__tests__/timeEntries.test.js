@@ -77,4 +77,21 @@ describe('timeEntries reducer', () => {
     ).toEqual({entries: updateEntries, isFetching: false})    
   })
 
+  it('delete entry', () => {
+    expect(
+      reducer(undefined, {
+        type: types.TIME_ENTRIES_REMOVE,
+        isFetching: true
+      })
+    ).toEqual({isFetching: true})
+
+    expect(
+      reducer(undefined, {
+        type: types.TIME_ENTRIES_REMOVE,
+        status: 'success',
+        isFetching: false
+      })
+    ).toEqual({removedSuccess: true, isFetching: false})
+  })
+
 })
