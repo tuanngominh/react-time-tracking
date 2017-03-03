@@ -21,11 +21,17 @@ const props = {
 
 
 describe('<TimeEntryListItem />', () => {
-  it ('shoulde handle remove tracked item', () => {
+  const setupComponent = () => {
     const actions = {
-      onRemove: jest.fn()
+      onRemove: jest.fn(),
+      onCreateTag: jest.fn(),
+      onSelectTag: jest.fn()
     }
     const wrapper = shallow(<TimeEntryListItem {...actions} {...props} />)
+    return {wrapper, actions, props}
+  }
+  it ('shoulde handle remove tracked item', () => {
+    const {wrapper, actions, props} = setupComponent()
     wrapper.instance().handleRemove()
     expect(actions.onRemove).toHaveBeenCalledTimes(1)
     expect(actions.onRemove).toHaveBeenCalledWith(props.uid, props.id)
@@ -36,6 +42,26 @@ describe('<TimeEntryListItem />', () => {
     
     expect(wrapper.find('TextField').length).toBeGreaterThan(0)
     expect(wrapper.find('FlatButton').length).toBeGreaterThan(0)
-  })  
+  })
 
+  it('can change text', () => {
+    const {wrapper, actions, props} = setupComponent()
+    const newEntryName = 'new entry name'
+    wrapper.instance().handleChangeText({target: {value: newEntryName}})
+    expect(wrapper.state().text).toBe(newEntryName)
+  })
+
+  it('can create tag and assign', () => {
+    const {wrapper, actions, props} = setupComponent()
+    const tagName = 'new tag name', tagColor = 'black'
+    wrapper.instance().handleCreateTag(tagName, tagColor)
+    expect(actions.onCreateTag).toHaveBeenCalledWith(props.uid, props.id, tagName, tagColor)
+  })
+
+  it('can select tag and assign', () => {
+    const {wrapper, actions, props} = setupComponent()
+    const tagId = 'tag1'
+    wrapper.instance().handleSelectTag(tagId)
+    expect(actions.onSelectTag).toHaveBeenCalledWith(props.uid, props.id, tagId)
+  })  
 })
