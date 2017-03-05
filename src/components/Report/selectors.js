@@ -11,23 +11,35 @@ const getEndDate = (state) => state.report.endDate
 export const getSummaryReport = createSelector(
   [getEntries, getStartDate, getEndDate],
   (entries, filterStartDate, filterEndDate) => {
-    let labels = [], data = []
+    
+    const formatData = (totalDuration, labels, data) => {
+      return  {
+        totalEffort: moment.duration(totalDuration, "minutes").format("hh:mm"), 
+        effortByDayForBarChart: {
+          labels,
+          data
+        }
+      }
+    }
 
     const startDate = new Date(filterStartDate)
     const endDate = new Date(filterEndDate)
     if (startDate > endDate) {
-      return { labels, data }
+      return formatData(0, [], [])
     }
 
-    if (!entries) {
+    if (entries && entries.length === 0) {
+      let labels = [], data = []
+
       while (startDate <= endDate) {
         labels.push(moment(startDate).format('Do MMM'))
         data.push(0)
         startDate.setDate(startDate.getDate() + 1)
       }
-      return { labels, data }
+      return formatData(0, labels, data)
     }
 
+    let labels = [], data = []
     let totalDuration = moment.duration()
     while (startDate <= endDate) {
       labels.push(moment(startDate).format('Do MMM'))
@@ -49,13 +61,7 @@ export const getSummaryReport = createSelector(
       startDate.setDate(startDate.getDate() + 1)
     }
 
-    return {
-      totalEffort: moment.duration(totalDuration, "minutes").format("hh:mm"), 
-      effortByDayForBarChart: {
-        labels,
-        data
-      }
-    }
+    return formatData(totalDuration, labels, data)
   }
 )
 
