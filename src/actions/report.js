@@ -17,7 +17,21 @@ export const fetch = (uid, text, startDate, endDate) => {
 
     return new Promise(function(resolve, reject){      
       ref.once('value', function(snapshot){
+
+        const dispatchActionSuccess = (entries) => {
+          dispatch(actionSuccess(types.REPORT_FETCH, {payload: {
+            entries,
+            startDate,
+            endDate
+          }}))
+          resolve()          
+        }
+
         let entries = snapshot.val()
+        if (!entries) {
+          dispatchActionSuccess([])
+        }
+
         let filteredEntries = {}
 
         for (let key in entries) {
@@ -35,6 +49,10 @@ export const fetch = (uid, text, startDate, endDate) => {
           entries = filteredEntries
         }
 
+        if (!entries) {
+          dispatchActionSuccess([])
+        }
+        
         //add tag detail for entry
         let tagPromises = []
         Object.keys(entries).forEach(key => {
@@ -49,12 +67,7 @@ export const fetch = (uid, text, startDate, endDate) => {
         })
         
         Promise.all(tagPromises).then(() => {
-          dispatch(actionSuccess(types.REPORT_FETCH, {payload: {
-            entries,
-            startDate,
-            endDate
-          }}))
-          resolve()
+          dispatchActionSuccess(entries)
         })
 
       })
