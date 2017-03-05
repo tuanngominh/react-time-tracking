@@ -1,5 +1,5 @@
 import React from 'react'
-import {getSummaryReport} from '../selectors'
+import {getSummaryReport, getEffortByTagForDoughnutChart} from '../selectors'
 
 import moment from 'moment'
 import 'moment-timezone'
@@ -34,67 +34,115 @@ describe('Selector for report data', () => {
     '-KcmfMSMMEaPZvVb_ijs': {//1 hour long
       endTime: getTime(10, 21),//21 PM, day 10th
       startTime: getTime(10, 20),//20 PM, day 10th
+      tag: 'tag1',
+      tagName: 'tag 1',
+      tagColor: 'tag color 1',
       text: 'entry 1'
     },
+    '-KcmfMSMMEaPZvVb_hdj': {//1 hour long
+      endTime: getTime(10, 21),//21 PM, day 10th
+      startTime: getTime(10, 20),//20 PM, day 10th
+      tag: 'tag1',
+      tagName: 'tag 1',
+      tagColor: 'tag color 1',
+      text: 'entry 2'
+    },    
     '-KcmfQxZsRi7gQit-xuN': {//30 minutes long
       endTime: getTime(12, 20, 30),//20:30 PM day 12th
       startTime: getTime(12, 20, 0),//20 PM day 12th
+      tag: 'tag2',
+      tagName: 'tag 2',
+      tagColor: 'tag color 2',      
       text: 'entry 2'
     }
   }
 
-  it ('Should filter data', () => {
-    const state = {
-      report: {
-        entries: entries,
-        startDate: getTime(10),//date 10th
-        endDate: getTime(12)//date 12th
+  describe ('can get total hour and bar chart data', () => {
+    it ('Should filter data', () => {
+      const state = {
+        report: {
+          entries: entries,
+          startDate: getTime(10),//date 10th
+          endDate: getTime(12)//date 12th
+        }
       }
-    }
 
-
-    expect(getSummaryReport(state)).toEqual({
-      totalEffort: '01:30',
-      effortByDayForBarChart: {
-        labels: ["10th Feb", "11th Feb", "12th Feb"],
-        data: [toMiliseconds(1), 0, toMiliseconds(0, 30)]
-      }
+      expect(getSummaryReport(state)).toEqual({
+        totalEffort: '02:30',
+        effortByDayForBarChart: {
+          labels: ["10th Feb", "11th Feb", "12th Feb"],
+          data: [toMiliseconds(2), 0, toMiliseconds(0, 30)]
+        }
+      })
     })
+
+    it ('should return empty data if there is no entries', () => {
+      const state = {
+        report: {
+          entries: [],
+          startDate: getTime(10),//date 10th
+          endDate: getTime(12)//date 12th
+        }
+      }
+
+      expect(getSummaryReport(state)).toEqual({
+        totalEffort: '00',
+        effortByDayForBarChart: {
+          labels: ["10th Feb", "11th Feb", "12th Feb"],
+          data: [0, 0, 0]
+        }
+      })
+    })
+
+    it ('should return empty data if start date greater than end date', () => {
+      const state = {
+        report: {
+          entries: entries,
+          startDate: getTime(12),//date 12th
+          endDate: getTime(10)//date 10th
+        }
+      }
+
+      expect(getSummaryReport(state)).toEqual({
+        totalEffort: '00',
+        effortByDayForBarChart: {
+          labels: [],
+          data: []
+        }
+      })
+    })    
   })
 
-  it ('should return empty data if there is no entries', () => {
-    const state = {
-      report: {
-        entries: [],
-        startDate: getTime(10),//date 10th
-        endDate: getTime(12)//date 12th
+  describe ('can get doughnut chart data', () => {
+    it('should return data', () => {
+      const state = {
+        report: {
+          entries: entries,
+        }
       }
-    }
-
-    expect(getSummaryReport(state)).toEqual({
-      totalEffort: '00',
-      effortByDayForBarChart: {
-        labels: ["10th Feb", "11th Feb", "12th Feb"],
-        data: [0, 0, 0]
-      }
+      expect(getEffortByTagForDoughnutChart(state)).toEqual({
+        labels: ['tag 1', 'tag 2'],
+        datasets: [{
+          data: [toMiliseconds(2), toMiliseconds(0, 30)],
+          backgroundColor: ['tag color 1', 'tag color 2']
+        }]
+      })
     })
-  })
 
-  it ('should return empty data if start date greater than end date', () => {
-    const state = {
-      report: {
-        entries: entries,
-        startDate: getTime(12),//date 12th
-        endDate: getTime(10)//date 10th
+    it ('should return empty data when there is no entries', () => {
+      const state = {
+        report: {
+          entries: [],
+        }
       }
-    }
 
-    expect(getSummaryReport(state)).toEqual({
-      totalEffort: '00',
-      effortByDayForBarChart: {
+      expect(getEffortByTagForDoughnutChart(state)).toEqual({
         labels: [],
-        data: []
-      }
+        datasets: [{
+          data: [],
+          backgroundColor: []
+        }]
+      })
     })
   })
 

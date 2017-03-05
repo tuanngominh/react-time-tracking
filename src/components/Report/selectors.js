@@ -67,19 +67,24 @@ export const getSummaryReport = createSelector(
 
 //Get total effort by tag, to show on a doughnut chart
 export const getEffortByTagForDoughnutChart = createSelector(
-  [getEntries, getStartDate, getEndDate],
-  (entries, filterStartDate, filterEndDate) => {
-    let labels = [], data = []
-
-    const startDate = new Date(filterStartDate)
-    const endDate = new Date(filterEndDate)
-    if (startDate > endDate || !entries) {
-      return { labels, data }
+  [getEntries],
+  (entries) => {
+    const formatData = (tagNames, effortByTag, tagColors) => {
+      return {
+        labels: tagNames,
+        datasets: [{
+          data: effortByTag,
+          backgroundColor: tagColors
+        }]
+      }
     }
-
 
     //get tag list, and effort by tag
     let tagNames = [], tagColors = [], effortByTag = []
+    if (!entries || (entries && entries.length === 0)) {
+      return formatData(tagNames, effortByTag, tagColors)
+    }
+
     const sumEffortByTag = (tagId) => {
       let totalDurationByTag = moment.duration()
       Object.keys(entries).forEach(key => {
@@ -102,13 +107,7 @@ export const getEffortByTagForDoughnutChart = createSelector(
       }
     })
 
-    return {
-      labels: tagNames,
-      datasets: [{
-        data: effortByTag,
-        backgroundColor: tagColors
-      }]
-    }
+    return formatData(tagNames, effortByTag, tagColors)
   }
 )
 
