@@ -7,7 +7,7 @@ import { storiesOf, action, linkTo, addDecorator } from '@kadira/storybook';
 
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
-import ReportFilter from '../src/containers/Report/Filter';
+import ReportFilter from '../src/components/Report/Filter';
 
 storiesOf('Report', module)
   .add('<ReportFilter />', () => {

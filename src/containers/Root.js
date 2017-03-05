@@ -5,7 +5,7 @@ import {Router, Route, IndexRoute} from 'react-router'
 
 import App from './App'
 import Profile from '../components/Profile'
-import Report from '../containers/Report'
+import Report from '../components/Report'
 import TimeTracker from '../components/TimeTracker'
 import CheckAuth from './CheckAuth'
 import Login from './auth/Login'
