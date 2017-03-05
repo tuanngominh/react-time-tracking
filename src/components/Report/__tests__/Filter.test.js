@@ -20,16 +20,29 @@ const props = {
 }
 
 describe('<ReportFilter />', () => {
-  it ('should fetch data on render', () => {
-    const wrapper = shallow(<ReportFilter {...props} />)
-    expect(props.onChange).toHaveBeenCalled()
+  describe('should fetch data', () => {
+    it ('on render', () => {
+      const wrapper = shallow(<ReportFilter {...props} />)
+      expect(props.onChange).toHaveBeenCalled()
+    })
+
+    it ('when close time dialog', () => {
+
+      const wrapper = shallow(<ReportFilter {...props} />)
+      wrapper.instance().handleCloseDialog()
+      expect(props.onChange).toHaveBeenCalled()
+    })
+
+    it ('when mount', () => {
+      const wrapper = mount(<ReportFilter_withTheme {...props} />)
+      expect(props.onChange).toHaveBeenCalled()
+    })
   })
 
-  it ('should fetch data when close time dialog', () => {
-
+  it ('can render without passing start date, end date', () => {
+    const props = {
+      onChange: jest.fn()
+    }
     const wrapper = shallow(<ReportFilter {...props} />)
-    wrapper.instance().handleCloseDialog()
-    expect(props.onChange).toHaveBeenCalled()
   })
-
 })
