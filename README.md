@@ -1,8 +1,9 @@
 Setup todo:
 - [x] React v16
+- [x] Firebase's auth for user management and authentication
 - [ ] Replace Firebase Real time db with Firebase Firestore db
-- [ ] Firebase's auth for user management and authentication
 - [ ] Unit test
+- [ ] e2e test with cypress
 - [ ] Storybook
 - [ ] Setup github CI
 
