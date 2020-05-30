@@ -1,5 +1,5 @@
 Setup todo:
-- [ ] React v16
+- [x] React v16
 - [ ] Replace Firebase Real time db with Firebase Firestore db
 - [ ] Firebase's auth for user management and authentication
 - [ ] Unit test
@@ -8,7 +8,7 @@ Setup todo:
 
 Setup guide:
 - Generate react app: `npx create-react-app react-time-tracking`
-
+- Add auth with firebase: `yarn add react-firebaseui firebase` ([reference](https://github.com/firebase/firebaseui-web-react))
 ---
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
