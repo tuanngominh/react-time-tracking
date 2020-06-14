@@ -38,3 +38,5 @@ jobs:
       - name: Install dependencies
         if: steps.yarn-cache.outputs.cache-hit != 'true' || steps.node_modules-cache.outputs.cache-hit != 'true'
         run: yarn
+
+      - run: yarn build
