@@ -4,10 +4,6 @@ import "./App.css";
 import { SignInScreen } from "./SignInScreen";
 
 function App() {
-  console.log("aaaa");
-
-  const a = "aa";
-
   return (
     <div className="App">
       <header className="App-header">
