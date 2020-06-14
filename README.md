@@ -1,7 +1,7 @@
 Setup todo:
 - [x] React v16
 - [x] Firebase's auth for user management and authentication
-- [ ] Prettier, lint on commit/push with husky
+- [ ] Prettier, lint on commit with husky ([link](https://create-react-app.dev/docs/setting-up-your-editor/#formatting-code-automatically)).
 - [ ] Replace Firebase Real time db with Firebase Firestore db
 - [ ] Unit test
 - [ ] e2e test with cypress
