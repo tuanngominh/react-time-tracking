@@ -1,12 +1,13 @@
 Setup todo:
-- [x] React v16
+- [x] Create React App.
+- [x] Prettier, lint on commit with husky ([link](https://create-react-app.dev/docs/setting-up-your-editor/#formatting-code-automatically)).
+- [x] Setup github CI
 - [x] Firebase's auth for user management and authentication
-- [ ] Prettier, lint on commit with husky ([link](https://create-react-app.dev/docs/setting-up-your-editor/#formatting-code-automatically)).
 - [ ] Replace Firebase Real time db with Firebase Firestore db
 - [ ] Unit test
 - [ ] e2e test with cypress
 - [ ] Storybook
-- [ ] Setup github CI
+
 
 Setup guide:
 - Generate react app: `npx create-react-app react-time-tracking`
