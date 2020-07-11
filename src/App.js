@@ -2,10 +2,12 @@ import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import { SignInScreen } from "./SignInScreen";
+import { TimeEntryInput } from "./components/TimeEntryInput";
 
 function App() {
   return (
     <div className="App">
+      <TimeEntryInput />
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <SignInScreen />
