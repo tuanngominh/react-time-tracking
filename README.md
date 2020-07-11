@@ -1,7 +1,7 @@
 Setup todo:
 - [x] Create React App.
 - [x] Prettier, lint on commit with husky ([link](https://create-react-app.dev/docs/setting-up-your-editor/#formatting-code-automatically)).
-- [ ] Setup github CI
+- [x] Setup github CI
 - [x] Firebase's auth for user management and authentication
 - [ ] Replace Firebase Real time db with Firebase Firestore db
 - [ ] Unit test
