@@ -1,11 +1,8 @@
 // Import FirebaseAuth and firebase.
 import React from "react";
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
-import firebase from "firebase";
-
-// Configure Firebase.
-import { firebaseConfig } from "./environment";
-firebase.initializeApp(firebaseConfig);
+import { firebase } from "./firebase";
+import * as firebaseApp from "firebase";
 
 export class SignInScreen extends React.Component {
   // The component's Local state.
@@ -19,8 +16,8 @@ export class SignInScreen extends React.Component {
     signInFlow: "popup",
     // We will display Google and Facebook as auth providers.
     signInOptions: [
-      firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-      firebase.auth.EmailAuthProvider.PROVIDER_ID,
+      firebaseApp.auth.GoogleAuthProvider.PROVIDER_ID,
+      firebaseApp.auth.EmailAuthProvider.PROVIDER_ID,
     ],
     callbacks: {
       // Avoid redirects after sign-in.
@@ -30,7 +27,7 @@ export class SignInScreen extends React.Component {
 
   // Listen to the Firebase Auth state and set the local state.
   componentDidMount() {
-    this.unregisterAuthObserver = firebase
+    this.unregisterAuthObserver = firebase()
       .auth()
       .onAuthStateChanged((user) => this.setState({ isSignedIn: !!user }));
   }
@@ -48,7 +45,7 @@ export class SignInScreen extends React.Component {
           <p>Please sign-in:</p>
           <StyledFirebaseAuth
             uiConfig={this.uiConfig}
-            firebaseAuth={firebase.auth()}
+            firebaseAuth={firebase().auth()}
           />
         </div>
       );
@@ -57,10 +54,10 @@ export class SignInScreen extends React.Component {
       <div>
         <h1>My App</h1>
         <p>
-          Welcome {firebase.auth().currentUser.displayName}! You are now
+          Welcome {firebase().auth().currentUser.displayName}! You are now
           signed-in!
         </p>
-        <button onClick={() => firebase.auth().signOut()}>Sign-out</button>
+        <button onClick={() => firebase().auth().signOut()}>Sign-out</button>
       </div>
     );
   }
