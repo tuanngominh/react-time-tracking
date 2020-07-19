@@ -1,8 +1,6 @@
 import { firebase } from "../firebase";
 
 export function createTimeEntry({ title, start }) {
-  console.log("title", title);
-  console.log("start", start);
   return firebase().firestore().collection("entries").add({
     title,
     start,
@@ -10,7 +8,6 @@ export function createTimeEntry({ title, start }) {
 }
 
 export async function updateTimeEntry(timeEntry) {
-  console.log("updateTimeEntry", timeEntry);
   const { id, ...data } = timeEntry;
   await firebase()
     .firestore()

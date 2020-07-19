@@ -2,14 +2,18 @@ import React from "react";
 import moment from "moment";
 
 export class TimeEntryInputWidget extends React.Component {
+  emptyEntry = {
+    id: null,
+    start: null,
+    end: null,
+    title: "",
+  };
+
   constructor(props) {
     super(props);
     this.state = {
       entry: {
-        id: null,
-        start: null,
-        end: null,
-        title: "",
+        ...this.emptyEntry,
         ...(!!props && !!props.entry && { ...props.entry }),
       },
     };
@@ -46,8 +50,9 @@ export class TimeEntryInputWidget extends React.Component {
     });
 
     this.setState({
-      end: new Date(),
-      status: "complete",
+      entry: {
+        ...this.emptyEntry,
+      },
     });
     if (this.timerId) {
       clearInterval(this.timerId);
